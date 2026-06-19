@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# 1) Auto-format / lint-fix the whole tree
+npx biome check --write .
+
+# 2) If anything changed, auto-commit the linted files and stop the push
+if ! git diff --quiet; then
+  git add -A
+  git commit -m "style: auto-format via biome (pre-push)"
+  echo "Linted files were committed. Re-run 'git push' to include them."
+  exit 1
+fi
+
+# 3) Verify
+npm run typecheck
