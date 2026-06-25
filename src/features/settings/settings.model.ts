@@ -1,4 +1,8 @@
-export type Theme = "light" | "dark" | "system";
+export enum Theme {
+  Light = "light",
+  Dark = "dark",
+  System = "system",
+}
 
 export enum CampaignStatus {
   /** A goal is defined but the current day is not inside the goal */
@@ -27,9 +31,19 @@ export interface Goal {
 }
 
 /** Depending if the goal is defined (not null) and current */
-export interface ExtendedGoal extends Goal {
-  status: CampaignStatus;
-}
+export type ExtendedGoal =
+  | {
+      status: CampaignStatus.Expired | CampaignStatus.NotStartedYet | CampaignStatus.Running;
+      goal: Goal;
+    }
+  | {
+      status: CampaignStatus.NotdefinedYet | CampaignStatus.Error;
+      goal: null;
+    }
+  | {
+      status: CampaignStatus.Unknown;
+      goal: Goal;
+    };
 
 export interface AppSettings {
   /** App style for Mantine */
