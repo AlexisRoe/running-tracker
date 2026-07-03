@@ -77,10 +77,60 @@
       }
     }
   },
-  "home": {
-    "title": "Welcome to Running Tracker",
-    "subtitle": "Track your runs and reach your goals.",
-    "buildInfo": "{{appName}} v{{version}} — built {{builtAt}}"
+  "dashboard": {
+    "title": "Dashboard",
+    "banner": {
+      "behindTitle": "Run faster!!!",
+      "goodTitle": "Good Job.",
+      "behindBody": "You're {{km}} km ({{days}} days) behind schedule.",
+      "aheadBody": "You're {{km}} km ({{days}} days) ahead of schedule.",
+      "onTrackBody": "You're right on schedule — keep it up.",
+      "finishedMetBody": "Goal reached — {{distance}} km done. 🎉",
+      "finishedMissedBody": "Period over — {{km}} km short of your goal."
+    },
+    "headline": {
+      "label": "km/day to reach goal",
+      "baseline": "Started at {{km}} km/day",
+      "faster": "{{km}} km/day faster than planned",
+      "easier": "{{km}} km/day easier than planned",
+      "onPlan": "Right on your original plan"
+    },
+    "stats": {
+      "daysLeft": "Days left",
+      "ofDays": "of {{total}} days",
+      "goal": "Goal",
+      "perTotal": "{{km}} km",
+      "runningDays": "Running days",
+      "runningDaysSub": "{{rest}} rest days",
+      "location": "Outdoor / Indoor",
+      "locationSub": "{{outdoor}} / {{indoor}} km",
+      "baseline": "Avg at start",
+      "required": "Avg needed now",
+      "perDay": "{{km}} km/day",
+      "schedule": "Schedule",
+      "aheadValue": "{{km}} km ahead",
+      "behindValue": "{{km}} km behind",
+      "onTrackValue": "On track",
+      "progress": "Distance",
+      "progressValue": "{{run}} / {{goal}} km",
+      "open": "{{km}} km to go"
+    },
+    "chart": {
+      "title": "Pace — last 30 days",
+      "ideal": "Ideal",
+      "actual": "Actual"
+    },
+    "weeks": {
+      "title": "{{year}} running weeks",
+      "tooltip": "Week {{week}}: {{km}} km",
+      "less": "Less",
+      "more": "More"
+    },
+    "cta": {
+      "title": "No active goal",
+      "body": "Set a goal to start tracking your progress.",
+      "button": "Set a goal"
+    }
   },
   "log": {
     "title": "Run Log",

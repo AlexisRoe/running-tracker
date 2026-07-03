@@ -77,10 +77,60 @@
       }
     }
   },
-  "home": {
-    "title": "Willkommen bei Running Tracker",
-    "subtitle": "Verfolge deine Läufe und erreiche deine Ziele.",
-    "buildInfo": "{{appName}} v{{version}} — erstellt am {{builtAt}}"
+  "dashboard": {
+    "title": "Übersicht",
+    "banner": {
+      "behindTitle": "Lauf schneller!!!",
+      "goodTitle": "Gut gemacht.",
+      "behindBody": "Du bist {{km}} km ({{days}} Tage) im Rückstand.",
+      "aheadBody": "Du bist {{km}} km ({{days}} Tage) im Vorsprung.",
+      "onTrackBody": "Du bist genau im Plan — weiter so.",
+      "finishedMetBody": "Ziel erreicht — {{distance}} km geschafft. 🎉",
+      "finishedMissedBody": "Zeitraum vorbei — {{km}} km unter deinem Ziel."
+    },
+    "headline": {
+      "label": "km/Tag bis zum Ziel",
+      "baseline": "Start bei {{km}} km/Tag",
+      "faster": "{{km}} km/Tag schneller als geplant",
+      "easier": "{{km}} km/Tag leichter als geplant",
+      "onPlan": "Genau nach deinem ursprünglichen Plan"
+    },
+    "stats": {
+      "daysLeft": "Verbleibende Tage",
+      "ofDays": "von {{total}} Tagen",
+      "goal": "Ziel",
+      "perTotal": "{{km}} km",
+      "runningDays": "Lauftage",
+      "runningDaysSub": "{{rest}} Ruhetage",
+      "location": "Draußen / Drinnen",
+      "locationSub": "{{outdoor}} / {{indoor}} km",
+      "baseline": "Schnitt am Start",
+      "required": "Schnitt jetzt nötig",
+      "perDay": "{{km}} km/Tag",
+      "schedule": "Zeitplan",
+      "aheadValue": "{{km}} km Vorsprung",
+      "behindValue": "{{km}} km Rückstand",
+      "onTrackValue": "Im Plan",
+      "progress": "Distanz",
+      "progressValue": "{{run}} / {{goal}} km",
+      "open": "Noch {{km}} km"
+    },
+    "chart": {
+      "title": "Tempo — letzte 30 Tage",
+      "ideal": "Ideal",
+      "actual": "Tatsächlich"
+    },
+    "weeks": {
+      "title": "Laufwochen {{year}}",
+      "tooltip": "Woche {{week}}: {{km}} km",
+      "less": "Weniger",
+      "more": "Mehr"
+    },
+    "cta": {
+      "title": "Kein aktives Ziel",
+      "body": "Lege ein Ziel fest, um deinen Fortschritt zu verfolgen.",
+      "button": "Ziel festlegen"
+    }
   },
   "log": {
     "title": "Laufprotokoll",

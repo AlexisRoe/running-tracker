@@ -7,6 +7,7 @@ import { MantineProvider } from "@mantine/core";
 import { DatesProvider } from "@mantine/dates";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/core/styles.css";
+import "@mantine/charts/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
 import i18n from "@shared/i18n/i18n.config";

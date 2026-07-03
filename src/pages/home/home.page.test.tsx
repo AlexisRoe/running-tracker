@@ -1,15 +1,13 @@
 import { HomePage } from "@pages/home/home.page";
-import { BUILD_INFO } from "@shared/build-info/build-info.const";
 import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { renderWithProviders } from "../../test/render-with-providers";
 
 describe("HomePage", () => {
-  it("renders the build info", () => {
+  it("shows the dashboard title and a set-goal CTA when no goal is set", () => {
     renderWithProviders(<HomePage />);
 
-    expect(
-      screen.getByText(new RegExp(`${BUILD_INFO.appName} v${BUILD_INFO.version}`)),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Dashboard" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Set a goal" })).toBeInTheDocument();
   });
 });

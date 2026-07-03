@@ -24,7 +24,7 @@ describe("AppShell", () => {
     renderAppShell();
 
     expect(screen.getByText("Running Tracker")).toBeInTheDocument();
-    expect(screen.getByText("Welcome to Running Tracker")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Dashboard" })).toBeInTheDocument();
     expect(screen.getByLabelText("Add run")).toBeInTheDocument();
   });
 
