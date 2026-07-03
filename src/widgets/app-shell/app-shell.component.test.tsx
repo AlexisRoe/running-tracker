@@ -46,4 +46,14 @@ describe("AppShell", () => {
 
     expect(screen.getByText("Add-run form coming soon.")).toBeInTheDocument();
   });
+
+  it("opens the goal drawer when the goal button is clicked", async () => {
+    const user = userEvent.setup();
+    renderAppShell();
+
+    expect(screen.queryByText("Set Goal")).not.toBeInTheDocument();
+    await user.click(screen.getByLabelText("Set goal"));
+
+    expect(screen.getByText("Set Goal")).toBeInTheDocument();
+  });
 });

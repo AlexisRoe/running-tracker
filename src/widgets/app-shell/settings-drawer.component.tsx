@@ -21,7 +21,6 @@ export function SettingsDrawer({ opened, onClose }: SettingsDrawerProps) {
       opened={opened}
       onClose={onClose}
       position="bottom"
-      size="lg"
       title={t("appShell.settingsDrawer.title")}
       padding="md"
       transitionProps={{ duration: 0 }}
@@ -84,8 +83,9 @@ export function SettingsDrawer({ opened, onClose }: SettingsDrawerProps) {
             </Group>
           </Stack>
         </Card>
-        <Space h={50} />
       </Stack>
+
+      <Space h="xl" />
     </Drawer>
   );
 }

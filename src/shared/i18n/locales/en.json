@@ -2,7 +2,8 @@
   "appShell": {
     "header": {
       "title": "Running Tracker",
-      "openSettings": "Open settings"
+      "openSettings": "Open settings",
+      "openGoal": "Set goal"
     },
     "footer": {
       "dashboard": "Dashboard",
@@ -16,6 +17,22 @@
     },
     "settingsDrawer": {
       "title": "Settings"
+    },
+    "goalDrawer": {
+      "title": "Set Goal",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "dateError": "End date must be after the start date",
+      "distance": "Distance",
+      "save": "Save goal",
+      "reset": "Reset goal",
+      "perDay": "{{value}} km/day required",
+      "status": {
+        "notSet": "No goal set yet",
+        "notStarted": "Goal not started yet",
+        "running": "Goal in progress",
+        "ended": "Goal ended"
+      }
     }
   },
   "settings": {

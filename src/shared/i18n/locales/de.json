@@ -2,7 +2,8 @@
   "appShell": {
     "header": {
       "title": "Running Tracker",
-      "openSettings": "Einstellungen öffnen"
+      "openSettings": "Einstellungen öffnen",
+      "openGoal": "Ziel festlegen"
     },
     "footer": {
       "dashboard": "Übersicht",
@@ -16,6 +17,22 @@
     },
     "settingsDrawer": {
       "title": "Einstellungen"
+    },
+    "goalDrawer": {
+      "title": "Ziel festlegen",
+      "startDate": "Startdatum",
+      "endDate": "Enddatum",
+      "dateError": "Das Enddatum muss nach dem Startdatum liegen",
+      "distance": "Distanz",
+      "save": "Ziel speichern",
+      "reset": "Ziel zurücksetzen",
+      "perDay": "{{value}} km/Tag erforderlich",
+      "status": {
+        "notSet": "Noch kein Ziel festgelegt",
+        "notStarted": "Ziel hat noch nicht begonnen",
+        "running": "Ziel läuft",
+        "ended": "Ziel beendet"
+      }
     }
   },
   "settings": {
