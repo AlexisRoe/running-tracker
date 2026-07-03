@@ -1,6 +1,19 @@
 import type { DashboardMetrics } from "@features/dashboard/dashboard.model";
-import { Group, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
-import { IconArrowDownRight, IconArrowUpRight, IconMinus } from "@tabler/icons-react";
+import { Group, Paper, SimpleGrid, Stack, Text, ThemeIcon } from "@mantine/core";
+import {
+  IconArrowDownRight,
+  IconArrowUpRight,
+  IconCalendar,
+  IconClockHour4,
+  IconFlag,
+  IconGauge,
+  IconMapPin,
+  IconMinus,
+  IconRun,
+  IconTarget,
+  IconTrendingUp,
+  type TablerIcon,
+} from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 
 interface StatsGridProps {
@@ -8,19 +21,25 @@ interface StatsGridProps {
 }
 
 interface StatTileProps {
+  icon: TablerIcon;
   label: string;
   value: string;
   sub?: string;
 }
 
-function StatTile({ label, value, sub }: StatTileProps) {
+function StatTile({ icon: Icon, label, value, sub }: StatTileProps) {
   return (
-    <Paper withBorder radius="md" p="md">
-      <Stack gap={2}>
-        <Text size="xs" c="dimmed" tt="uppercase" fw={600}>
-          {label}
-        </Text>
-        <Text fw={700} size="lg">
+    <Paper radius="lg" p="md">
+      <Stack gap={6}>
+        <Group gap="xs" wrap="nowrap">
+          <ThemeIcon variant="light" size="md" radius="md">
+            <Icon size={16} stroke={2} />
+          </ThemeIcon>
+          <Text size="xs" c="dimmed" tt="uppercase" fw={600} style={{ letterSpacing: "0.04em" }}>
+            {label}
+          </Text>
+        </Group>
+        <Text fw={700} size="lg" lh={1.2}>
           {value}
         </Text>
         {sub && (
@@ -58,12 +77,12 @@ export function StatsGrid({ metrics }: StatsGridProps) {
 
   return (
     <Stack gap="md">
-      <Paper withBorder radius="md" p="md">
+      <Paper radius="lg" p="md">
         <Stack gap={2}>
-          <Text size="xs" c="dimmed" tt="uppercase" fw={600}>
+          <Text size="xs" c="dimmed" tt="uppercase" fw={600} style={{ letterSpacing: "0.04em" }}>
             {t("dashboard.headline.label")}
           </Text>
-          <Text fw={700} fz={40} lh={1}>
+          <Text fw={700} fz={44} lh={1} style={{ fontVariantNumeric: "tabular-nums" }}>
             {metrics.requiredPerRemainingDay.toFixed(1)}
             <Text span fz="md" c="dimmed" fw={500} ml={6}>
               km/day
@@ -71,7 +90,9 @@ export function StatsGrid({ metrics }: StatsGridProps) {
           </Text>
           <Group gap={4} c={trendColor} mt={4}>
             <TrendIcon size={16} />
-            <Text size="sm">{trendText}</Text>
+            <Text size="sm" fw={500}>
+              {trendText}
+            </Text>
           </Group>
           <Text size="xs" c="dimmed">
             {t("dashboard.headline.baseline", { km: metrics.baselinePerDay.toFixed(1) })}
@@ -81,20 +102,24 @@ export function StatsGrid({ metrics }: StatsGridProps) {
 
       <SimpleGrid cols={2} spacing="sm">
         <StatTile
+          icon={IconCalendar}
           label={t("dashboard.stats.daysLeft")}
           value={`${metrics.daysLeft}`}
           sub={t("dashboard.stats.ofDays", { total: metrics.totalDays })}
         />
         <StatTile
+          icon={IconTarget}
           label={t("dashboard.stats.goal")}
           value={t("dashboard.stats.perTotal", { km: metrics.goalDistance })}
         />
         <StatTile
+          icon={IconRun}
           label={t("dashboard.stats.runningDays")}
           value={`${metrics.daysWithRuns} / ${metrics.daysElapsed}`}
           sub={t("dashboard.stats.runningDaysSub", { rest: metrics.daysWithoutRuns })}
         />
         <StatTile
+          icon={IconMapPin}
           label={t("dashboard.stats.location")}
           value={`${metrics.outdoorCount} / ${metrics.indoorCount}`}
           sub={t("dashboard.stats.locationSub", {
@@ -103,15 +128,22 @@ export function StatsGrid({ metrics }: StatsGridProps) {
           })}
         />
         <StatTile
+          icon={IconGauge}
           label={t("dashboard.stats.baseline")}
           value={t("dashboard.stats.perDay", { km: metrics.baselinePerDay.toFixed(1) })}
         />
         <StatTile
+          icon={IconTrendingUp}
           label={t("dashboard.stats.required")}
           value={t("dashboard.stats.perDay", { km: metrics.requiredPerRemainingDay.toFixed(1) })}
         />
-        <StatTile label={t("dashboard.stats.schedule")} value={scheduleValue} />
         <StatTile
+          icon={IconClockHour4}
+          label={t("dashboard.stats.schedule")}
+          value={scheduleValue}
+        />
+        <StatTile
+          icon={IconFlag}
           label={t("dashboard.stats.progress")}
           value={t("dashboard.stats.progressValue", {
             run: metrics.distanceRun,

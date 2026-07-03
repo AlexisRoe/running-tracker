@@ -35,7 +35,7 @@ export function YearlyWeeks({ weeks }: YearlyWeeksProps) {
   const year = first ? new Date(first.weekStart).getFullYear() : "";
 
   return (
-    <Paper withBorder radius="md" p="md">
+    <Paper radius="lg" p="md">
       <Text fw={600} mb="sm">
         {t("dashboard.weeks.title", { year })}
       </Text>

@@ -1,6 +1,6 @@
 import type { RunningEvent } from "@features/runs/runs.model";
-import { ActionIcon, Card, Group, Text } from "@mantine/core";
-import { IconTrash } from "@tabler/icons-react";
+import { ActionIcon, Card, Group, Stack, Text, ThemeIcon } from "@mantine/core";
+import { IconHome, IconTrash, IconTrees } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 
 interface RunListItemProps {
@@ -17,14 +17,23 @@ export function RunListItem({ run, onRemove }: RunListItemProps) {
     year: "numeric",
   });
 
+  const WhereIcon = run.where === "outdoor" ? IconTrees : IconHome;
+
   return (
-    <Card withBorder padding="md">
+    <Card padding="sm">
       <Group justify="space-between" wrap="nowrap">
-        <Group gap="xs" wrap="nowrap">
-          <Text fw={700}>{dateLabel}</Text>
-          <Text size="sm" c="dimmed">
-            {run.distance} km · {t(`appShell.addDrawer.${run.where}`)}
-          </Text>
+        <Group gap="sm" wrap="nowrap">
+          <ThemeIcon variant="light" size="lg" radius="md">
+            <WhereIcon size={18} stroke={1.8} />
+          </ThemeIcon>
+          <Stack gap={0}>
+            <Text fw={600} size="sm">
+              {dateLabel}
+            </Text>
+            <Text size="xs" c="dimmed">
+              {run.distance} km · {t(`appShell.addDrawer.${run.where}`)}
+            </Text>
+          </Stack>
         </Group>
         <ActionIcon
           variant="subtle"

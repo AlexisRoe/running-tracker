@@ -1,36 +1,52 @@
 import { ActionIcon, Group } from "@mantine/core";
 import { APP_ROUTES } from "@shared/config/constants.const";
-import { IconHome, IconList, IconPlus, IconSettings, IconTarget } from "@tabler/icons-react";
+import {
+  IconHome,
+  IconList,
+  IconPlus,
+  IconSettings,
+  IconTarget,
+  type TablerIcon,
+} from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 interface AppFooterProps {
   onAddClick(): void;
 }
 
-export function AppFooter({ onAddClick }: AppFooterProps) {
+interface FooterTabProps {
+  icon: TablerIcon;
+  label: string;
+  route: string;
+}
+
+function FooterTab({ icon: Icon, label, route }: FooterTabProps) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const active = pathname === route;
+
+  return (
+    <ActionIcon
+      variant={active ? "light" : "subtle"}
+      color={active ? "brand" : "gray"}
+      size="xl"
+      aria-label={label}
+      aria-current={active ? "page" : undefined}
+      onClick={() => navigate(route)}
+    >
+      <Icon size={26} stroke={active ? 2.2 : 1.8} />
+    </ActionIcon>
+  );
+}
+
+export function AppFooter({ onAddClick }: AppFooterProps) {
   const { t } = useTranslation();
 
   return (
     <Group px="md" pt="xs" pb="lg" justify="space-between" align="center" wrap="nowrap">
-      <ActionIcon
-        variant="subtle"
-        size="xl"
-        aria-label={t("appShell.footer.dashboard")}
-        onClick={() => navigate(APP_ROUTES.home)}
-      >
-        <IconHome size={26} />
-      </ActionIcon>
-
-      <ActionIcon
-        variant="subtle"
-        size="xl"
-        aria-label={t("appShell.footer.goal")}
-        onClick={() => navigate(APP_ROUTES.goal)}
-      >
-        <IconTarget size={26} />
-      </ActionIcon>
+      <FooterTab icon={IconHome} label={t("appShell.footer.dashboard")} route={APP_ROUTES.home} />
+      <FooterTab icon={IconTarget} label={t("appShell.footer.goal")} route={APP_ROUTES.goal} />
 
       <ActionIcon
         variant="filled"
@@ -38,27 +54,21 @@ export function AppFooter({ onAddClick }: AppFooterProps) {
         size={60}
         onClick={onAddClick}
         aria-label={t("appShell.footer.addRun")}
+        style={{
+          background: "linear-gradient(135deg, var(--mantine-color-brand-5), #d43d00 120%)",
+          boxShadow: "0 6px 16px rgba(228, 89, 0, 0.35)",
+          marginTop: -18,
+        }}
       >
         <IconPlus size={30} />
       </ActionIcon>
 
-      <ActionIcon
-        variant="subtle"
-        size="xl"
-        aria-label={t("appShell.footer.log")}
-        onClick={() => navigate(APP_ROUTES.log)}
-      >
-        <IconList size={26} />
-      </ActionIcon>
-
-      <ActionIcon
-        variant="subtle"
-        size="xl"
-        aria-label={t("appShell.footer.settings")}
-        onClick={() => navigate(APP_ROUTES.settings)}
-      >
-        <IconSettings size={26} />
-      </ActionIcon>
+      <FooterTab icon={IconList} label={t("appShell.footer.log")} route={APP_ROUTES.log} />
+      <FooterTab
+        icon={IconSettings}
+        label={t("appShell.footer.settings")}
+        route={APP_ROUTES.settings}
+      />
     </Group>
   );
 }

@@ -62,8 +62,8 @@ export function GoalPage() {
 
   return (
     <Container pt="md">
-      <Stack gap="md">
-        <Title>{t("goal.title")}</Title>
+      <Stack gap="lg">
+        <Title mb="sm">{t("goal.title")}</Title>
         <DateInput
           label={t("goal.startDate")}
           value={start}
@@ -82,13 +82,13 @@ export function GoalPage() {
           min={0}
           suffix=" km"
         />
-        <Group justify="space-between" mt="md">
+        <Group justify="space-between" mt="xl">
           {goal.isSet && (
             <Button variant="subtle" color="red" onClick={handleReset}>
               {t("goal.reset")}
             </Button>
           )}
-          <Button onClick={handleSave} disabled={!start || !end || !!dateError} ml="auto">
+          <Button size="lg" onClick={handleSave} disabled={!start || !end || !!dateError} ml="auto">
             {t("goal.save")}
           </Button>
         </Group>

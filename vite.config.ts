@@ -25,7 +25,7 @@ export default defineConfig({
         name: "Running Tracker",
         short_name: "RunTracker",
         description: pkg.description,
-        theme_color: "#228be6",
+        theme_color: "#e45900",
         background_color: "#ffffff",
         display: "standalone",
         icons: [
