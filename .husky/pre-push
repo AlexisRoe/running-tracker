@@ -11,5 +11,5 @@ if ! git diff --quiet; then
   exit 1
 fi
 
-# 3) Verify
-npm run typecheck
+# 3) Verify types, then run the full test suite
+npm run typecheck && npm run test
