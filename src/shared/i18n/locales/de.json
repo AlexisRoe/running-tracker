@@ -1,41 +1,27 @@
 {
   "appShell": {
-    "header": {
-      "title": "Running Tracker",
-      "openSettings": "Einstellungen öffnen",
-      "openGoal": "Ziel festlegen"
-    },
     "footer": {
       "dashboard": "Übersicht",
       "addRun": "Lauf hinzufügen",
-      "add": "Hinzufügen",
-      "log": "Protokoll"
+      "log": "Protokoll",
+      "goal": "Ziel festlegen",
+      "settings": "Einstellungen öffnen"
     },
     "addDrawer": {
       "title": "Lauf hinzufügen",
-      "comingSoon": "Formular zum Hinzufügen eines Laufs folgt in Kürze."
-    },
-    "settingsDrawer": {
-      "title": "Einstellungen"
-    },
-    "goalDrawer": {
-      "title": "Ziel festlegen",
-      "startDate": "Startdatum",
-      "endDate": "Enddatum",
-      "dateError": "Das Enddatum muss nach dem Startdatum liegen",
       "distance": "Distanz",
-      "save": "Ziel speichern",
-      "reset": "Ziel zurücksetzen",
-      "perDay": "{{value}} km/Tag erforderlich",
-      "status": {
-        "notSet": "Noch kein Ziel festgelegt",
-        "notStarted": "Ziel hat noch nicht begonnen",
-        "running": "Ziel läuft",
-        "ended": "Ziel beendet"
+      "indoor": "Drinnen",
+      "outdoor": "Draußen",
+      "save": "Lauf hinzufügen",
+      "result": {
+        "goodTitle": "Gut gemacht! 🎉",
+        "badTitle": "Nächstes Mal besser",
+        "body": "{{distance}} km gelaufen · Ziel {{expected}} km/Tag"
       }
     }
   },
   "settings": {
+    "title": "Einstellungen",
     "theme": {
       "title": "Design",
       "light": "Hell",
@@ -53,16 +39,98 @@
       "version": "Version",
       "commitHash": "Commit",
       "builtAt": "Erstellt"
+    },
+    "resetData": {
+      "title": "Gefahrenzone",
+      "description": "Lösche dauerhaft alle deine Läufe, dein Ziel und deine Einstellungen. Dies kann nicht rückgängig gemacht werden.",
+      "button": "App-Daten zurücksetzen",
+      "confirmTitle": "App-Daten zurücksetzen?",
+      "confirmMessage": "Dadurch werden alle Läufe, dein Ziel und deine Einstellungen dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
+      "confirmButton": "Ja, alles löschen",
+      "cancelButton": "Abbrechen",
+      "notification": {
+        "title": "App-Daten zurückgesetzt",
+        "body": "Alle deine Daten wurden gelöscht. Die App wird jetzt neu geladen."
+      }
     }
   },
-  "home": {
-    "title": "Willkommen bei Running Tracker",
-    "subtitle": "Verfolge deine Läufe und erreiche deine Ziele.",
-    "buildInfo": "{{appName}} v{{version}} — erstellt am {{builtAt}}"
+  "dashboard": {
+    "title": "Übersicht",
+    "banner": {
+      "behindTitle": "Lauf schneller!!!",
+      "goodTitle": "Gut gemacht.",
+      "behindBody": "Du bist {{km}} km ({{days}} Tage) im Rückstand.",
+      "aheadBody": "Du bist {{km}} km ({{days}} Tage) im Vorsprung.",
+      "onTrackBody": "Du bist genau im Plan — weiter so.",
+      "finishedMetBody": "Ziel erreicht — {{distance}} km geschafft. 🎉",
+      "finishedMissedBody": "Zeitraum vorbei — {{km}} km unter deinem Ziel."
+    },
+    "headline": {
+      "label": "km/Tag bis zum Ziel",
+      "baseline": "Start bei {{km}} km/Tag",
+      "faster": "{{km}} km/Tag schneller als geplant",
+      "easier": "{{km}} km/Tag leichter als geplant",
+      "onPlan": "Genau nach deinem ursprünglichen Plan"
+    },
+    "stats": {
+      "daysLeft": "Verbleibende Tage",
+      "ofDays": "von {{total}} Tagen",
+      "goal": "Ziel",
+      "perTotal": "{{km}} km",
+      "runningDays": "Lauftage",
+      "runningDaysSub": "{{rest}} Ruhetage",
+      "location": "Draußen / Drinnen",
+      "locationSub": "{{outdoor}} / {{indoor}} km",
+      "baseline": "Schnitt am Start",
+      "required": "Schnitt jetzt nötig",
+      "perDay": "{{km}} km/Tag",
+      "schedule": "Zeitplan",
+      "aheadValue": "{{km}} km Vorsprung",
+      "behindValue": "{{km}} km Rückstand",
+      "onTrackValue": "Im Plan",
+      "progress": "Distanz",
+      "progressValue": "{{run}} / {{goal}} km",
+      "open": "Noch {{km}} km"
+    },
+    "chart": {
+      "title": "Tempo — letzte 30 Tage",
+      "ideal": "Ideal",
+      "actual": "Tatsächlich"
+    },
+    "weeks": {
+      "title": "Laufwochen {{year}}",
+      "tooltip": "Woche {{week}}: {{km}} km",
+      "less": "Weniger",
+      "more": "Mehr"
+    },
+    "cta": {
+      "title": "Kein aktives Ziel",
+      "body": "Lege ein Ziel fest, um deinen Fortschritt zu verfolgen.",
+      "button": "Ziel festlegen"
+    }
   },
   "log": {
     "title": "Laufprotokoll",
-    "empty": "Deine erfassten Läufe werden hier angezeigt."
+    "empty": "Deine erfassten Läufe werden hier angezeigt.",
+    "emptyTitle": "Noch keine Läufe erfasst",
+    "deleteRun": "Lauf löschen"
+  },
+  "goal": {
+    "title": "Ziel festlegen",
+    "startDate": "Startdatum",
+    "endDate": "Enddatum",
+    "dateError": "Das Enddatum muss nach dem Startdatum liegen",
+    "distance": "Distanz",
+    "save": "Ziel speichern",
+    "reset": "Ziel zurücksetzen",
+    "setNotification": {
+      "title": "Ziel festgelegt!",
+      "body": "Dein Ziel läuft von {{start}} bis {{end}} — das sind {{days}} Tage, um {{distance}} km zurückzulegen, im Schnitt {{perDay}} km/Tag. Behalte dein Tempo im Blick, um auf Kurs zu bleiben."
+    },
+    "resetNotification": {
+      "title": "Ziel zurückgesetzt",
+      "body": "Dein Ziel wurde entfernt, deine Läufe werden also nicht mehr gegen ein Tagesziel verfolgt. Lege jederzeit ein neues Ziel fest, um den Fortschritt wieder zu verfolgen."
+    }
   },
   "notFound": {
     "title": "404",

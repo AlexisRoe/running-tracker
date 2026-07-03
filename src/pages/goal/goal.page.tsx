@@ -1,34 +1,22 @@
+import { countInclusiveDays, toGoalEnd, toGoalStart } from "@features/goal/goal.utils";
 import { useGoal } from "@features/goal/use-goal.hook";
-import { Button, Card, Drawer, Group, NumberInput, Space, Stack, Text } from "@mantine/core";
+import { Button, Container, Group, NumberInput, Stack, Title } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
-import { notifications } from "@mantine/notifications";
 import { ValidationError } from "@shared/errors/validation.error";
+import { notifyError, notifyInfo, notifySuccess } from "@shared/ui/notification/notify";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-interface GoalDrawerProps {
-  opened: boolean;
-  onClose(): void;
-}
+const GOAL_NOTIFICATION_AUTO_CLOSE = 8000;
 
-export function GoalDrawer({ opened, onClose }: GoalDrawerProps) {
-  const { t } = useTranslation();
+export function GoalPage() {
+  const { t, i18n } = useTranslation();
   const goal = useGoal();
   const [start, setStart] = useState<Date | null>(goal.isSet ? new Date(goal.value.start) : null);
   const [end, setEnd] = useState<Date | null>(goal.isSet ? new Date(goal.value.end) : null);
   const [distance, setDistance] = useState<number | string>(goal.isSet ? goal.value.distance : "");
 
-  const dateError =
-    start && end && end.getTime() <= start.getTime() ? t("appShell.goalDrawer.dateError") : null;
-
-  const now = Date.now();
-  const status = !goal.isSet
-    ? "notSet"
-    : now < goal.value.start
-      ? "notStarted"
-      : now > goal.value.end
-        ? "ended"
-        : "running";
+  const dateError = start && end && end.getTime() <= start.getTime() ? t("goal.dateError") : null;
 
   const handleSave = () => {
     if (!start || !end || dateError) return;
@@ -37,11 +25,26 @@ export function GoalDrawer({ opened, onClose }: GoalDrawerProps) {
       goal.set({ start, end, distance });
     } catch (err) {
       if (err instanceof ValidationError) {
-        notifications.show({ color: "red", message: err.message });
+        notifyError({ message: err.message });
         return;
       }
       throw err;
     }
+
+    const days = countInclusiveDays(toGoalStart(start), toGoalEnd(end));
+    const perDay = Number(distance) / days;
+
+    notifySuccess({
+      title: t("goal.setNotification.title"),
+      message: t("goal.setNotification.body", {
+        start: start.toLocaleDateString(i18n.language),
+        end: end.toLocaleDateString(i18n.language),
+        days,
+        distance: Number(distance).toFixed(2),
+        perDay: perDay.toFixed(2),
+      }),
+      autoClose: GOAL_NOTIFICATION_AUTO_CLOSE,
+    });
   };
 
   const handleReset = () => {
@@ -49,40 +52,31 @@ export function GoalDrawer({ opened, onClose }: GoalDrawerProps) {
     setStart(null);
     setEnd(null);
     setDistance("");
+
+    notifyInfo({
+      title: t("goal.resetNotification.title"),
+      message: t("goal.resetNotification.body"),
+      autoClose: GOAL_NOTIFICATION_AUTO_CLOSE,
+    });
   };
 
   return (
-    <Drawer
-      opened={opened}
-      onClose={onClose}
-      position="bottom"
-      title={t("appShell.goalDrawer.title")}
-      padding="md"
-      transitionProps={{ duration: 0 }}
-    >
+    <Container pt="md">
       <Stack gap="md">
-        <Card withBorder padding="sm">
-          <Text size="sm">{t(`appShell.goalDrawer.status.${status}`)}</Text>
-          {goal.isSet && goal.requiredDistancePerDay !== null && (
-            <Text size="sm" c="dimmed">
-              {t("appShell.goalDrawer.perDay", { value: goal.requiredDistancePerDay.toFixed(2) })}
-            </Text>
-          )}
-        </Card>
-
+        <Title>{t("goal.title")}</Title>
         <DateInput
-          label={t("appShell.goalDrawer.startDate")}
+          label={t("goal.startDate")}
           value={start}
           onChange={(value) => setStart(value ? new Date(value) : null)}
         />
         <DateInput
-          label={t("appShell.goalDrawer.endDate")}
+          label={t("goal.endDate")}
           value={end}
           onChange={(value) => setEnd(value ? new Date(value) : null)}
           error={dateError}
         />
         <NumberInput
-          label={t("appShell.goalDrawer.distance")}
+          label={t("goal.distance")}
           value={distance}
           onChange={setDistance}
           min={0}
@@ -91,15 +85,14 @@ export function GoalDrawer({ opened, onClose }: GoalDrawerProps) {
         <Group justify="space-between" mt="md">
           {goal.isSet && (
             <Button variant="subtle" color="red" onClick={handleReset}>
-              {t("appShell.goalDrawer.reset")}
+              {t("goal.reset")}
             </Button>
           )}
           <Button onClick={handleSave} disabled={!start || !end || !!dateError} ml="auto">
-            {t("appShell.goalDrawer.save")}
+            {t("goal.save")}
           </Button>
         </Group>
       </Stack>
-      <Space h="xl" />
-    </Drawer>
+    </Container>
   );
 }

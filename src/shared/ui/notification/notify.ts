@@ -3,6 +3,7 @@ import { notifications } from "@mantine/notifications";
 interface NotifyOptions {
   title?: string;
   message: string;
+  autoClose?: number | false;
 }
 
 export function notifySuccess(options: NotifyOptions) {
@@ -15,4 +16,8 @@ export function notifyError(options: NotifyOptions) {
 
 export function notifyInfo(options: NotifyOptions) {
   notifications.show({ color: "blue", ...options });
+}
+
+export function notifyWarning(options: NotifyOptions) {
+  notifications.show({ color: "yellow", ...options });
 }

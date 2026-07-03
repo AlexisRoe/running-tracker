@@ -1,5 +1,10 @@
 import { notifications } from "@mantine/notifications";
-import { notifyError, notifyInfo, notifySuccess } from "@shared/ui/notification/notify";
+import {
+  notifyError,
+  notifyInfo,
+  notifySuccess,
+  notifyWarning,
+} from "@shared/ui/notification/notify";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("@mantine/notifications", () => ({
@@ -32,6 +37,15 @@ describe("notify helpers", () => {
     expect(notifications.show).toHaveBeenCalledWith({
       color: "blue",
       message: "FYI",
+    });
+  });
+
+  it("notifyWarning shows a yellow notification with the passed options", () => {
+    notifyWarning({ message: "Heads up" });
+
+    expect(notifications.show).toHaveBeenCalledWith({
+      color: "yellow",
+      message: "Heads up",
     });
   });
 });

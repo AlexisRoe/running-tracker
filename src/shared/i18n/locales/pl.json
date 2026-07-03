@@ -1,41 +1,27 @@
 {
   "appShell": {
-    "header": {
-      "title": "Running Tracker",
-      "openSettings": "Otwórz ustawienia",
-      "openGoal": "Ustaw cel"
-    },
     "footer": {
       "dashboard": "Panel główny",
       "addRun": "Dodaj bieg",
-      "add": "Dodaj",
-      "log": "Dziennik"
+      "log": "Dziennik",
+      "goal": "Ustaw cel",
+      "settings": "Otwórz ustawienia"
     },
     "addDrawer": {
       "title": "Dodaj bieg",
-      "comingSoon": "Formularz dodawania biegu pojawi się wkrótce."
-    },
-    "settingsDrawer": {
-      "title": "Ustawienia"
-    },
-    "goalDrawer": {
-      "title": "Ustaw cel",
-      "startDate": "Data rozpoczęcia",
-      "endDate": "Data zakończenia",
-      "dateError": "Data zakończenia musi być późniejsza niż data rozpoczęcia",
       "distance": "Dystans",
-      "save": "Zapisz cel",
-      "reset": "Zresetuj cel",
-      "perDay": "Wymagane {{value}} km/dzień",
-      "status": {
-        "notSet": "Cel jeszcze nie ustawiony",
-        "notStarted": "Cel jeszcze się nie rozpoczął",
-        "running": "Cel w trakcie realizacji",
-        "ended": "Cel zakończony"
+      "indoor": "W pomieszczeniu",
+      "outdoor": "Na zewnątrz",
+      "save": "Dodaj bieg",
+      "result": {
+        "goodTitle": "Świetna robota! 🎉",
+        "badTitle": "Następnym razem lepiej",
+        "body": "{{distance}} km przebiegnięte · cel {{expected}} km/dzień"
       }
     }
   },
   "settings": {
+    "title": "Ustawienia",
     "theme": {
       "title": "Motyw",
       "light": "Jasny",
@@ -53,16 +39,98 @@
       "version": "Wersja",
       "commitHash": "Commit",
       "builtAt": "Zbudowano"
+    },
+    "resetData": {
+      "title": "Strefa zagrożenia",
+      "description": "Trwale usuń wszystkie swoje biegi, cel i ustawienia. Tej operacji nie można cofnąć.",
+      "button": "Zresetuj dane aplikacji",
+      "confirmTitle": "Zresetować dane aplikacji?",
+      "confirmMessage": "Spowoduje to trwałe usunięcie wszystkich biegów, Twojego celu i ustawień. Tej operacji nie można cofnąć.",
+      "confirmButton": "Tak, usuń wszystko",
+      "cancelButton": "Anuluj",
+      "notification": {
+        "title": "Dane aplikacji zresetowane",
+        "body": "Wszystkie Twoje dane zostały usunięte. Aplikacja zostanie teraz ponownie załadowana."
+      }
     }
   },
-  "home": {
-    "title": "Witamy w Running Tracker",
-    "subtitle": "Śledź swoje biegi i osiągaj swoje cele.",
-    "buildInfo": "{{appName}} w. {{version}} — zbudowano {{builtAt}}"
+  "dashboard": {
+    "title": "Panel główny",
+    "banner": {
+      "behindTitle": "Biegnij szybciej!!!",
+      "goodTitle": "Dobra robota.",
+      "behindBody": "Masz {{km}} km ({{days}} dni) zaległości.",
+      "aheadBody": "Masz {{km}} km ({{days}} dni) przewagi.",
+      "onTrackBody": "Jesteś dokładnie w planie — tak trzymaj.",
+      "finishedMetBody": "Cel osiągnięty — {{distance}} km zaliczone. 🎉",
+      "finishedMissedBody": "Okres zakończony — zabrakło {{km}} km do celu."
+    },
+    "headline": {
+      "label": "km/dzień do celu",
+      "baseline": "Start przy {{km}} km/dzień",
+      "faster": "{{km}} km/dzień szybciej niż w planie",
+      "easier": "{{km}} km/dzień wolniej niż w planie",
+      "onPlan": "Dokładnie według pierwotnego planu"
+    },
+    "stats": {
+      "daysLeft": "Pozostałe dni",
+      "ofDays": "z {{total}} dni",
+      "goal": "Cel",
+      "perTotal": "{{km}} km",
+      "runningDays": "Dni z biegiem",
+      "runningDaysSub": "{{rest}} dni odpoczynku",
+      "location": "Na zewnątrz / W pomieszczeniu",
+      "locationSub": "{{outdoor}} / {{indoor}} km",
+      "baseline": "Śr. na starcie",
+      "required": "Śr. potrzebna teraz",
+      "perDay": "{{km}} km/dzień",
+      "schedule": "Harmonogram",
+      "aheadValue": "{{km}} km przewagi",
+      "behindValue": "{{km}} km zaległości",
+      "onTrackValue": "W planie",
+      "progress": "Dystans",
+      "progressValue": "{{run}} / {{goal}} km",
+      "open": "Jeszcze {{km}} km"
+    },
+    "chart": {
+      "title": "Tempo — ostatnie 30 dni",
+      "ideal": "Idealne",
+      "actual": "Rzeczywiste"
+    },
+    "weeks": {
+      "title": "Tygodnie biegowe {{year}}",
+      "tooltip": "Tydzień {{week}}: {{km}} km",
+      "less": "Mniej",
+      "more": "Więcej"
+    },
+    "cta": {
+      "title": "Brak aktywnego celu",
+      "body": "Ustaw cel, aby zacząć śledzić swoje postępy.",
+      "button": "Ustaw cel"
+    }
   },
   "log": {
     "title": "Dziennik biegów",
-    "empty": "Twoje zarejestrowane biegi pojawią się tutaj."
+    "empty": "Twoje zarejestrowane biegi pojawią się tutaj.",
+    "emptyTitle": "Brak zarejestrowanych biegów",
+    "deleteRun": "Usuń bieg"
+  },
+  "goal": {
+    "title": "Ustaw cel",
+    "startDate": "Data rozpoczęcia",
+    "endDate": "Data zakończenia",
+    "dateError": "Data zakończenia musi być późniejsza niż data rozpoczęcia",
+    "distance": "Dystans",
+    "save": "Zapisz cel",
+    "reset": "Zresetuj cel",
+    "setNotification": {
+      "title": "Cel ustawiony!",
+      "body": "Twój cel trwa od {{start}} do {{end}} — to {{days}} dni na pokonanie {{distance}} km, średnio {{perDay}} km/dzień. Pilnuj tempa, aby utrzymać kurs."
+    },
+    "resetNotification": {
+      "title": "Cel zresetowany",
+      "body": "Twój cel został usunięty, więc Twoje biegi nie są już mierzone względem dziennego celu. W każdej chwili możesz ustawić nowy cel, aby znów śledzić postępy."
+    }
   },
   "notFound": {
     "title": "404",
