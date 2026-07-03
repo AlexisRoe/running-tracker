@@ -13,7 +13,7 @@ export function AppShell() {
   const [goalOpened, { open: openGoal, close: closeGoal }] = useDisclosure(false);
 
   return (
-    <MantineAppShell header={{ height: 70 }} footer={{ height: 76 }}>
+    <MantineAppShell header={{ height: 70 }} footer={{ height: 80 }}>
       <MantineAppShell.Header>
         <AppHeader onSettingsClick={openSettings} onGoalClick={openGoal} />
       </MantineAppShell.Header>

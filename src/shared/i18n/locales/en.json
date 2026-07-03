@@ -13,7 +13,15 @@
     },
     "addDrawer": {
       "title": "Add Run",
-      "comingSoon": "Add-run form coming soon."
+      "distance": "Distance",
+      "indoor": "Indoor",
+      "outdoor": "Outdoor",
+      "save": "Add run",
+      "result": {
+        "goodTitle": "Good done! 🎉",
+        "badTitle": "Better next time",
+        "body": "{{distance}} km run · {{expected}} km/day goal"
+      }
     },
     "settingsDrawer": {
       "title": "Settings"
@@ -26,12 +34,13 @@
       "distance": "Distance",
       "save": "Save goal",
       "reset": "Reset goal",
-      "perDay": "{{value}} km/day required",
-      "status": {
-        "notSet": "No goal set yet",
-        "notStarted": "Goal not started yet",
-        "running": "Goal in progress",
-        "ended": "Goal ended"
+      "setNotification": {
+        "title": "Goal set!",
+        "body": "Your goal runs from {{start}} to {{end}} — that's {{days}} days to cover {{distance}} km, averaging {{perDay}} km/day. Keep an eye on the pace to stay on track."
+      },
+      "resetNotification": {
+        "title": "Goal cleared",
+        "body": "Your goal has been removed, so your runs are no longer measured against a daily target. Set a new goal any time to start tracking progress again."
       }
     }
   },

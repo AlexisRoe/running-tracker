@@ -44,7 +44,7 @@ describe("AppShell", () => {
 
     await user.click(screen.getByLabelText("Add run"));
 
-    expect(screen.getByText("Add-run form coming soon.")).toBeInTheDocument();
+    expect(screen.getByText("Add Run")).toBeInTheDocument();
   });
 
   it("opens the goal drawer when the goal button is clicked", async () => {

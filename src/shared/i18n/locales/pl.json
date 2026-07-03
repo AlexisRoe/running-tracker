@@ -13,7 +13,15 @@
     },
     "addDrawer": {
       "title": "Dodaj bieg",
-      "comingSoon": "Formularz dodawania biegu pojawi się wkrótce."
+      "distance": "Dystans",
+      "indoor": "W pomieszczeniu",
+      "outdoor": "Na zewnątrz",
+      "save": "Dodaj bieg",
+      "result": {
+        "goodTitle": "Świetna robota! 🎉",
+        "badTitle": "Następnym razem lepiej",
+        "body": "{{distance}} km przebiegnięte · cel {{expected}} km/dzień"
+      }
     },
     "settingsDrawer": {
       "title": "Ustawienia"
@@ -26,12 +34,13 @@
       "distance": "Dystans",
       "save": "Zapisz cel",
       "reset": "Zresetuj cel",
-      "perDay": "Wymagane {{value}} km/dzień",
-      "status": {
-        "notSet": "Cel jeszcze nie ustawiony",
-        "notStarted": "Cel jeszcze się nie rozpoczął",
-        "running": "Cel w trakcie realizacji",
-        "ended": "Cel zakończony"
+      "setNotification": {
+        "title": "Cel ustawiony!",
+        "body": "Twój cel trwa od {{start}} do {{end}} — to {{days}} dni na pokonanie {{distance}} km, średnio {{perDay}} km/dzień. Pilnuj tempa, aby utrzymać kurs."
+      },
+      "resetNotification": {
+        "title": "Cel zresetowany",
+        "body": "Twój cel został usunięty, więc Twoje biegi nie są już mierzone względem dziennego celu. W każdej chwili możesz ustawić nowy cel, aby znów śledzić postępy."
       }
     }
   },

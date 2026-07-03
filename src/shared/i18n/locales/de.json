@@ -13,7 +13,15 @@
     },
     "addDrawer": {
       "title": "Lauf hinzufügen",
-      "comingSoon": "Formular zum Hinzufügen eines Laufs folgt in Kürze."
+      "distance": "Distanz",
+      "indoor": "Drinnen",
+      "outdoor": "Draußen",
+      "save": "Lauf hinzufügen",
+      "result": {
+        "goodTitle": "Gut gemacht! 🎉",
+        "badTitle": "Nächstes Mal besser",
+        "body": "{{distance}} km gelaufen · Ziel {{expected}} km/Tag"
+      }
     },
     "settingsDrawer": {
       "title": "Einstellungen"
@@ -26,12 +34,13 @@
       "distance": "Distanz",
       "save": "Ziel speichern",
       "reset": "Ziel zurücksetzen",
-      "perDay": "{{value}} km/Tag erforderlich",
-      "status": {
-        "notSet": "Noch kein Ziel festgelegt",
-        "notStarted": "Ziel hat noch nicht begonnen",
-        "running": "Ziel läuft",
-        "ended": "Ziel beendet"
+      "setNotification": {
+        "title": "Ziel festgelegt!",
+        "body": "Dein Ziel läuft von {{start}} bis {{end}} — das sind {{days}} Tage, um {{distance}} km zurückzulegen, im Schnitt {{perDay}} km/Tag. Behalte dein Tempo im Blick, um auf Kurs zu bleiben."
+      },
+      "resetNotification": {
+        "title": "Ziel zurückgesetzt",
+        "body": "Dein Ziel wurde entfernt, deine Läufe werden also nicht mehr gegen ein Tagesziel verfolgt. Lege jederzeit ein neues Ziel fest, um den Fortschritt wieder zu verfolgen."
       }
     }
   },
