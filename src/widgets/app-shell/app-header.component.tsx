@@ -11,7 +11,7 @@ export function AppHeader({ onSettingsClick, onGoalClick }: AppHeaderProps) {
   const { t } = useTranslation();
 
   return (
-    <Group h="100%" px={25} justify="space-between">
+    <Group h="100%" px="md" pt="lg" justify="space-between">
       <Group gap="xs">
         <Image src="/assets/icons/app_transparent.png" alt="" h={36} w={36} fit="contain" />
         <Title order={4}>{t("appShell.header.title")}</Title>
