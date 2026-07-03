@@ -8,5 +8,6 @@ export interface Goal {
   end: number;
   /** Target distance in km */
   distance: number;
+  /** Current state of the goal */
   state: GoalState;
 }
