@@ -13,7 +13,7 @@ export function AppFooter({ onAddClick }: AppFooterProps) {
   const { t } = useTranslation();
 
   return (
-    <Group px={25} pt={12} pb={35} justify="space-between" align="center" wrap="nowrap">
+    <Group px={25} pb="md" justify="space-between" align="center" wrap="nowrap">
       <ActionIcon
         variant="subtle"
         size="lg"
