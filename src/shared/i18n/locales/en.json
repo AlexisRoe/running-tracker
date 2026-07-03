@@ -1,15 +1,11 @@
 {
   "appShell": {
-    "header": {
-      "title": "Running Tracker",
-      "openSettings": "Open settings",
-      "openGoal": "Set goal"
-    },
     "footer": {
       "dashboard": "Dashboard",
       "addRun": "Add run",
-      "add": "Add",
-      "log": "Log"
+      "log": "Log",
+      "goal": "Set goal",
+      "settings": "Open settings"
     },
     "addDrawer": {
       "title": "Add Run",
@@ -22,29 +18,10 @@
         "badTitle": "Better next time",
         "body": "{{distance}} km run · {{expected}} km/day goal"
       }
-    },
-    "settingsDrawer": {
-      "title": "Settings"
-    },
-    "goalDrawer": {
-      "title": "Set Goal",
-      "startDate": "Start date",
-      "endDate": "End date",
-      "dateError": "End date must be after the start date",
-      "distance": "Distance",
-      "save": "Save goal",
-      "reset": "Reset goal",
-      "setNotification": {
-        "title": "Goal set!",
-        "body": "Your goal runs from {{start}} to {{end}} — that's {{days}} days to cover {{distance}} km, averaging {{perDay}} km/day. Keep an eye on the pace to stay on track."
-      },
-      "resetNotification": {
-        "title": "Goal cleared",
-        "body": "Your goal has been removed, so your runs are no longer measured against a daily target. Set a new goal any time to start tracking progress again."
-      }
     }
   },
   "settings": {
+    "title": "Settings",
     "theme": {
       "title": "Theme",
       "light": "Light",
@@ -137,6 +114,23 @@
     "empty": "Your tracked running events will appear here.",
     "emptyTitle": "No runs logged yet",
     "deleteRun": "Delete run"
+  },
+  "goal": {
+    "title": "Set Goal",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "dateError": "End date must be after the start date",
+    "distance": "Distance",
+    "save": "Save goal",
+    "reset": "Reset goal",
+    "setNotification": {
+      "title": "Goal set!",
+      "body": "Your goal runs from {{start}} to {{end}} — that's {{days}} days to cover {{distance}} km, averaging {{perDay}} km/day. Keep an eye on the pace to stay on track."
+    },
+    "resetNotification": {
+      "title": "Goal cleared",
+      "body": "Your goal has been removed, so your runs are no longer measured against a daily target. Set a new goal any time to start tracking progress again."
+    }
   },
   "notFound": {
     "title": "404",

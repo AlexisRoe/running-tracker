@@ -6,9 +6,9 @@ import { BUILD_INFO } from "@shared/build-info/build-info.const";
 import { notifySuccess } from "@shared/ui/notification/notify";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { SettingsDrawer } from "@widgets/app-shell/settings-drawer.component";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { renderWithProviders } from "../../test/render-with-providers";
+import { SettingsPage } from "./settings.page";
 
 vi.mock("@shared/ui/notification/notify", () => ({
   notifyError: vi.fn(),
@@ -17,22 +17,11 @@ vi.mock("@shared/ui/notification/notify", () => ({
   notifyWarning: vi.fn(),
 }));
 
-describe("SettingsDrawer", () => {
-  it("renders the drawer content when opened", () => {
-    renderWithProviders(<SettingsDrawer opened onClose={vi.fn()} />);
+describe("SettingsPage", () => {
+  it("renders the settings title and cards", () => {
+    renderWithProviders(<SettingsPage />);
 
-    expect(screen.getByText("Settings")).toBeInTheDocument();
-  });
-
-  it("does not render drawer content when closed", () => {
-    renderWithProviders(<SettingsDrawer opened={false} onClose={vi.fn()} />);
-
-    expect(screen.queryByText("Settings")).not.toBeInTheDocument();
-  });
-
-  it("renders the theme, language, and build info cards", () => {
-    renderWithProviders(<SettingsDrawer opened onClose={vi.fn()} />);
-
+    expect(screen.getByRole("heading", { name: "Settings" })).toBeInTheDocument();
     expect(screen.getByText("Theme")).toBeInTheDocument();
     expect(screen.getByText("Language")).toBeInTheDocument();
     expect(screen.getByText("Build Info")).toBeInTheDocument();
@@ -40,7 +29,7 @@ describe("SettingsDrawer", () => {
 
   it("updates the store when a theme option is selected", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<SettingsDrawer opened onClose={vi.fn()} />);
+    renderWithProviders(<SettingsPage />);
 
     await user.click(screen.getByText("Dark"));
     expect(useSettings.getState().theme).toBe(Theme.Dark);
@@ -51,7 +40,7 @@ describe("SettingsDrawer", () => {
 
   it("updates the store when a language option is selected", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<SettingsDrawer opened onClose={vi.fn()} />);
+    renderWithProviders(<SettingsPage />);
 
     await user.click(screen.getByRole("combobox", { name: "Language" }));
     await user.click(screen.getByText("German"));
@@ -60,7 +49,7 @@ describe("SettingsDrawer", () => {
   });
 
   it("shows the build info version, commit hash, and built-at date", () => {
-    renderWithProviders(<SettingsDrawer opened onClose={vi.fn()} />);
+    renderWithProviders(<SettingsPage />);
 
     expect(screen.getByText(BUILD_INFO.version)).toBeInTheDocument();
     expect(screen.getByText(BUILD_INFO.commitHash)).toBeInTheDocument();
@@ -74,14 +63,14 @@ describe("SettingsDrawer", () => {
     });
 
     it("does not show the confirm modal initially", () => {
-      renderWithProviders(<SettingsDrawer opened onClose={vi.fn()} />);
+      renderWithProviders(<SettingsPage />);
 
       expect(screen.queryByText("Reset app data?")).not.toBeInTheDocument();
     });
 
     it("opens the confirm modal when the reset button is clicked", async () => {
       const user = userEvent.setup();
-      renderWithProviders(<SettingsDrawer opened onClose={vi.fn()} />);
+      renderWithProviders(<SettingsPage />);
 
       await user.click(screen.getByText("Reset app data"));
 
@@ -91,7 +80,7 @@ describe("SettingsDrawer", () => {
     it("does not clear any store when the reset is cancelled", async () => {
       const user = userEvent.setup();
       const clearSettings = vi.spyOn(useSettings.persist, "clearStorage");
-      renderWithProviders(<SettingsDrawer opened onClose={vi.fn()} />);
+      renderWithProviders(<SettingsPage />);
 
       await user.click(screen.getByText("Reset app data"));
       await user.click(screen.getByText("Cancel"));
@@ -117,7 +106,7 @@ describe("SettingsDrawer", () => {
         return originalSetTimeout(handler, delay, ...args);
       }) as typeof setTimeout);
 
-      renderWithProviders(<SettingsDrawer opened onClose={vi.fn()} />);
+      renderWithProviders(<SettingsPage />);
 
       await user.click(screen.getByText("Reset app data"));
       await user.click(screen.getByText("Yes, delete everything"));

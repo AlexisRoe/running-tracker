@@ -10,7 +10,7 @@ export function LogPage() {
   const groups = groupRunsByMonth(runs.value);
 
   return (
-    <Container>
+    <Container pt="md">
       <Stack gap="md">
         <Title>{t("log.title")}</Title>
         {groups.length === 0 ? (

@@ -2,9 +2,9 @@ import { useGoalStore } from "@features/goal/goal.store";
 import { notifyInfo, notifySuccess } from "@shared/ui/notification/notify";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { GoalDrawer } from "@widgets/app-shell/goal-drawer.component";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { renderWithProviders } from "../../test/render-with-providers";
+import { GoalPage } from "./goal.page";
 
 vi.mock("@shared/ui/notification/notify", () => ({
   notifyError: vi.fn(),
@@ -18,21 +18,15 @@ afterEach(() => {
   vi.clearAllMocks();
 });
 
-describe("GoalDrawer", () => {
-  it("renders the drawer content when opened", () => {
-    renderWithProviders(<GoalDrawer opened onClose={vi.fn()} />);
+describe("GoalPage", () => {
+  it("renders the goal page title", () => {
+    renderWithProviders(<GoalPage />);
 
-    expect(screen.getByText("Set Goal")).toBeInTheDocument();
-  });
-
-  it("does not render drawer content when closed", () => {
-    renderWithProviders(<GoalDrawer opened={false} onClose={vi.fn()} />);
-
-    expect(screen.queryByText("Set Goal")).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Set Goal" })).toBeInTheDocument();
   });
 
   it("does not show the reset button when no goal is set", () => {
-    renderWithProviders(<GoalDrawer opened onClose={vi.fn()} />);
+    renderWithProviders(<GoalPage />);
 
     expect(screen.queryByText("Reset goal")).not.toBeInTheDocument();
   });
@@ -41,14 +35,12 @@ describe("GoalDrawer", () => {
     useGoalStore
       .getState()
       .setGoal({ start: Date.now(), end: Date.now() + 86400000, distance: 20 });
-    const onClose = vi.fn();
-    renderWithProviders(<GoalDrawer opened onClose={onClose} />);
+    renderWithProviders(<GoalPage />);
 
     expect(screen.getByText("Reset goal")).toBeInTheDocument();
     screen.getByText("Reset goal").click();
 
     expect(useGoalStore.getState().goal.state).toBe("_blank");
-    expect(onClose).not.toHaveBeenCalled();
     expect(notifyInfo).toHaveBeenCalledWith({
       title: "Goal cleared",
       message:
@@ -59,7 +51,7 @@ describe("GoalDrawer", () => {
 
   it("shows a summary notification with the timeframe, distance, and daily average on save", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<GoalDrawer opened onClose={vi.fn()} />);
+    renderWithProviders(<GoalPage />);
 
     await user.type(screen.getByLabelText("Start date"), "January 10, 2026");
     await user.type(screen.getByLabelText("End date"), "January 12, 2026");
@@ -77,7 +69,7 @@ describe("GoalDrawer", () => {
 
   it("shows a validation error and disables save when the end date is not after the start date", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<GoalDrawer opened onClose={vi.fn()} />);
+    renderWithProviders(<GoalPage />);
 
     await user.type(screen.getByLabelText("Start date"), "January 10, 2026");
     await user.type(screen.getByLabelText("End date"), "January 10, 2026");

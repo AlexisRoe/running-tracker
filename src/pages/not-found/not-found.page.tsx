@@ -7,7 +7,7 @@ export function NotFoundPage() {
   const { t } = useTranslation();
 
   return (
-    <Container>
+    <Container pt="md">
       <Stack gap="md" align="center" mt="xl">
         <Title>{t("notFound.title")}</Title>
         <Text c="dimmed">{t("notFound.message")}</Text>

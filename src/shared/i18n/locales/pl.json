@@ -1,15 +1,11 @@
 {
   "appShell": {
-    "header": {
-      "title": "Running Tracker",
-      "openSettings": "Otwórz ustawienia",
-      "openGoal": "Ustaw cel"
-    },
     "footer": {
       "dashboard": "Panel główny",
       "addRun": "Dodaj bieg",
-      "add": "Dodaj",
-      "log": "Dziennik"
+      "log": "Dziennik",
+      "goal": "Ustaw cel",
+      "settings": "Otwórz ustawienia"
     },
     "addDrawer": {
       "title": "Dodaj bieg",
@@ -22,29 +18,10 @@
         "badTitle": "Następnym razem lepiej",
         "body": "{{distance}} km przebiegnięte · cel {{expected}} km/dzień"
       }
-    },
-    "settingsDrawer": {
-      "title": "Ustawienia"
-    },
-    "goalDrawer": {
-      "title": "Ustaw cel",
-      "startDate": "Data rozpoczęcia",
-      "endDate": "Data zakończenia",
-      "dateError": "Data zakończenia musi być późniejsza niż data rozpoczęcia",
-      "distance": "Dystans",
-      "save": "Zapisz cel",
-      "reset": "Zresetuj cel",
-      "setNotification": {
-        "title": "Cel ustawiony!",
-        "body": "Twój cel trwa od {{start}} do {{end}} — to {{days}} dni na pokonanie {{distance}} km, średnio {{perDay}} km/dzień. Pilnuj tempa, aby utrzymać kurs."
-      },
-      "resetNotification": {
-        "title": "Cel zresetowany",
-        "body": "Twój cel został usunięty, więc Twoje biegi nie są już mierzone względem dziennego celu. W każdej chwili możesz ustawić nowy cel, aby znów śledzić postępy."
-      }
     }
   },
   "settings": {
+    "title": "Ustawienia",
     "theme": {
       "title": "Motyw",
       "light": "Jasny",
@@ -137,6 +114,23 @@
     "empty": "Twoje zarejestrowane biegi pojawią się tutaj.",
     "emptyTitle": "Brak zarejestrowanych biegów",
     "deleteRun": "Usuń bieg"
+  },
+  "goal": {
+    "title": "Ustaw cel",
+    "startDate": "Data rozpoczęcia",
+    "endDate": "Data zakończenia",
+    "dateError": "Data zakończenia musi być późniejsza niż data rozpoczęcia",
+    "distance": "Dystans",
+    "save": "Zapisz cel",
+    "reset": "Zresetuj cel",
+    "setNotification": {
+      "title": "Cel ustawiony!",
+      "body": "Twój cel trwa od {{start}} do {{end}} — to {{days}} dni na pokonanie {{distance}} km, średnio {{perDay}} km/dzień. Pilnuj tempa, aby utrzymać kurs."
+    },
+    "resetNotification": {
+      "title": "Cel zresetowany",
+      "body": "Twój cel został usunięty, więc Twoje biegi nie są już mierzone względem dziennego celu. W każdej chwili możesz ustawić nowy cel, aby znów śledzić postępy."
+    }
   },
   "notFound": {
     "title": "404",

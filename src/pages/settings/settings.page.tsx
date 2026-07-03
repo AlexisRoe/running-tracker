@@ -4,27 +4,22 @@ import { useTheme } from "@features/settings/use-theme.hook";
 import {
   Button,
   Card,
-  Drawer,
+  Container,
   Group,
   SegmentedControl,
   Select,
-  Space,
   Stack,
   Text,
+  Title,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { BUILD_INFO } from "@shared/build-info/build-info.const";
 import { SUPPORTED_LANGUAGES } from "@shared/i18n/i18n.config";
 import { ConfirmModal } from "@shared/ui/confirm-modal/confirm-modal.component";
-import { useResetAppData } from "@widgets/app-shell/use-reset-app-data.hook";
 import { useTranslation } from "react-i18next";
+import { useResetAppData } from "./use-reset-app-data.hook";
 
-interface SettingsDrawerProps {
-  opened: boolean;
-  onClose(): void;
-}
-
-export function SettingsDrawer({ opened, onClose }: SettingsDrawerProps) {
+export function SettingsPage() {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
   const language = useLanguage();
@@ -32,15 +27,10 @@ export function SettingsDrawer({ opened, onClose }: SettingsDrawerProps) {
   const [resetOpened, { open: openReset, close: closeReset }] = useDisclosure(false);
 
   return (
-    <Drawer
-      opened={opened}
-      onClose={onClose}
-      position="bottom"
-      title={t("appShell.settingsDrawer.title")}
-      padding="md"
-      transitionProps={{ duration: 0 }}
-    >
+    <Container pt="md">
       <Stack gap="md">
+        <Title>{t("settings.title")}</Title>
+
         <Card withBorder padding="md">
           <Text fw={500} mb="xs">
             {t("settings.theme.title")}
@@ -121,8 +111,6 @@ export function SettingsDrawer({ opened, onClose }: SettingsDrawerProps) {
         confirmLabel={t("settings.resetData.confirmButton")}
         cancelLabel={t("settings.resetData.cancelButton")}
       />
-
-      <Space h="xl" />
-    </Drawer>
+    </Container>
   );
 }

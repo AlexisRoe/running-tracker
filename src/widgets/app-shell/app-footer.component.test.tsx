@@ -11,6 +11,8 @@ function renderFooter(onAddClick = vi.fn()) {
     [
       { path: "/", element: <AppFooter onAddClick={onAddClick} /> },
       { path: "/log", element: <div>Log Page</div> },
+      { path: "/goal", element: <div>Goal Page</div> },
+      { path: "/settings", element: <div>Settings Page</div> },
     ],
     { initialEntries: ["/"] },
   );
@@ -23,12 +25,14 @@ function renderFooter(onAddClick = vi.fn()) {
 }
 
 describe("AppFooter", () => {
-  it("renders Log, Add, and Dashboard buttons", () => {
+  it("renders Dashboard, Goal, Add, Log, and Settings buttons", () => {
     renderFooter();
 
-    expect(screen.getByLabelText("Log")).toBeInTheDocument();
-    expect(screen.getByLabelText("Add run")).toBeInTheDocument();
     expect(screen.getByLabelText("Dashboard")).toBeInTheDocument();
+    expect(screen.getByLabelText("Set goal")).toBeInTheDocument();
+    expect(screen.getByLabelText("Add run")).toBeInTheDocument();
+    expect(screen.getByLabelText("Log")).toBeInTheDocument();
+    expect(screen.getByLabelText("Open settings")).toBeInTheDocument();
   });
 
   it("navigates to /log when Log is clicked", async () => {
@@ -38,6 +42,24 @@ describe("AppFooter", () => {
     await user.click(screen.getByLabelText("Log"));
 
     expect(screen.getByText("Log Page")).toBeInTheDocument();
+  });
+
+  it("navigates to /goal when Goal is clicked", async () => {
+    const user = userEvent.setup();
+    renderFooter();
+
+    await user.click(screen.getByLabelText("Set goal"));
+
+    expect(screen.getByText("Goal Page")).toBeInTheDocument();
+  });
+
+  it("navigates to /settings when Settings is clicked", async () => {
+    const user = userEvent.setup();
+    renderFooter();
+
+    await user.click(screen.getByLabelText("Open settings"));
+
+    expect(screen.getByText("Settings Page")).toBeInTheDocument();
   });
 
   it("calls onAddClick when Add is clicked", async () => {
