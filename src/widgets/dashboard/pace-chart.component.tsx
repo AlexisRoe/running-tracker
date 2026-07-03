@@ -1,5 +1,5 @@
 import type { PacePoint } from "@features/dashboard/dashboard.model";
-import { LineChart } from "@mantine/charts";
+import { AreaChart } from "@mantine/charts";
 import { Paper, Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
@@ -21,16 +21,18 @@ export function PaceChart({ data }: PaceChartProps) {
   }));
 
   return (
-    <Paper withBorder radius="md" p="md">
+    <Paper radius="lg" p="md">
       <Text fw={600} mb="sm">
         {t("dashboard.chart.title")}
       </Text>
-      <LineChart
+      <AreaChart
         h={220}
         data={chartData}
         dataKey="label"
         withDots={false}
         curveType="monotone"
+        fillOpacity={0.15}
+        strokeWidth={2.5}
         valueFormatter={(value) => `${value} km`}
         xAxisProps={{ interval: "preserveStartEnd", minTickGap: 24 }}
         series={[

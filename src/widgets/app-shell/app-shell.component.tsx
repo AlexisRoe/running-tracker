@@ -12,7 +12,13 @@ export function AppShell() {
       <MantineAppShell.Main>
         <Outlet />
       </MantineAppShell.Main>
-      <MantineAppShell.Footer withBorder={false}>
+      <MantineAppShell.Footer
+        withBorder={false}
+        style={{
+          boxShadow:
+            "0 -1px 0 var(--mantine-color-default-border), 0 -8px 24px rgba(0, 0, 0, 0.06)",
+        }}
+      >
         <AppFooter onAddClick={openAdd} />
       </MantineAppShell.Footer>
       <AddDrawer opened={addOpened} onClose={closeAdd} />

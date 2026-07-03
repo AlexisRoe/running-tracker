@@ -9,7 +9,33 @@
   --input-fz: 1rem;
 }
 
+/* Warm-tinted canvas so white cards lift off the page instead of blending in. */
+[data-mantine-color-scheme="light"] {
+  --mantine-color-body: #faf6f1;
+}
+
+[data-mantine-color-scheme="dark"] {
+  --mantine-color-body: #211b16;
+  --mantine-color-dark-6: #29221c;
+  --mantine-color-dark-7: #211b16;
+}
+
+/*
+ * Mantine's Paper (and everything built on it: Card, dropdowns, drawers)
+ * defaults to the body color, so cards blend into the canvas. Give surfaces
+ * an explicit color that is clearly lighter than the background.
+ */
+[data-mantine-color-scheme="light"] .mantine-Paper-root {
+  background-color: #ffffff;
+}
+
+[data-mantine-color-scheme="dark"] .mantine-Paper-root {
+  background-color: #3b332b;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family:
+    "Space Grotesk Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
 }

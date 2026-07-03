@@ -31,7 +31,7 @@ export function SettingsPage() {
       <Stack gap="md">
         <Title>{t("settings.title")}</Title>
 
-        <Card withBorder padding="md">
+        <Card padding="md">
           <Text fw={500} mb="xs">
             {t("settings.theme.title")}
           </Text>
@@ -47,7 +47,7 @@ export function SettingsPage() {
           />
         </Card>
 
-        <Card withBorder padding="md">
+        <Card padding="md">
           <Text fw={500} mb="xs">
             {t("settings.language.title")}
           </Text>
@@ -63,7 +63,7 @@ export function SettingsPage() {
           />
         </Card>
 
-        <Card withBorder padding="md">
+        <Card padding="md">
           <Text fw={500} mb="xs">
             {t("settings.buildInfo.title")}
           </Text>
@@ -89,7 +89,7 @@ export function SettingsPage() {
           </Stack>
         </Card>
 
-        <Card withBorder padding="md">
+        <Card padding="md">
           <Text fw={500} c="red" mb="xs">
             {t("settings.resetData.title")}
           </Text>

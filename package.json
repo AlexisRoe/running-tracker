@@ -22,6 +22,7 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "@fontsource-variable/space-grotesk": "5.2.10",
     "@mantine/charts": "9.3.2",
     "@mantine/core": "9.3.2",
     "@mantine/dates": "9.3.2",

@@ -1,4 +1,4 @@
-import { Button, Paper, Stack, Text, Title } from "@mantine/core";
+import { Button, Paper, Stack, Text, ThemeIcon, Title } from "@mantine/core";
 import { IconTargetArrow } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 
@@ -11,9 +11,11 @@ export function SetGoalCta({ onSetGoal }: SetGoalCtaProps) {
   const { t } = useTranslation();
 
   return (
-    <Paper withBorder radius="md" p="xl">
+    <Paper radius="lg" p="xl">
       <Stack align="center" gap="sm">
-        <IconTargetArrow size={48} stroke={1.5} />
+        <ThemeIcon variant="light" size={80} radius="xl">
+          <IconTargetArrow size={44} stroke={1.5} />
+        </ThemeIcon>
         <Title order={3}>{t("dashboard.cta.title")}</Title>
         <Text c="dimmed" ta="center">
           {t("dashboard.cta.body")}
