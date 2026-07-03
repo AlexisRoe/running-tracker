@@ -62,6 +62,19 @@
       "version": "Wersja",
       "commitHash": "Commit",
       "builtAt": "Zbudowano"
+    },
+    "resetData": {
+      "title": "Strefa zagrożenia",
+      "description": "Trwale usuń wszystkie swoje biegi, cel i ustawienia. Tej operacji nie można cofnąć.",
+      "button": "Zresetuj dane aplikacji",
+      "confirmTitle": "Zresetować dane aplikacji?",
+      "confirmMessage": "Spowoduje to trwałe usunięcie wszystkich biegów, Twojego celu i ustawień. Tej operacji nie można cofnąć.",
+      "confirmButton": "Tak, usuń wszystko",
+      "cancelButton": "Anuluj",
+      "notification": {
+        "title": "Dane aplikacji zresetowane",
+        "body": "Wszystkie Twoje dane zostały usunięte. Aplikacja zostanie teraz ponownie załadowana."
+      }
     }
   },
   "home": {
@@ -71,7 +84,9 @@
   },
   "log": {
     "title": "Dziennik biegów",
-    "empty": "Twoje zarejestrowane biegi pojawią się tutaj."
+    "empty": "Twoje zarejestrowane biegi pojawią się tutaj.",
+    "emptyTitle": "Brak zarejestrowanych biegów",
+    "deleteRun": "Usuń bieg"
   },
   "notFound": {
     "title": "404",

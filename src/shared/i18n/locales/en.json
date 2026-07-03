@@ -62,6 +62,19 @@
       "version": "Version",
       "commitHash": "Commit",
       "builtAt": "Built"
+    },
+    "resetData": {
+      "title": "Danger Zone",
+      "description": "Permanently delete all your runs, goal, and settings. This cannot be undone.",
+      "button": "Reset app data",
+      "confirmTitle": "Reset app data?",
+      "confirmMessage": "This will permanently delete all runs, your goal, and your settings. This action cannot be undone.",
+      "confirmButton": "Yes, delete everything",
+      "cancelButton": "Cancel",
+      "notification": {
+        "title": "App data reset",
+        "body": "All your data has been deleted. The app will reload now."
+      }
     }
   },
   "home": {
@@ -71,7 +84,9 @@
   },
   "log": {
     "title": "Run Log",
-    "empty": "Your tracked running events will appear here."
+    "empty": "Your tracked running events will appear here.",
+    "emptyTitle": "No runs logged yet",
+    "deleteRun": "Delete run"
   },
   "notFound": {
     "title": "404",

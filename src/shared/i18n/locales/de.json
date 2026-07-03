@@ -62,6 +62,19 @@
       "version": "Version",
       "commitHash": "Commit",
       "builtAt": "Erstellt"
+    },
+    "resetData": {
+      "title": "Gefahrenzone",
+      "description": "Lösche dauerhaft alle deine Läufe, dein Ziel und deine Einstellungen. Dies kann nicht rückgängig gemacht werden.",
+      "button": "App-Daten zurücksetzen",
+      "confirmTitle": "App-Daten zurücksetzen?",
+      "confirmMessage": "Dadurch werden alle Läufe, dein Ziel und deine Einstellungen dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
+      "confirmButton": "Ja, alles löschen",
+      "cancelButton": "Abbrechen",
+      "notification": {
+        "title": "App-Daten zurückgesetzt",
+        "body": "Alle deine Daten wurden gelöscht. Die App wird jetzt neu geladen."
+      }
     }
   },
   "home": {
@@ -71,7 +84,9 @@
   },
   "log": {
     "title": "Laufprotokoll",
-    "empty": "Deine erfassten Läufe werden hier angezeigt."
+    "empty": "Deine erfassten Läufe werden hier angezeigt.",
+    "emptyTitle": "Noch keine Läufe erfasst",
+    "deleteRun": "Lauf löschen"
   },
   "notFound": {
     "title": "404",
