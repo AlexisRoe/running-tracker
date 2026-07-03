@@ -1,0 +1,55 @@
+{
+  "appShell": {
+    "header": {
+      "title": "Running Tracker",
+      "openSettings": "Open settings"
+    },
+    "footer": {
+      "dashboard": "Dashboard",
+      "addRun": "Add run",
+      "add": "Add",
+      "log": "Log"
+    },
+    "addDrawer": {
+      "title": "Add Run",
+      "comingSoon": "Add-run form coming soon."
+    },
+    "settingsDrawer": {
+      "title": "Settings"
+    }
+  },
+  "settings": {
+    "theme": {
+      "title": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "language": {
+      "title": "Language",
+      "en": "English",
+      "de": "German",
+      "pl": "Polish"
+    },
+    "buildInfo": {
+      "title": "Build Info",
+      "version": "Version",
+      "commitHash": "Commit",
+      "builtAt": "Built"
+    }
+  },
+  "home": {
+    "title": "Welcome to Running Tracker",
+    "subtitle": "Track your runs and reach your goals.",
+    "buildInfo": "{{appName}} v{{version}} — built {{builtAt}}"
+  },
+  "log": {
+    "title": "Run Log",
+    "empty": "Your tracked running events will appear here."
+  },
+  "notFound": {
+    "title": "404",
+    "message": "The page you were looking for does not exist.",
+    "goHome": "Go home"
+  }
+}

@@ -32,10 +32,10 @@ describe("AppShell", () => {
     const user = userEvent.setup();
     renderAppShell();
 
-    expect(screen.queryByText("Settings content coming soon.")).not.toBeInTheDocument();
+    expect(screen.queryByText("Theme")).not.toBeInTheDocument();
     await user.click(screen.getByLabelText("Open settings"));
 
-    expect(screen.getByText("Settings content coming soon.")).toBeInTheDocument();
+    expect(screen.getByText("Theme")).toBeInTheDocument();
   });
 
   it("opens the add drawer when the Add button is clicked", async () => {

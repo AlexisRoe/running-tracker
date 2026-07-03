@@ -1,5 +1,5 @@
-import { BUILD_INFO } from "@app/build-info/build-info.const";
 import { HomePage } from "@pages/home/home.page";
+import { BUILD_INFO } from "@shared/build-info/build-info.const";
 import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { renderWithProviders } from "../../test/render-with-providers";

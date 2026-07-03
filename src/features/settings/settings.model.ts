@@ -5,7 +5,7 @@ export enum Theme {
 }
 
 export enum Language {
-  EN = "english",
-  DE = "german",
-  PL = "polish",
+  EN = "en",
+  DE = "de",
+  PL = "pl",
 }
