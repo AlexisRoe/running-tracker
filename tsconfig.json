@@ -11,6 +11,7 @@
     "verbatimModuleSyntax": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "noEmit": true,
     "ignoreDeprecations": "6.0",
@@ -25,5 +26,5 @@
       "@shared/*": ["shared/*"]
     }
   },
-  "include": ["src", "vite.config.ts"]
+  "include": ["src", "vite.config.ts", "vite-shared.config.ts", "vitest.config.ts"]
 }

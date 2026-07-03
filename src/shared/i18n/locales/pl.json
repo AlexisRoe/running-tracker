@@ -1,0 +1,72 @@
+{
+  "appShell": {
+    "header": {
+      "title": "Running Tracker",
+      "openSettings": "Otwórz ustawienia",
+      "openGoal": "Ustaw cel"
+    },
+    "footer": {
+      "dashboard": "Panel główny",
+      "addRun": "Dodaj bieg",
+      "add": "Dodaj",
+      "log": "Dziennik"
+    },
+    "addDrawer": {
+      "title": "Dodaj bieg",
+      "comingSoon": "Formularz dodawania biegu pojawi się wkrótce."
+    },
+    "settingsDrawer": {
+      "title": "Ustawienia"
+    },
+    "goalDrawer": {
+      "title": "Ustaw cel",
+      "startDate": "Data rozpoczęcia",
+      "endDate": "Data zakończenia",
+      "dateError": "Data zakończenia musi być późniejsza niż data rozpoczęcia",
+      "distance": "Dystans",
+      "save": "Zapisz cel",
+      "reset": "Zresetuj cel",
+      "perDay": "Wymagane {{value}} km/dzień",
+      "status": {
+        "notSet": "Cel jeszcze nie ustawiony",
+        "notStarted": "Cel jeszcze się nie rozpoczął",
+        "running": "Cel w trakcie realizacji",
+        "ended": "Cel zakończony"
+      }
+    }
+  },
+  "settings": {
+    "theme": {
+      "title": "Motyw",
+      "light": "Jasny",
+      "dark": "Ciemny",
+      "system": "Systemowy"
+    },
+    "language": {
+      "title": "Język",
+      "en": "Angielski",
+      "de": "Niemiecki",
+      "pl": "Polski"
+    },
+    "buildInfo": {
+      "title": "Informacje o wersji",
+      "version": "Wersja",
+      "commitHash": "Commit",
+      "builtAt": "Zbudowano"
+    }
+  },
+  "home": {
+    "title": "Witamy w Running Tracker",
+    "subtitle": "Śledź swoje biegi i osiągaj swoje cele.",
+    "buildInfo": "{{appName}} w. {{version}} — zbudowano {{builtAt}}"
+  },
+  "log": {
+    "title": "Dziennik biegów",
+    "empty": "Twoje zarejestrowane biegi pojawią się tutaj."
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Strona, której szukasz, nie istnieje.",
+    "goHome": "Strona główna"
+  }
+}

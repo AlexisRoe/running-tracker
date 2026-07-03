@@ -1,0 +1,72 @@
+{
+  "appShell": {
+    "header": {
+      "title": "Running Tracker",
+      "openSettings": "Open settings",
+      "openGoal": "Set goal"
+    },
+    "footer": {
+      "dashboard": "Dashboard",
+      "addRun": "Add run",
+      "add": "Add",
+      "log": "Log"
+    },
+    "addDrawer": {
+      "title": "Add Run",
+      "comingSoon": "Add-run form coming soon."
+    },
+    "settingsDrawer": {
+      "title": "Settings"
+    },
+    "goalDrawer": {
+      "title": "Set Goal",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "dateError": "End date must be after the start date",
+      "distance": "Distance",
+      "save": "Save goal",
+      "reset": "Reset goal",
+      "perDay": "{{value}} km/day required",
+      "status": {
+        "notSet": "No goal set yet",
+        "notStarted": "Goal not started yet",
+        "running": "Goal in progress",
+        "ended": "Goal ended"
+      }
+    }
+  },
+  "settings": {
+    "theme": {
+      "title": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "language": {
+      "title": "Language",
+      "en": "English",
+      "de": "German",
+      "pl": "Polish"
+    },
+    "buildInfo": {
+      "title": "Build Info",
+      "version": "Version",
+      "commitHash": "Commit",
+      "builtAt": "Built"
+    }
+  },
+  "home": {
+    "title": "Welcome to Running Tracker",
+    "subtitle": "Track your runs and reach your goals.",
+    "buildInfo": "{{appName}} v{{version}} — built {{builtAt}}"
+  },
+  "log": {
+    "title": "Run Log",
+    "empty": "Your tracked running events will appear here."
+  },
+  "notFound": {
+    "title": "404",
+    "message": "The page you were looking for does not exist.",
+    "goHome": "Go home"
+  }
+}

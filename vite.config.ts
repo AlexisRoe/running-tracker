@@ -1,36 +1,15 @@
-import { execSync } from "node:child_process";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import pkg from "./package.json";
-
-const buildVersion =
-  process.env.BUILD_VERSION ??
-  (() => {
-    try {
-      return execSync("git describe --tags --always").toString().trim();
-    } catch {
-      return pkg.version;
-    }
-  })();
+import { alias, define } from "./vite-shared.config";
 
 export default defineConfig({
   publicDir: "public",
   resolve: {
-    alias: {
-      "@app": "/src/app",
-      "@pages": "/src/pages",
-      "@widgets": "/src/widgets",
-      "@features": "/src/features",
-      "@entities": "/src/entities",
-      "@shared": "/src/shared",
-    },
+    alias,
   },
-  define: {
-    __APP_NAME__: JSON.stringify(pkg.name),
-    __APP_VERSION__: JSON.stringify(buildVersion),
-    __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
-  },
+  define,
   build: {
     assetsDir: "assets",
   },
