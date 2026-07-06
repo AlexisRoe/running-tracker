@@ -98,7 +98,7 @@
       "open": "{{km}} km to go"
     },
     "chart": {
-      "title": "Pace — last 30 days",
+      "title": "Progress — last 30 days",
       "ideal": "Ideal",
       "actual": "Actual"
     },

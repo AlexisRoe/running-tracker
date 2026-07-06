@@ -98,7 +98,7 @@
       "open": "Noch {{km}} km"
     },
     "chart": {
-      "title": "Tempo — letzte 30 Tage",
+      "title": "Fortschritt – letzte 30 Tage",
       "ideal": "Ideal",
       "actual": "Tatsächlich"
     },
