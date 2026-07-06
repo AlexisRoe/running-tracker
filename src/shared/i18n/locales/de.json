@@ -18,6 +18,10 @@
         "goodTitle": "Gut gemacht! 🎉",
         "badTitle": "Nächstes Mal besser",
         "body": "{{distance}} km gelaufen · Ziel {{expected}} km/Tag"
+      },
+      "empty": {
+        "title": "Nichts hinzuzufügen",
+        "body": "Du kannst nur einen Lauf erfassen, während ein Ziel aktiv ist. Lege ein Ziel fest oder warte, bis der heutige Tag in dessen Zeitraum liegt."
       }
     }
   },

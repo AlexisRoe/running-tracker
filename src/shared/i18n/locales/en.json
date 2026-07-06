@@ -18,6 +18,10 @@
         "goodTitle": "Well done! 🎉",
         "badTitle": "Better next time",
         "body": "{{distance}} km run · {{expected}} km/day goal"
+      },
+      "empty": {
+        "title": "Nothing to add",
+        "body": "You can only log a run while a goal is active. Set a goal or wait until today falls within its period."
       }
     }
   },

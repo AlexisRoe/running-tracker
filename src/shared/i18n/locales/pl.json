@@ -18,6 +18,10 @@
         "goodTitle": "Świetna robota! 🎉",
         "badTitle": "Następnym razem lepiej",
         "body": "{{distance}} km przebiegnięte · cel {{expected}} km/dzień"
+      },
+      "empty": {
+        "title": "Nic do dodania",
+        "body": "Możesz dodać bieg tylko wtedy, gdy cel jest aktywny. Ustaw cel lub poczekaj, aż dzisiejszy dzień znajdzie się w jego okresie."
       }
     }
   },

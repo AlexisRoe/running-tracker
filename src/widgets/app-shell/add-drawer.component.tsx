@@ -1,10 +1,20 @@
 import { useGoal } from "@features/goal/use-goal.hook";
 import { useRuns } from "@features/runs/use-runs.hook";
-import { Button, Drawer, Group, SegmentedControl, Stack } from "@mantine/core";
+import {
+  Button,
+  Drawer,
+  Group,
+  SegmentedControl,
+  Stack,
+  Text,
+  ThemeIcon,
+  Title,
+} from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { DistanceInput } from "@shared/components/distance-input.component";
 import { ValidationError } from "@shared/errors/validation.error";
 import { notifyError, notifySuccess, notifyWarning } from "@shared/ui/notification/notify";
+import { IconCalendarOff } from "@tabler/icons-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -68,33 +78,45 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
       padding="md"
       transitionProps={{ duration: 0 }}
     >
-      <Stack gap="xl" pt="md">
-        <DistanceInput
-          label={t("appShell.addDrawer.distance")}
-          value={distance}
-          onChange={setDistance}
-          focusOnStart={opened}
-        />
-        <SegmentedControl
-          fullWidth
-          value={where}
-          onChange={(value) => setWhere(value as "indoor" | "outdoor")}
-          data={[
-            { label: t("appShell.addDrawer.indoor"), value: "indoor" },
-            { label: t("appShell.addDrawer.outdoor"), value: "outdoor" },
-          ]}
-        />
-        <DateInput
-          label={t("appShell.addDrawer.trainingDay")}
-          value={today}
-          onChange={(value) => setToday(value ? new Date(value) : new Date())}
-        />
-        <Group justify="flex-end" mt="md">
-          <Button onClick={handleSave} disabled={distance === ""}>
-            {t("appShell.addDrawer.save")}
-          </Button>
-        </Group>
-      </Stack>
+      {goal.isActive ? (
+        <Stack gap="xl" pt="md">
+          <DistanceInput
+            label={t("appShell.addDrawer.distance")}
+            value={distance}
+            onChange={setDistance}
+            focusOnStart={opened}
+          />
+          <SegmentedControl
+            fullWidth
+            value={where}
+            onChange={(value) => setWhere(value as "indoor" | "outdoor")}
+            data={[
+              { label: t("appShell.addDrawer.indoor"), value: "indoor" },
+              { label: t("appShell.addDrawer.outdoor"), value: "outdoor" },
+            ]}
+          />
+          <DateInput
+            label={t("appShell.addDrawer.trainingDay")}
+            value={today}
+            onChange={(value) => setToday(value ? new Date(value) : new Date())}
+          />
+          <Group justify="flex-end" mt="md">
+            <Button onClick={handleSave} disabled={distance === ""}>
+              {t("appShell.addDrawer.save")}
+            </Button>
+          </Group>
+        </Stack>
+      ) : (
+        <Stack align="center" gap="sm" py="xl">
+          <ThemeIcon variant="light" size={80} radius="xl">
+            <IconCalendarOff size={44} stroke={1.5} />
+          </ThemeIcon>
+          <Title order={3}>{t("appShell.addDrawer.empty.title")}</Title>
+          <Text c="dimmed" ta="center">
+            {t("appShell.addDrawer.empty.body")}
+          </Text>
+        </Stack>
+      )}
     </Drawer>
   );
 }
