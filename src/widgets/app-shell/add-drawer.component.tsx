@@ -87,6 +87,13 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
     }
   };
 
+  const minDate = new Date(goal.value.start);
+  const maxDate = today.getTime() > goal.value.end ? new Date(goal.value.end) : today;
+
+  const handleAdjustDate = (value: string | null) => {
+    setToday(value ? new Date(value) : new Date());
+  };
+
   return (
     <Drawer
       opened={opened}
@@ -122,8 +129,9 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
           <DateInput
             label={t("appShell.addDrawer.trainingDay")}
             value={today}
-            maxDate={today}
-            onChange={(value) => setToday(value ? new Date(value) : new Date())}
+            maxDate={maxDate}
+            minDate={minDate}
+            onChange={handleAdjustDate}
           />
           <Group justify="flex-end" mt="md">
             <Button onClick={handleSave} disabled={distance === ""}>
