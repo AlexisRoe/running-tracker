@@ -15,6 +15,7 @@ import { DateInput } from "@mantine/dates";
 import { DistanceInput } from "@shared/components/distance-input.component";
 import { ValidationError } from "@shared/errors/validation.error";
 import { formatDistance } from "@shared/lib/distance.utils";
+import { fireConfetti } from "@shared/ui/confetti/confetti";
 import { notifyError, notifySuccess, notifyWarning } from "@shared/ui/notification/notify";
 import { IconCalendarOff } from "@tabler/icons-react";
 import { useRef, useState } from "react";
@@ -75,6 +76,10 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
       const expected = goal.requiredDistancePerDay;
       const met = distanceRan >= expected;
       const notify = met ? notifySuccess : notifyWarning;
+
+      if (met) {
+        fireConfetti();
+      }
 
       notify({
         title: t(
