@@ -1,6 +1,6 @@
 import type { RunningEvent, RunWhere } from "@features/runs/runs.model";
 import { useRuns } from "@features/runs/use-runs.hook";
-import { Button, Drawer, Group, Stack } from "@mantine/core";
+import { Button, Drawer, Group, Space, Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { RunFormFields } from "@pages/log/run-form-fields.component";
 import { ValidationError } from "@shared/errors/validation.error";
@@ -92,6 +92,7 @@ function EditRunForm({ run, onClose }: EditRunFormProps) {
         confirmLabel={t("log.deleteConfirm.confirm")}
         cancelLabel={t("log.deleteConfirm.cancel")}
       />
+      <Space h="2rem" />
     </Stack>
   );
 }

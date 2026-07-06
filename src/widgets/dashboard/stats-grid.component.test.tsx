@@ -31,6 +31,5 @@ describe("StatsGrid", () => {
     expect(screen.getByText("km/day to reach goal")).toBeInTheDocument();
     expect(screen.getByText("1.50")).toBeInTheDocument();
     expect(screen.getByText("Days left")).toBeInTheDocument();
-    expect(screen.getByText("2 km behind")).toBeInTheDocument();
   });
 });

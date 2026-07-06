@@ -1,6 +1,7 @@
 import { useGoalStore } from "@features/goal/goal.store";
 import { toGoalEnd, toGoalStart } from "@features/goal/goal.utils";
 import { useRunsStore } from "@features/runs/runs.store";
+import { fireConfetti } from "@shared/ui/confetti/confetti";
 import { notifySuccess, notifyWarning } from "@shared/ui/notification/notify";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -12,6 +13,10 @@ vi.mock("@shared/ui/notification/notify", () => ({
   notifyError: vi.fn(),
   notifySuccess: vi.fn(),
   notifyWarning: vi.fn(),
+}));
+
+vi.mock("@shared/ui/confetti/confetti", () => ({
+  fireConfetti: vi.fn(),
 }));
 
 function setActiveGoal(distance: number) {
@@ -93,6 +98,7 @@ describe("AddDrawer", () => {
       title: "Well done! 🎉",
       message: "10 km run · 10 km/day goal",
     });
+    expect(fireConfetti).toHaveBeenCalled();
   });
 
   it("shows a warning notification when the run misses the daily goal", async () => {
@@ -107,6 +113,7 @@ describe("AddDrawer", () => {
       title: "Better next time",
       message: "5 km run · 10 km/day goal",
     });
+    expect(fireConfetti).not.toHaveBeenCalled();
   });
 
   it("shows an empty state instead of the form when no goal is set", () => {
@@ -117,10 +124,10 @@ describe("AddDrawer", () => {
   });
 
   it("shows an empty state when a goal exists but today is outside its period", () => {
-    const yesterday = Date.now() - 24 * 60 * 60 * 1000;
+    const tomorrow = Date.now() + 24 * 60 * 60 * 1000;
     useGoalStore.getState().setGoal({
-      start: toGoalStart(yesterday),
-      end: toGoalEnd(yesterday),
+      start: toGoalStart(tomorrow),
+      end: toGoalEnd(tomorrow),
       distance: 10,
     });
     renderWithProviders(<AddDrawer opened onClose={vi.fn()} />);

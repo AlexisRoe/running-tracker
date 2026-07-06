@@ -73,13 +73,14 @@
     "headline": {
       "label": "km/day to reach goal",
       "baseline": "Started at {{km}} km/day",
-      "faster": "{{km}} km/day faster than planned",
-      "easier": "{{km}} km/day easier than planned",
+      "faster": "{{km}} km/day more than planned",
+      "easier": "{{km}} km/day less than planned",
       "onPlan": "Right on your original plan"
     },
     "stats": {
       "daysLeft": "Days left",
-      "ofDays": "of {{total}} days",
+      "ofDays": "{{left}} of {{total}} days",
+      "ofDaysPercent": "{{percent}}% of period elapsed",
       "goal": "Goal",
       "perTotal": "{{km}} km",
       "runningDays": "Running days",
@@ -95,7 +96,13 @@
       "onTrackValue": "On track",
       "progress": "Distance",
       "progressValue": "{{run}} / {{goal}} km",
-      "open": "{{km}} km to go"
+      "open": "{{km}} km to go",
+      "help": {
+        "daysLeft": "How many days remain until your goal's end date, and how far through the whole period you already are.",
+        "runningDays": "How many of the days since your goal started you've actually logged a run on.",
+        "location": "How many of your runs were indoor vs. outdoor, and how much distance came from each.",
+        "required": "The average daily distance you now need to run for the rest of the period to still hit your goal."
+      }
     },
     "chart": {
       "title": "Progress — last 30 days",
@@ -107,6 +114,8 @@
       "tooltip": "Week {{week}}: {{count}} runs · {{km}} km",
       "less": "Less",
       "more": "More",
+      "legendTitle": "Runs per week",
+      "legendRow": "{{count}} runs",
       "prevYear": "Previous year",
       "nextYear": "Next year"
     },

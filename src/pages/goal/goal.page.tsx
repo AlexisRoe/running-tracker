@@ -209,21 +209,21 @@ export function GoalPage() {
               value={distance}
               onChange={handleDistanceChange}
             />
-            <Group justify="space-between" mt="xl">
+            <Stack mt="xl" gap="lg">
+              <Button fullWidth onClick={handleSave} disabled={saveDisabled} ml="auto">
+                {goal.isSet ? t("goal.saveChanges") : t("goal.save")}
+              </Button>
               {goal.isSet && (
-                <Group gap="sm">
-                  <Button variant="subtle" color="red" onClick={openConfirm}>
+                <Group grow>
+                  <Button variant="outline" color="red" onClick={openConfirm}>
                     {t("goal.clearGoal")}
                   </Button>
-                  <Button variant="subtle" onClick={handleCancel}>
+                  <Button variant="outline" onClick={handleCancel}>
                     {t("goal.cancel")}
                   </Button>
                 </Group>
               )}
-              <Button size="lg" onClick={handleSave} disabled={saveDisabled} ml="auto">
-                {goal.isSet ? t("goal.saveChanges") : t("goal.save")}
-              </Button>
-            </Group>
+            </Stack>
           </>
         )}
       </Stack>

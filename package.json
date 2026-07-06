@@ -1,6 +1,6 @@
 {
   "name": "running-tracker",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "description": "A small personal app to track how often you have to run to reach your goal",
   "author": "Alexis Roehrling",
   "license": "ISC",
@@ -30,6 +30,7 @@
     "@mantine/notifications": "9.3.2",
     "@tabler/icons-react": "3.44.0",
     "axios": "1.18.0",
+    "canvas-confetti": "1.9.4",
     "i18next": "26.3.4",
     "react": "19.2.7",
     "react-dom": "19.2.7",
@@ -43,6 +44,7 @@
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "14.6.1",
+    "@types/canvas-confetti": "1.9.0",
     "@types/node": "24.0.3",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",

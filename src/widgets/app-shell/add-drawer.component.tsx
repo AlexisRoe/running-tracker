@@ -5,6 +5,7 @@ import {
   Drawer,
   Group,
   SegmentedControl,
+  Space,
   Stack,
   Text,
   ThemeIcon,
@@ -14,6 +15,7 @@ import { DateInput } from "@mantine/dates";
 import { DistanceInput } from "@shared/components/distance-input.component";
 import { ValidationError } from "@shared/errors/validation.error";
 import { formatDistance } from "@shared/lib/distance.utils";
+import { fireConfetti } from "@shared/ui/confetti/confetti";
 import { notifyError, notifySuccess, notifyWarning } from "@shared/ui/notification/notify";
 import { IconCalendarOff } from "@tabler/icons-react";
 import { useRef, useState } from "react";
@@ -75,6 +77,10 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
       const met = distanceRan >= expected;
       const notify = met ? notifySuccess : notifyWarning;
 
+      if (met) {
+        fireConfetti();
+      }
+
       notify({
         title: t(
           met ? "appShell.addDrawer.result.goodTitle" : "appShell.addDrawer.result.badTitle",
@@ -86,6 +92,17 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
       });
     }
   };
+
+  const minDate = new Date(goal.value.start);
+  const maxDate = today.getTime() > goal.value.end ? new Date(goal.value.end) : today;
+
+  const handleAdjustDate = (value: string | null) => {
+    setToday(value ? new Date(value) : new Date());
+  };
+
+  const now = DEFAULT_ADD_VALUES.Today.getTime();
+  const startDate = goal.value.start;
+  const isValidRange = goal.isSet && now >= startDate;
 
   return (
     <Drawer
@@ -102,7 +119,7 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
         onEntered: () => inputRef.current?.focus(),
       }}
     >
-      {goal.isActive ? (
+      {isValidRange ? (
         <Stack gap="xl" pt="md">
           <DistanceInput
             label={t("appShell.addDrawer.distance")}
@@ -122,14 +139,16 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
           <DateInput
             label={t("appShell.addDrawer.trainingDay")}
             value={today}
-            maxDate={today}
-            onChange={(value) => setToday(value ? new Date(value) : new Date())}
+            maxDate={maxDate}
+            minDate={minDate}
+            onChange={handleAdjustDate}
           />
           <Group justify="flex-end" mt="md">
             <Button onClick={handleSave} disabled={distance === ""}>
               {t("appShell.addDrawer.save")}
             </Button>
           </Group>
+          <Space h="2rem" />
         </Stack>
       ) : (
         <Stack align="center" gap="sm" py="xl">
@@ -140,6 +159,7 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
           <Text c="dimmed" ta="center">
             {t("appShell.addDrawer.empty.body")}
           </Text>
+          <Space h="2rem" />
         </Stack>
       )}
     </Drawer>
