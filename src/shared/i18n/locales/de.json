@@ -89,7 +89,7 @@
       "baseline": "Schnitt am Start",
       "required": "Schnitt jetzt nötig",
       "perDay": "{{km}} km/Tag",
-      "schedule": "Zeitplan",
+      "schedule": "Plan vs. Ist",
       "aheadValue": "{{km}} km Vorsprung",
       "behindValue": "{{km}} km Rückstand",
       "onTrackValue": "Im Plan",

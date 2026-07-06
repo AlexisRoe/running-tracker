@@ -89,7 +89,7 @@
       "baseline": "Avg at start",
       "required": "Avg needed now",
       "perDay": "{{km}} km/day",
-      "schedule": "Schedule",
+      "schedule": "Plan vs. actual",
       "aheadValue": "{{km}} km ahead",
       "behindValue": "{{km}} km behind",
       "onTrackValue": "On track",

@@ -89,7 +89,7 @@
       "baseline": "Śr. na starcie",
       "required": "Śr. potrzebna teraz",
       "perDay": "{{km}} km/dzień",
-      "schedule": "Harmonogram",
+      "schedule": "Plan a wynik rzeczywisty",
       "aheadValue": "{{km}} km przewagi",
       "behindValue": "{{km}} km zaległości",
       "onTrackValue": "W planie",
