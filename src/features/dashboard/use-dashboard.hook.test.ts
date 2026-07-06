@@ -14,13 +14,12 @@ beforeEach(() => {
 });
 
 describe("useDashboard", () => {
-  it("returns no metrics but still a weekly overview when no goal is set", () => {
+  it("returns no metrics when no goal is set", () => {
     const { result } = renderHook(() => useDashboard());
 
     expect(result.current.isGoalSet).toBe(false);
     expect(result.current.metrics).toBeNull();
     expect(result.current.paceSeries).toEqual([]);
-    expect(result.current.weeks.length).toBeGreaterThanOrEqual(52);
   });
 
   it("computes metrics and a full pace series once a goal is active", () => {

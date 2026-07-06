@@ -10,13 +10,18 @@
     "addDrawer": {
       "title": "Add Run",
       "distance": "Distance",
+      "trainingDay": "Running on",
       "indoor": "Indoor",
       "outdoor": "Outdoor",
       "save": "Add run",
       "result": {
-        "goodTitle": "Good done! 🎉",
+        "goodTitle": "Well done! 🎉",
         "badTitle": "Better next time",
         "body": "{{distance}} km run · {{expected}} km/day goal"
+      },
+      "empty": {
+        "title": "Nothing to add",
+        "body": "You can only log a run while a goal is active. Set a goal or wait until today falls within its period."
       }
     }
   },
@@ -59,8 +64,8 @@
     "banner": {
       "behindTitle": "Run faster!!!",
       "goodTitle": "Good Job.",
-      "behindBody": "You're {{km}} km ({{days}} days) behind schedule.",
-      "aheadBody": "You're {{km}} km ({{days}} days) ahead of schedule.",
+      "behindBody": "You're {{km}} km behind schedule.",
+      "aheadBody": "You're {{km}} km ahead of schedule.",
       "onTrackBody": "You're right on schedule — keep it up.",
       "finishedMetBody": "Goal reached — {{distance}} km done. 🎉",
       "finishedMissedBody": "Period over — {{km}} km short of your goal."
@@ -78,13 +83,13 @@
       "goal": "Goal",
       "perTotal": "{{km}} km",
       "runningDays": "Running days",
-      "runningDaysSub": "{{rest}} rest days",
-      "location": "Outdoor / Indoor",
-      "locationSub": "{{outdoor}} / {{indoor}} km",
+      "runningDaysSub": "{{percent}}% of days",
+      "location": "Indoor / Outdoor",
+      "locationSub": "{{indoor}} / {{outdoor}} km",
       "baseline": "Avg at start",
       "required": "Avg needed now",
       "perDay": "{{km}} km/day",
-      "schedule": "Schedule",
+      "schedule": "Plan vs. actual",
       "aheadValue": "{{km}} km ahead",
       "behindValue": "{{km}} km behind",
       "onTrackValue": "On track",
@@ -93,15 +98,17 @@
       "open": "{{km}} km to go"
     },
     "chart": {
-      "title": "Pace — last 30 days",
+      "title": "Progress — last 30 days",
       "ideal": "Ideal",
       "actual": "Actual"
     },
     "weeks": {
       "title": "{{year}} running weeks",
-      "tooltip": "Week {{week}}: {{km}} km",
+      "tooltip": "Week {{week}}: {{count}} runs · {{km}} km",
       "less": "Less",
-      "more": "More"
+      "more": "More",
+      "prevYear": "Previous year",
+      "nextYear": "Next year"
     },
     "cta": {
       "title": "No active goal",
@@ -113,7 +120,19 @@
     "title": "Run Log",
     "empty": "Your tracked running events will appear here.",
     "emptyTitle": "No runs logged yet",
-    "deleteRun": "Delete run"
+    "editRun": "Edit run",
+    "monthTotal": "{{month}} - {{km}} km",
+    "editDrawer": {
+      "title": "Edit Run",
+      "save": "Save changes",
+      "delete": "Delete run"
+    },
+    "deleteConfirm": {
+      "title": "Delete run?",
+      "message": "Do you really want to delete this run?",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    }
   },
   "goal": {
     "title": "Set Goal",
@@ -122,14 +141,28 @@
     "dateError": "End date must be after the start date",
     "distance": "Distance",
     "save": "Save goal",
-    "reset": "Reset goal",
+    "saveChanges": "Save changes",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "clearGoal": "Clear goal",
+    "summary": {
+      "pace": "Required pace",
+      "distanceValue": "{{km}} km",
+      "paceValue": "{{km}} km/day"
+    },
     "setNotification": {
       "title": "Goal set!",
       "body": "Your goal runs from {{start}} to {{end}} — that's {{days}} days to cover {{distance}} km, averaging {{perDay}} km/day. Keep an eye on the pace to stay on track."
     },
-    "resetNotification": {
+    "clearNotification": {
       "title": "Goal cleared",
       "body": "Your goal has been removed, so your runs are no longer measured against a daily target. Set a new goal any time to start tracking progress again."
+    },
+    "clearConfirm": {
+      "title": "Clear goal?",
+      "message": "Do you really want to clear your goal? This cannot be undone.",
+      "confirm": "Clear",
+      "cancel": "Cancel"
     }
   },
   "notFound": {

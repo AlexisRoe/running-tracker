@@ -10,6 +10,7 @@
     "addDrawer": {
       "title": "Dodaj bieg",
       "distance": "Dystans",
+      "trainingDay": "Bieganie w",
       "indoor": "W pomieszczeniu",
       "outdoor": "Na zewnątrz",
       "save": "Dodaj bieg",
@@ -17,6 +18,10 @@
         "goodTitle": "Świetna robota! 🎉",
         "badTitle": "Następnym razem lepiej",
         "body": "{{distance}} km przebiegnięte · cel {{expected}} km/dzień"
+      },
+      "empty": {
+        "title": "Nic do dodania",
+        "body": "Możesz dodać bieg tylko wtedy, gdy cel jest aktywny. Ustaw cel lub poczekaj, aż dzisiejszy dzień znajdzie się w jego okresie."
       }
     }
   },
@@ -59,8 +64,8 @@
     "banner": {
       "behindTitle": "Biegnij szybciej!!!",
       "goodTitle": "Dobra robota.",
-      "behindBody": "Masz {{km}} km ({{days}} dni) zaległości.",
-      "aheadBody": "Masz {{km}} km ({{days}} dni) przewagi.",
+      "behindBody": "Masz {{km}} km zaległości.",
+      "aheadBody": "Masz {{km}} km przewagi.",
       "onTrackBody": "Jesteś dokładnie w planie — tak trzymaj.",
       "finishedMetBody": "Cel osiągnięty — {{distance}} km zaliczone. 🎉",
       "finishedMissedBody": "Okres zakończony — zabrakło {{km}} km do celu."
@@ -78,13 +83,13 @@
       "goal": "Cel",
       "perTotal": "{{km}} km",
       "runningDays": "Dni z biegiem",
-      "runningDaysSub": "{{rest}} dni odpoczynku",
-      "location": "Na zewnątrz / W pomieszczeniu",
-      "locationSub": "{{outdoor}} / {{indoor}} km",
+      "runningDaysSub": "{{percent}}% dni",
+      "location": "W pomieszczeniu / Na zewnątrz",
+      "locationSub": "{{indoor}} / {{outdoor}} km",
       "baseline": "Śr. na starcie",
       "required": "Śr. potrzebna teraz",
       "perDay": "{{km}} km/dzień",
-      "schedule": "Harmonogram",
+      "schedule": "Plan a wynik rzeczywisty",
       "aheadValue": "{{km}} km przewagi",
       "behindValue": "{{km}} km zaległości",
       "onTrackValue": "W planie",
@@ -93,15 +98,17 @@
       "open": "Jeszcze {{km}} km"
     },
     "chart": {
-      "title": "Tempo — ostatnie 30 dni",
+      "title": "Postępy — ostatnie 30 dni",
       "ideal": "Idealne",
       "actual": "Rzeczywiste"
     },
     "weeks": {
       "title": "Tygodnie biegowe {{year}}",
-      "tooltip": "Tydzień {{week}}: {{km}} km",
+      "tooltip": "Tydzień {{week}}: {{count}} biegów · {{km}} km",
       "less": "Mniej",
-      "more": "Więcej"
+      "more": "Więcej",
+      "prevYear": "Poprzedni rok",
+      "nextYear": "Następny rok"
     },
     "cta": {
       "title": "Brak aktywnego celu",
@@ -113,7 +120,19 @@
     "title": "Dziennik biegów",
     "empty": "Twoje zarejestrowane biegi pojawią się tutaj.",
     "emptyTitle": "Brak zarejestrowanych biegów",
-    "deleteRun": "Usuń bieg"
+    "editRun": "Edytuj bieg",
+    "monthTotal": "{{month}} - {{km}} km",
+    "editDrawer": {
+      "title": "Edytuj bieg",
+      "save": "Zapisz zmiany",
+      "delete": "Usuń bieg"
+    },
+    "deleteConfirm": {
+      "title": "Usunąć bieg?",
+      "message": "Czy na pewno chcesz usunąć ten bieg?",
+      "confirm": "Usuń",
+      "cancel": "Anuluj"
+    }
   },
   "goal": {
     "title": "Ustaw cel",
@@ -122,14 +141,28 @@
     "dateError": "Data zakończenia musi być późniejsza niż data rozpoczęcia",
     "distance": "Dystans",
     "save": "Zapisz cel",
-    "reset": "Zresetuj cel",
+    "saveChanges": "Zapisz zmiany",
+    "edit": "Edytuj",
+    "cancel": "Anuluj",
+    "clearGoal": "Wyczyść cel",
+    "summary": {
+      "pace": "Wymagane tempo",
+      "distanceValue": "{{km}} km",
+      "paceValue": "{{km}} km/dzień"
+    },
     "setNotification": {
       "title": "Cel ustawiony!",
       "body": "Twój cel trwa od {{start}} do {{end}} — to {{days}} dni na pokonanie {{distance}} km, średnio {{perDay}} km/dzień. Pilnuj tempa, aby utrzymać kurs."
     },
-    "resetNotification": {
-      "title": "Cel zresetowany",
+    "clearNotification": {
+      "title": "Cel wyczyszczony",
       "body": "Twój cel został usunięty, więc Twoje biegi nie są już mierzone względem dziennego celu. W każdej chwili możesz ustawić nowy cel, aby znów śledzić postępy."
+    },
+    "clearConfirm": {
+      "title": "Wyczyścić cel?",
+      "message": "Czy na pewno chcesz wyczyścić swój cel? Tej operacji nie można cofnąć.",
+      "confirm": "Wyczyść",
+      "cancel": "Anuluj"
     }
   },
   "notFound": {

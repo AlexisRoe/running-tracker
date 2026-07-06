@@ -7,6 +7,7 @@ import { isRunWhere } from "./runs.utils";
 interface AddRunInput {
   distance: unknown;
   where?: unknown;
+  date?: number;
 }
 
 interface UpdateRunInput {
@@ -44,7 +45,11 @@ export function useRuns(): UseRuns {
       where = input.where;
     }
 
-    addRun({ date: Date.now(), where, distance: input.distance });
+    addRun({
+      date: input.date ?? Date.now(),
+      where,
+      distance: input.distance,
+    });
   };
 
   const update = (id: string, input: UpdateRunInput) => {

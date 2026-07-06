@@ -13,6 +13,6 @@ describe("PaceChart", () => {
   it("renders the chart section with its title", () => {
     renderWithProviders(<PaceChart data={data} />);
 
-    expect(screen.getByText("Pace — last 30 days")).toBeInTheDocument();
+    expect(screen.getByText("Progress — last 30 days")).toBeInTheDocument();
   });
 });

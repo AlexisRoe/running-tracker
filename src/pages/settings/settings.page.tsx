@@ -7,7 +7,6 @@ import {
   Container,
   Group,
   SegmentedControl,
-  Select,
   Stack,
   Text,
   Title,
@@ -51,11 +50,10 @@ export function SettingsPage() {
           <Text fw={500} mb="xs">
             {t("settings.language.title")}
           </Text>
-          <Select
-            aria-label={t("settings.language.title")}
+          <SegmentedControl
+            fullWidth
             value={language.value}
             onChange={(value) => value && language.change(value)}
-            allowDeselect={false}
             data={SUPPORTED_LANGUAGES.map((code) => ({
               value: code,
               label: t(`settings.language.${code}`),

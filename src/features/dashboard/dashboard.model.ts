@@ -33,8 +33,12 @@ export interface WeekCell {
   weekNumber: number;
   /** Total distance run in the week (km). */
   distance: number;
-  /** Discrete intensity bucket for coloring: 0 (none) … 4 (highest). */
-  level: 0 | 1 | 2 | 3 | 4;
+  /** Number of runs logged in the week. */
+  runCount: number;
+  /** Discrete intensity bucket for coloring, keyed to runCount: 0 (none) … 5 (5+ runs). */
+  level: 0 | 1 | 2 | 3 | 4 | 5;
+  /** Whether the week overlaps the active goal's date range. */
+  inGoalPeriod: boolean;
 }
 
 /** Everything the dashboard renders, derived from the goal and runs. */

@@ -10,6 +10,7 @@
     "addDrawer": {
       "title": "Lauf hinzufügen",
       "distance": "Distanz",
+      "trainingDay": "Laufen am",
       "indoor": "Drinnen",
       "outdoor": "Draußen",
       "save": "Lauf hinzufügen",
@@ -17,6 +18,10 @@
         "goodTitle": "Gut gemacht! 🎉",
         "badTitle": "Nächstes Mal besser",
         "body": "{{distance}} km gelaufen · Ziel {{expected}} km/Tag"
+      },
+      "empty": {
+        "title": "Nichts hinzuzufügen",
+        "body": "Du kannst nur einen Lauf erfassen, während ein Ziel aktiv ist. Lege ein Ziel fest oder warte, bis der heutige Tag in dessen Zeitraum liegt."
       }
     }
   },
@@ -59,8 +64,8 @@
     "banner": {
       "behindTitle": "Lauf schneller!!!",
       "goodTitle": "Gut gemacht.",
-      "behindBody": "Du bist {{km}} km ({{days}} Tage) im Rückstand.",
-      "aheadBody": "Du bist {{km}} km ({{days}} Tage) im Vorsprung.",
+      "behindBody": "Du bist {{km}} km im Rückstand.",
+      "aheadBody": "Du bist {{km}} km im Vorsprung.",
       "onTrackBody": "Du bist genau im Plan — weiter so.",
       "finishedMetBody": "Ziel erreicht — {{distance}} km geschafft. 🎉",
       "finishedMissedBody": "Zeitraum vorbei — {{km}} km unter deinem Ziel."
@@ -78,13 +83,13 @@
       "goal": "Ziel",
       "perTotal": "{{km}} km",
       "runningDays": "Lauftage",
-      "runningDaysSub": "{{rest}} Ruhetage",
-      "location": "Draußen / Drinnen",
-      "locationSub": "{{outdoor}} / {{indoor}} km",
+      "runningDaysSub": "{{percent}}% der Tage",
+      "location": "Drinnen / Draußen",
+      "locationSub": "{{indoor}} / {{outdoor}} km",
       "baseline": "Schnitt am Start",
       "required": "Schnitt jetzt nötig",
       "perDay": "{{km}} km/Tag",
-      "schedule": "Zeitplan",
+      "schedule": "Plan vs. Ist",
       "aheadValue": "{{km}} km Vorsprung",
       "behindValue": "{{km}} km Rückstand",
       "onTrackValue": "Im Plan",
@@ -93,15 +98,17 @@
       "open": "Noch {{km}} km"
     },
     "chart": {
-      "title": "Tempo — letzte 30 Tage",
+      "title": "Fortschritt – letzte 30 Tage",
       "ideal": "Ideal",
       "actual": "Tatsächlich"
     },
     "weeks": {
       "title": "Laufwochen {{year}}",
-      "tooltip": "Woche {{week}}: {{km}} km",
+      "tooltip": "Woche {{week}}: {{count}} Läufe · {{km}} km",
       "less": "Weniger",
-      "more": "Mehr"
+      "more": "Mehr",
+      "prevYear": "Vorheriges Jahr",
+      "nextYear": "Nächstes Jahr"
     },
     "cta": {
       "title": "Kein aktives Ziel",
@@ -113,7 +120,19 @@
     "title": "Laufprotokoll",
     "empty": "Deine erfassten Läufe werden hier angezeigt.",
     "emptyTitle": "Noch keine Läufe erfasst",
-    "deleteRun": "Lauf löschen"
+    "editRun": "Lauf bearbeiten",
+    "monthTotal": "{{month}} - {{km}} km",
+    "editDrawer": {
+      "title": "Lauf bearbeiten",
+      "save": "Änderungen speichern",
+      "delete": "Lauf löschen"
+    },
+    "deleteConfirm": {
+      "title": "Lauf löschen?",
+      "message": "Möchtest du diesen Lauf wirklich löschen?",
+      "confirm": "Löschen",
+      "cancel": "Abbrechen"
+    }
   },
   "goal": {
     "title": "Ziel festlegen",
@@ -122,14 +141,28 @@
     "dateError": "Das Enddatum muss nach dem Startdatum liegen",
     "distance": "Distanz",
     "save": "Ziel speichern",
-    "reset": "Ziel zurücksetzen",
+    "saveChanges": "Änderungen speichern",
+    "edit": "Bearbeiten",
+    "cancel": "Abbrechen",
+    "clearGoal": "Ziel löschen",
+    "summary": {
+      "pace": "Benötigtes Tempo",
+      "distanceValue": "{{km}} km",
+      "paceValue": "{{km}} km/Tag"
+    },
     "setNotification": {
       "title": "Ziel festgelegt!",
       "body": "Dein Ziel läuft von {{start}} bis {{end}} — das sind {{days}} Tage, um {{distance}} km zurückzulegen, im Schnitt {{perDay}} km/Tag. Behalte dein Tempo im Blick, um auf Kurs zu bleiben."
     },
-    "resetNotification": {
-      "title": "Ziel zurückgesetzt",
+    "clearNotification": {
+      "title": "Ziel gelöscht",
       "body": "Dein Ziel wurde entfernt, deine Läufe werden also nicht mehr gegen ein Tagesziel verfolgt. Lege jederzeit ein neues Ziel fest, um den Fortschritt wieder zu verfolgen."
+    },
+    "clearConfirm": {
+      "title": "Ziel löschen?",
+      "message": "Möchtest du dein Ziel wirklich löschen? Dies kann nicht rückgängig gemacht werden.",
+      "confirm": "Löschen",
+      "cancel": "Abbrechen"
     }
   },
   "notFound": {

@@ -16,9 +16,9 @@ const SCHEDULE_EPSILON_KM = 0.05;
 /** Days rendered in the pace chart, ending today. */
 export const PACE_WINDOW_DAYS = 30;
 
-/** Rounds to a single decimal place. */
-function round1(value: number): number {
-  return Math.round(value * 10) / 10;
+/** Rounds to 2 decimal places. */
+function round2(value: number): number {
+  return Math.round(value * 100) / 100;
 }
 
 /** 00:00:00.000 local time of the given instant. */
@@ -37,14 +37,9 @@ function startOfWeekMonday(input: number): number {
   return d.getTime();
 }
 
-/** Buckets a weekly distance into a 0-4 heatmap intensity level. */
-function bucketLevel(distance: number, max: number): WeekCell["level"] {
-  if (distance <= 0 || max <= 0) return 0;
-  const ratio = distance / max;
-  if (ratio <= 0.25) return 1;
-  if (ratio <= 0.5) return 2;
-  if (ratio <= 0.75) return 3;
-  return 4;
+/** Buckets a weekly run count into a 0-5 heatmap intensity level (5 = 5 or more runs). */
+function bucketLevel(runCount: number): WeekCell["level"] {
+  return Math.min(runCount, 5) as WeekCell["level"];
 }
 
 function scheduleState(deltaKm: number): ScheduleState {
@@ -94,24 +89,24 @@ export function computeMetrics({
   return {
     hasActiveGoal: isActive,
     isFinished,
-    goalDistance: round1(goalDistance),
+    goalDistance: round2(goalDistance),
     totalDays,
     daysElapsed,
     daysLeft,
-    distanceRun: round1(distanceRun),
-    distanceOpen: round1(distanceOpen),
+    distanceRun: round2(distanceRun),
+    distanceOpen: round2(distanceOpen),
     daysWithRuns,
     daysWithoutRuns,
     indoorCount: indoor.length,
     outdoorCount: outdoor.length,
-    indoorDistance: round1(indoor.reduce((sum, r) => sum + r.distance, 0)),
-    outdoorDistance: round1(outdoor.reduce((sum, r) => sum + r.distance, 0)),
-    baselinePerDay: round1(baselinePerDay),
-    requiredPerRemainingDay: round1(requiredPerRemainingDay),
+    indoorDistance: round2(indoor.reduce((sum, r) => sum + r.distance, 0)),
+    outdoorDistance: round2(outdoor.reduce((sum, r) => sum + r.distance, 0)),
+    baselinePerDay: round2(baselinePerDay),
+    requiredPerRemainingDay: round2(requiredPerRemainingDay),
     schedule: {
       state: scheduleState(deltaKm),
-      deltaKm: round1(deltaKm),
-      deltaDays: round1(deltaDays),
+      deltaKm: round2(deltaKm),
+      deltaDays: round2(deltaDays),
     },
   };
 }
@@ -148,19 +143,23 @@ export function buildPaceSeries(
       .filter((r) => r.date >= start && r.date <= cutoff)
       .reduce((sum, r) => sum + r.distance, 0);
 
-    points.push({ date: dayStart, ideal: round1(ideal), actual: round1(actual) });
+    points.push({ date: dayStart, ideal: round2(ideal), actual: round2(actual) });
   }
 
   return points;
 }
 
 /**
- * Aggregates runs into ISO-Monday weeks across the calendar year of `now`,
- * bucketing each week's total distance into a 0-4 intensity level (relative to
- * the busiest week) for the heatmap.
+ * Aggregates runs into ISO-Monday weeks across the given calendar `year`,
+ * bucketing each week's run count into a 0-5 intensity level for the heatmap.
+ * `goalPeriod` (if given) flags weeks outside its range as not `inGoalPeriod`;
+ * omitting it treats every week as in-period.
  */
-export function buildYearlyWeeks(runs: RunningEvent[], now: number = Date.now()): WeekCell[] {
-  const year = new Date(now).getFullYear();
+export function buildYearlyWeeks(
+  runs: RunningEvent[],
+  year: number,
+  goalPeriod?: { start: number; end: number } | null,
+): WeekCell[] {
   const firstMonday = startOfWeekMonday(new Date(year, 0, 1).getTime());
   const dec31 = new Date(year, 11, 31, 23, 59, 59, 999).getTime();
 
@@ -170,18 +169,29 @@ export function buildYearlyWeeks(runs: RunningEvent[], now: number = Date.now())
 
   while (weekStart <= dec31) {
     const weekEnd = weekStart + 7 * MS_PER_DAY;
-    const distance = runs
-      .filter((r) => r.date >= weekStart && r.date < weekEnd)
-      .reduce((sum, r) => sum + r.distance, 0);
-    cells.push({ weekStart, weekNumber, distance: round1(distance), level: 0 });
+    const weekRuns = runs.filter((r) => r.date >= weekStart && r.date < weekEnd);
+    const distance = weekRuns.reduce((sum, r) => sum + r.distance, 0);
+    const runCount = weekRuns.length;
+    const inGoalPeriod = !goalPeriod || (weekStart < goalPeriod.end && weekEnd > goalPeriod.start);
+
+    cells.push({
+      weekStart,
+      weekNumber,
+      distance: round2(distance),
+      runCount,
+      level: bucketLevel(runCount),
+      inGoalPeriod,
+    });
     weekStart = weekEnd;
     weekNumber += 1;
   }
 
-  const max = cells.reduce((m, c) => Math.max(m, c.distance), 0);
-  for (const cell of cells) {
-    cell.level = bucketLevel(cell.distance, max);
-  }
-
   return cells;
+}
+
+/** Distinct years present in `runs`, ascending, always including `currentYear`. */
+export function getAvailableYears(runs: RunningEvent[], currentYear: number): number[] {
+  const years = new Set(runs.map((r) => new Date(r.date).getFullYear()));
+  years.add(currentYear);
+  return [...years].sort((a, b) => a - b);
 }

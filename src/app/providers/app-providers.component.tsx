@@ -26,7 +26,7 @@ export function AppProviders() {
   return (
     <MantineProvider theme={theme} defaultColorScheme={initialColorScheme}>
       <SettingsSync />
-      <Notifications position="top-center" />
+      <Notifications position="top-center" autoClose={1500} />
       <DatesProvider settings={{}}>
         <RouterProvider router={router} />
       </DatesProvider>

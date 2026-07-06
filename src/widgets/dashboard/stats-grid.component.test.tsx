@@ -29,7 +29,7 @@ describe("StatsGrid", () => {
     renderWithProviders(<StatsGrid metrics={metrics} />);
 
     expect(screen.getByText("km/day to reach goal")).toBeInTheDocument();
-    expect(screen.getByText("1.5")).toBeInTheDocument();
+    expect(screen.getByText("1.50")).toBeInTheDocument();
     expect(screen.getByText("Days left")).toBeInTheDocument();
     expect(screen.getByText("2 km behind")).toBeInTheDocument();
   });

@@ -1,5 +1,6 @@
 import type { DashboardMetrics } from "@features/dashboard/dashboard.model";
 import { Alert } from "@mantine/core";
+import { formatDistance } from "@shared/lib/distance.utils";
 import { IconAlertTriangle, IconThumbUp } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 
@@ -17,17 +18,16 @@ export function ScheduleBanner({ metrics }: ScheduleBannerProps) {
 
   const behind = isFinished ? distanceOpen > 0 : schedule.state === "behind";
   const km = Math.abs(schedule.deltaKm);
-  const days = Math.abs(schedule.deltaDays);
 
   let body: string;
   if (isFinished) {
     body = behind
-      ? t("dashboard.banner.finishedMissedBody", { km: distanceOpen })
-      : t("dashboard.banner.finishedMetBody", { distance: metrics.goalDistance });
+      ? t("dashboard.banner.finishedMissedBody", { km: formatDistance(distanceOpen) })
+      : t("dashboard.banner.finishedMetBody", { distance: formatDistance(metrics.goalDistance) });
   } else if (schedule.state === "behind") {
-    body = t("dashboard.banner.behindBody", { km, days });
+    body = t("dashboard.banner.behindBody", { km: formatDistance(km) });
   } else if (schedule.state === "ahead") {
-    body = t("dashboard.banner.aheadBody", { km, days });
+    body = t("dashboard.banner.aheadBody", { km: formatDistance(km) });
   } else {
     body = t("dashboard.banner.onTrackBody");
   }
