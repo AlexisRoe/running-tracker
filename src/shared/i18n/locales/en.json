@@ -64,8 +64,8 @@
     "banner": {
       "behindTitle": "Run faster!!!",
       "goodTitle": "Good Job.",
-      "behindBody": "You're {{km}} km ({{days}} days) behind schedule.",
-      "aheadBody": "You're {{km}} km ({{days}} days) ahead of schedule.",
+      "behindBody": "You're {{km}} km behind schedule.",
+      "aheadBody": "You're {{km}} km ahead of schedule.",
       "onTrackBody": "You're right on schedule — keep it up.",
       "finishedMetBody": "Goal reached — {{distance}} km done. 🎉",
       "finishedMissedBody": "Period over — {{km}} km short of your goal."

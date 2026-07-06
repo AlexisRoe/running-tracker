@@ -18,7 +18,6 @@ export function ScheduleBanner({ metrics }: ScheduleBannerProps) {
 
   const behind = isFinished ? distanceOpen > 0 : schedule.state === "behind";
   const km = Math.abs(schedule.deltaKm);
-  const days = Math.abs(schedule.deltaDays);
 
   let body: string;
   if (isFinished) {
@@ -26,9 +25,9 @@ export function ScheduleBanner({ metrics }: ScheduleBannerProps) {
       ? t("dashboard.banner.finishedMissedBody", { km: formatDistance(distanceOpen) })
       : t("dashboard.banner.finishedMetBody", { distance: formatDistance(metrics.goalDistance) });
   } else if (schedule.state === "behind") {
-    body = t("dashboard.banner.behindBody", { km: formatDistance(km), days });
+    body = t("dashboard.banner.behindBody", { km: formatDistance(km) });
   } else if (schedule.state === "ahead") {
-    body = t("dashboard.banner.aheadBody", { km: formatDistance(km), days });
+    body = t("dashboard.banner.aheadBody", { km: formatDistance(km) });
   } else {
     body = t("dashboard.banner.onTrackBody");
   }

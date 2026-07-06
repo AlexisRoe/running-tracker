@@ -64,8 +64,8 @@
     "banner": {
       "behindTitle": "Biegnij szybciej!!!",
       "goodTitle": "Dobra robota.",
-      "behindBody": "Masz {{km}} km ({{days}} dni) zaległości.",
-      "aheadBody": "Masz {{km}} km ({{days}} dni) przewagi.",
+      "behindBody": "Masz {{km}} km zaległości.",
+      "aheadBody": "Masz {{km}} km przewagi.",
       "onTrackBody": "Jesteś dokładnie w planie — tak trzymaj.",
       "finishedMetBody": "Cel osiągnięty — {{distance}} km zaliczone. 🎉",
       "finishedMissedBody": "Okres zakończony — zabrakło {{km}} km do celu."

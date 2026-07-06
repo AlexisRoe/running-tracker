@@ -64,8 +64,8 @@
     "banner": {
       "behindTitle": "Lauf schneller!!!",
       "goodTitle": "Gut gemacht.",
-      "behindBody": "Du bist {{km}} km ({{days}} Tage) im Rückstand.",
-      "aheadBody": "Du bist {{km}} km ({{days}} Tage) im Vorsprung.",
+      "behindBody": "Du bist {{km}} km im Rückstand.",
+      "aheadBody": "Du bist {{km}} km im Vorsprung.",
       "onTrackBody": "Du bist genau im Plan — weiter so.",
       "finishedMetBody": "Ziel erreicht — {{distance}} km geschafft. 🎉",
       "finishedMissedBody": "Zeitraum vorbei — {{km}} km unter deinem Ziel."
