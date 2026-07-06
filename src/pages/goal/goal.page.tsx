@@ -10,7 +10,7 @@ import { notifyError, notifyInfo, notifySuccess } from "@shared/ui/notification/
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const GOAL_NOTIFICATION_AUTO_CLOSE = 8000;
+const GOAL_NOTIFICATION_AUTO_CLOSE = 1500;
 
 interface GoalFields {
   start: Date | null;

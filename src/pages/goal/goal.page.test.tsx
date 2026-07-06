@@ -76,7 +76,7 @@ describe("GoalPage", () => {
     expect(call?.message).toContain("3 days");
     expect(call?.message).toContain("30.00 km");
     expect(call?.message).toContain("averaging 10.00 km/day");
-    expect(call?.autoClose).toBe(8000);
+    expect(call?.autoClose).toBe(1500);
 
     expect(screen.queryByLabelText("Start date")).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Edit" })).toBeInTheDocument();
@@ -190,7 +190,7 @@ describe("GoalPage", () => {
       title: "Goal cleared",
       message:
         "Your goal has been removed, so your runs are no longer measured against a daily target. Set a new goal any time to start tracking progress again.",
-      autoClose: 8000,
+      autoClose: 1500,
     });
     expect(screen.getByLabelText("Start date")).toBeInTheDocument();
   });
