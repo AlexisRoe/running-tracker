@@ -125,7 +125,7 @@ export function StatsGrid({ metrics }: StatsGridProps) {
         <StatTile
           icon={IconMapPin}
           label={t("dashboard.stats.location")}
-          value={`${metrics.outdoorCount} / ${metrics.indoorCount}`}
+          value={`${metrics.indoorCount} / ${metrics.outdoorCount}`}
           sub={t("dashboard.stats.locationSub", {
             outdoor: formatDistance(metrics.outdoorDistance),
             indoor: formatDistance(metrics.indoorDistance),
