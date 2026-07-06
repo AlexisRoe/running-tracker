@@ -29,7 +29,7 @@ describe("ScheduleBanner", () => {
     renderWithProviders(<ScheduleBanner metrics={base} />);
 
     expect(screen.getByText("Run faster!!!")).toBeInTheDocument();
-    expect(screen.getByText(/5 km \(5 days\) behind/)).toBeInTheDocument();
+    expect(screen.getByText(/5 km behind/)).toBeInTheDocument();
   });
 
   it("praises the runner when ahead of schedule", () => {
@@ -40,6 +40,6 @@ describe("ScheduleBanner", () => {
     renderWithProviders(<ScheduleBanner metrics={ahead} />);
 
     expect(screen.getByText("Good Job.")).toBeInTheDocument();
-    expect(screen.getByText(/5 km \(5 days\) ahead/)).toBeInTheDocument();
+    expect(screen.getByText(/5 km ahead/)).toBeInTheDocument();
   });
 });

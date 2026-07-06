@@ -7,7 +7,6 @@ import {
   Container,
   Group,
   SegmentedControl,
-  Select,
   Stack,
   Text,
   Title,

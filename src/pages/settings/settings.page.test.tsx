@@ -42,7 +42,6 @@ describe("SettingsPage", () => {
     const user = userEvent.setup();
     renderWithProviders(<SettingsPage />);
 
-    await user.click(screen.getByRole("combobox", { name: "Language" }));
     await user.click(screen.getByText("German"));
 
     expect(useSettings.getState().language).toBe(Language.DE);
