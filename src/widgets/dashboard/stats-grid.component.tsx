@@ -5,13 +5,9 @@ import {
   IconArrowDownRight,
   IconArrowUpRight,
   IconCalendar,
-  IconClockHour4,
-  IconFlag,
-  IconGauge,
   IconMapPin,
   IconMinus,
   IconRun,
-  IconTarget,
   IconTrendingUp,
   type TablerIcon,
 } from "@tabler/icons-react";
@@ -72,12 +68,8 @@ export function StatsGrid({ metrics }: StatsGridProps) {
   const runningDaysPercent =
     metrics.daysElapsed > 0 ? Math.round((metrics.daysWithRuns / metrics.daysElapsed) * 100) : 0;
 
-  const scheduleValue =
-    metrics.schedule.state === "behind"
-      ? t("dashboard.stats.behindValue", { km: formatDistance(Math.abs(metrics.schedule.deltaKm)) })
-      : metrics.schedule.state === "ahead"
-        ? t("dashboard.stats.aheadValue", { km: formatDistance(metrics.schedule.deltaKm) })
-        : t("dashboard.stats.onTrackValue");
+  const goalPeriodPercent =
+    metrics.totalDays > 0 ? Math.round((metrics.daysElapsed / metrics.totalDays) * 100) : 0;
 
   return (
     <Stack gap="md">
@@ -108,25 +100,17 @@ export function StatsGrid({ metrics }: StatsGridProps) {
         <StatTile
           icon={IconCalendar}
           label={t("dashboard.stats.daysLeft")}
-          value={`${metrics.daysLeft}`}
-          sub={t("dashboard.stats.ofDays", { total: metrics.totalDays })}
-        />
-        <StatTile
-          icon={IconClockHour4}
-          label={t("dashboard.stats.schedule")}
-          value={scheduleValue}
+          value={t("dashboard.stats.ofDays", {
+            left: metrics.daysLeft,
+            total: metrics.totalDays,
+          })}
+          sub={t("dashboard.stats.ofDaysPercent", { percent: goalPeriodPercent })}
         />
         <StatTile
           icon={IconRun}
           label={t("dashboard.stats.runningDays")}
           value={`${metrics.daysWithRuns} / ${metrics.daysElapsed}`}
           sub={t("dashboard.stats.runningDaysSub", { percent: runningDaysPercent })}
-        />
-
-        <StatTile
-          icon={IconGauge}
-          label={t("dashboard.stats.baseline")}
-          value={t("dashboard.stats.perDay", { km: formatDistance(metrics.baselinePerDay) })}
         />
         <StatTile
           icon={IconMapPin}

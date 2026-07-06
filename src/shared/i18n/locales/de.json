@@ -73,13 +73,14 @@
     "headline": {
       "label": "km/Tag bis zum Ziel",
       "baseline": "Start bei {{km}} km/Tag",
-      "faster": "{{km}} km/Tag schneller als geplant",
-      "easier": "{{km}} km/Tag leichter als geplant",
+      "faster": "{{km}} km/Tag weiter als geplant",
+      "easier": "{{km}} km/Tag weniger als geplant",
       "onPlan": "Genau nach deinem ursprünglichen Plan"
     },
     "stats": {
       "daysLeft": "Verbleibende Tage",
-      "ofDays": "von {{total}} Tagen",
+      "ofDays": "{{left}} von {{total}} Tagen",
+      "ofDaysPercent": "{{percent}}% des Zeitraums vergangen",
       "goal": "Ziel",
       "perTotal": "{{km}} km",
       "runningDays": "Lauftage",

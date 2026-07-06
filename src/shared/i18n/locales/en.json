@@ -73,13 +73,14 @@
     "headline": {
       "label": "km/day to reach goal",
       "baseline": "Started at {{km}} km/day",
-      "faster": "{{km}} km/day faster than planned",
-      "easier": "{{km}} km/day easier than planned",
+      "faster": "{{km}} km/day more than planned",
+      "easier": "{{km}} km/day less than planned",
       "onPlan": "Right on your original plan"
     },
     "stats": {
       "daysLeft": "Days left",
-      "ofDays": "of {{total}} days",
+      "ofDays": "{{left}} of {{total}} days",
+      "ofDaysPercent": "{{percent}}% of period elapsed",
       "goal": "Goal",
       "perTotal": "{{km}} km",
       "runningDays": "Running days",

@@ -138,7 +138,7 @@ export function YearlyWeeks({
         withArrow
         events={{ hover: true, focus: true, touch: true }}
       >
-        <Group gap={4} mt="lg" justify="flex-end" tabIndex={0} style={{ cursor: "help" }}>
+        <Group gap={4} mt="lg" justify="flex-end" tabIndex={0}>
           <Text size="xs" c="dimmed">
             {t("dashboard.weeks.less")}
           </Text>

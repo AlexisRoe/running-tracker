@@ -65,8 +65,9 @@ export function computeMetrics({
 
   const clampedNow = Math.min(Math.max(now, start), end);
   const daysElapsed = Math.min(countInclusiveDays(start, clampedNow), totalDays);
-  const daysLeft = Math.max(0, totalDays - daysElapsed);
-  const daysLeftInclToday = Math.max(1, isFinished ? 0 : daysLeft + 1);
+  // Today still counts as a day left until the goal period is actually over.
+  const daysLeft = isFinished ? 0 : Math.max(0, totalDays - daysElapsed) + 1;
+  const daysLeftInclToday = Math.max(1, daysLeft);
 
   const runsInPeriod = runs.filter((r) => r.date >= start && r.date <= end);
   const distanceRun = runsInPeriod.reduce((sum, r) => sum + r.distance, 0);

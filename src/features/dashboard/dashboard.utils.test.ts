@@ -38,7 +38,7 @@ describe("computeMetrics", () => {
 
     expect(m.totalDays).toBe(30);
     expect(m.daysElapsed).toBe(10);
-    expect(m.daysLeft).toBe(20);
+    expect(m.daysLeft).toBe(21);
     expect(m.baselinePerDay).toBe(1);
     expect(m.distanceRun).toBe(10);
     expect(m.distanceOpen).toBe(20);
@@ -107,6 +107,14 @@ describe("computeMetrics", () => {
     expect(m.isFinished).toBe(true);
     expect(m.daysElapsed).toBe(30);
     expect(m.daysLeft).toBe(0);
+  });
+
+  it("still counts 1 day left while the last day of the goal period is in progress", () => {
+    const m = computeMetrics(input([], { now: new Date(2026, 5, 30, 9, 0, 0).getTime() }));
+
+    expect(m.isFinished).toBe(false);
+    expect(m.daysElapsed).toBe(30);
+    expect(m.daysLeft).toBe(1);
   });
 });
 
