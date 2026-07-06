@@ -122,6 +122,12 @@ export function StatsGrid({ metrics }: StatsGridProps) {
           value={`${metrics.daysWithRuns} / ${metrics.daysElapsed}`}
           sub={t("dashboard.stats.runningDaysSub", { percent: runningDaysPercent })}
         />
+
+        <StatTile
+          icon={IconGauge}
+          label={t("dashboard.stats.baseline")}
+          value={t("dashboard.stats.perDay", { km: formatDistance(metrics.baselinePerDay) })}
+        />
         <StatTile
           icon={IconMapPin}
           label={t("dashboard.stats.location")}
@@ -130,11 +136,6 @@ export function StatsGrid({ metrics }: StatsGridProps) {
             outdoor: formatDistance(metrics.outdoorDistance),
             indoor: formatDistance(metrics.indoorDistance),
           })}
-        />
-        <StatTile
-          icon={IconGauge}
-          label={t("dashboard.stats.baseline")}
-          value={t("dashboard.stats.perDay", { km: formatDistance(metrics.baselinePerDay) })}
         />
         <StatTile
           icon={IconTrendingUp}

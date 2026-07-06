@@ -104,9 +104,11 @@
     },
     "weeks": {
       "title": "{{year}} running weeks",
-      "tooltip": "Week {{week}}: {{km}} km",
+      "tooltip": "Week {{week}}: {{count}} runs · {{km}} km",
       "less": "Less",
-      "more": "More"
+      "more": "More",
+      "prevYear": "Previous year",
+      "nextYear": "Next year"
     },
     "cta": {
       "title": "No active goal",

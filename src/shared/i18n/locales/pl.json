@@ -104,9 +104,11 @@
     },
     "weeks": {
       "title": "Tygodnie biegowe {{year}}",
-      "tooltip": "Tydzień {{week}}: {{km}} km",
+      "tooltip": "Tydzień {{week}}: {{count}} biegów · {{km}} km",
       "less": "Mniej",
-      "more": "Więcej"
+      "more": "Więcej",
+      "prevYear": "Poprzedni rok",
+      "nextYear": "Następny rok"
     },
     "cta": {
       "title": "Brak aktywnego celu",

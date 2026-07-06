@@ -115,6 +115,7 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
           <DateInput
             label={t("appShell.addDrawer.trainingDay")}
             value={today}
+            maxDate={today}
             onChange={(value) => setToday(value ? new Date(value) : new Date())}
           />
           <Group justify="flex-end" mt="md">

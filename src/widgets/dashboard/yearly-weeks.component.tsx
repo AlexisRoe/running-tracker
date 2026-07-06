@@ -1,20 +1,30 @@
 import type { WeekCell } from "@features/dashboard/dashboard.model";
-import { Box, Group, Paper, Text, Tooltip } from "@mantine/core";
+import { ActionIcon, Box, Group, Paper, Text, Tooltip } from "@mantine/core";
 import { formatDistance } from "@shared/lib/distance.utils";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 
 interface YearlyWeeksProps {
+  year: number;
   weeks: WeekCell[];
+  canGoPrev: boolean;
+  canGoNext: boolean;
+  onPrevYear: () => void;
+  onNextYear: () => void;
 }
 
-// Level 0 (no runs) recedes to a neutral border tone; 1-4 climb the brand ramp.
+// Level 0 (no runs) recedes to a neutral border tone; 1-5 climb the brand ramp.
 const LEVEL_COLORS: Record<WeekCell["level"], string> = {
   0: "var(--mantine-color-default-border)",
   1: "var(--mantine-color-brand-2)",
   2: "var(--mantine-color-brand-4)",
   3: "var(--mantine-color-brand-6)",
-  4: "var(--mantine-color-brand-8)",
+  4: "var(--mantine-color-brand-7)",
+  5: "var(--mantine-color-brand-9)",
 };
+
+// Applied to cells outside the active goal's date range so they read as "dimmed".
+const OUT_OF_PERIOD_FILTER = "brightness(0.55)";
 
 const CELL = 14;
 
@@ -29,17 +39,42 @@ function Cell({ color, ariaLabel }: { color: string; ariaLabel?: string }) {
   );
 }
 
-/** GitHub-style heatmap of weekly running volume across the current year. */
-export function YearlyWeeks({ weeks }: YearlyWeeksProps) {
+/** GitHub-style heatmap of weekly running volume across a given year. */
+export function YearlyWeeks({
+  year,
+  weeks,
+  canGoPrev,
+  canGoNext,
+  onPrevYear,
+  onNextYear,
+}: YearlyWeeksProps) {
   const { t } = useTranslation();
-  const first = weeks[0];
-  const year = first ? new Date(first.weekStart).getFullYear() : "";
 
   return (
     <Paper radius="lg" p="md">
-      <Text fw={600} mb="sm">
-        {t("dashboard.weeks.title", { year })}
-      </Text>
+      <Group justify="space-between" mb="sm">
+        <Text fw={600}>{t("dashboard.weeks.title", { year })}</Text>
+        <Group gap={4}>
+          {canGoPrev && (
+            <ActionIcon
+              variant="subtle"
+              aria-label={t("dashboard.weeks.prevYear")}
+              onClick={onPrevYear}
+            >
+              <IconChevronLeft size={18} />
+            </ActionIcon>
+          )}
+          {canGoNext && (
+            <ActionIcon
+              variant="subtle"
+              aria-label={t("dashboard.weeks.nextYear")}
+              onClick={onNextYear}
+            >
+              <IconChevronRight size={18} />
+            </ActionIcon>
+          )}
+        </Group>
+      </Group>
 
       <Box style={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
         {weeks.map((week) => (
@@ -47,6 +82,7 @@ export function YearlyWeeks({ weeks }: YearlyWeeksProps) {
             key={week.weekStart}
             label={t("dashboard.weeks.tooltip", {
               week: week.weekNumber,
+              count: week.runCount,
               km: formatDistance(week.distance),
             })}
             withArrow
@@ -54,11 +90,17 @@ export function YearlyWeeks({ weeks }: YearlyWeeksProps) {
             <Box
               aria-label={t("dashboard.weeks.tooltip", {
                 week: week.weekNumber,
+                count: week.runCount,
                 km: formatDistance(week.distance),
               })}
               w={CELL}
               h={CELL}
-              style={{ backgroundColor: LEVEL_COLORS[week.level], borderRadius: 3, flex: "none" }}
+              style={{
+                backgroundColor: LEVEL_COLORS[week.level],
+                borderRadius: 3,
+                flex: "none",
+                filter: week.inGoalPeriod ? undefined : OUT_OF_PERIOD_FILTER,
+              }}
             />
           </Tooltip>
         ))}
@@ -68,7 +110,7 @@ export function YearlyWeeks({ weeks }: YearlyWeeksProps) {
         <Text size="xs" c="dimmed">
           {t("dashboard.weeks.less")}
         </Text>
-        {([0, 1, 2, 3, 4] as const).map((level) => (
+        {([0, 1, 2, 3, 4, 5] as const).map((level) => (
           <Cell key={level} color={LEVEL_COLORS[level]} />
         ))}
         <Text size="xs" c="dimmed">

@@ -1,4 +1,5 @@
 import { useDashboard } from "@features/dashboard/use-dashboard.hook";
+import { useYearlyWeeks } from "@features/dashboard/use-yearly-weeks.hook";
 import { Container, Space, Stack, Title } from "@mantine/core";
 import { APP_ROUTES } from "@shared/config/constants.const";
 import { GoalProgress } from "@widgets/dashboard/goal-progress.component";
@@ -13,7 +14,8 @@ import { useNavigate } from "react-router";
 export function HomePage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isGoalSet, metrics, paceSeries, weeks } = useDashboard();
+  const { isGoalSet, metrics, paceSeries } = useDashboard();
+  const yearlyWeeks = useYearlyWeeks();
 
   return (
     <Container pt="md">
@@ -26,7 +28,14 @@ export function HomePage() {
             <GoalProgress metrics={metrics} />
             <StatsGrid metrics={metrics} />
             <PaceChart data={paceSeries} />
-            <YearlyWeeks weeks={weeks} />
+            <YearlyWeeks
+              year={yearlyWeeks.year}
+              weeks={yearlyWeeks.weeks}
+              canGoPrev={yearlyWeeks.canGoPrev}
+              canGoNext={yearlyWeeks.canGoNext}
+              onPrevYear={yearlyWeeks.goPrev}
+              onNextYear={yearlyWeeks.goNext}
+            />
           </>
         ) : (
           <SetGoalCta onSetGoal={() => navigate(APP_ROUTES.goal)} />

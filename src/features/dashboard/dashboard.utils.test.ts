@@ -137,7 +137,7 @@ describe("buildPaceSeries", () => {
 
 describe("buildYearlyWeeks", () => {
   it("covers the whole calendar year as Monday-started weeks", () => {
-    const weeks = buildYearlyWeeks([], now);
+    const weeks = buildYearlyWeeks([], 2026);
 
     expect(weeks.length).toBeGreaterThanOrEqual(52);
     expect(weeks[0]?.weekNumber).toBe(1);
@@ -147,31 +147,57 @@ describe("buildYearlyWeeks", () => {
     }
   });
 
-  it("aggregates run distance into the week that contains it", () => {
+  it("aggregates run distance and count into the week that contains it", () => {
     const runs = [run(10, 5), run(11, 3)]; // same week (Mon 8 Jun–Sun 14 Jun)
     const weekOf = runs[0]?.date ?? 0;
-    const weeks = buildYearlyWeeks(runs, now);
+    const weeks = buildYearlyWeeks(runs, 2026);
 
     const target = weeks.find(
       (c) => c.weekStart <= weekOf && weekOf < c.weekStart + 7 * 86_400_000,
     );
     expect(target?.distance).toBe(8);
+    expect(target?.runCount).toBe(2);
   });
 
-  it("assigns the busiest week the top intensity level", () => {
+  it("buckets a week's level by its run count, capped at 5", () => {
+    // All within the same Mon 8 Jun–Sun 14 Jun week → 6 runs total.
+    const weeks = buildYearlyWeeks(
+      [run(8, 8), run(9, 1), run(10, 1), run(11, 1), run(12, 1), run(13, 1)],
+      2026,
+    );
+
+    const busy = weeks.find((c) => c.runCount === 6);
+    expect(busy?.level).toBe(5);
+
     const january: RunningEvent = {
       id: "jan",
       date: new Date(2026, 0, 15).getTime(),
       distance: 2,
       where: "outdoor",
     };
-    const weeks = buildYearlyWeeks([run(10, 8), january], now);
+    const withOneRun = buildYearlyWeeks([january], 2026).find((c) => c.runCount === 1);
+    expect(withOneRun?.level).toBe(1);
 
-    const busiest = weeks.find((c) => c.distance === 8);
-    const lighter = weeks.find((c) => c.distance === 2);
-    expect(busiest?.level).toBe(4);
-    expect(lighter?.level).toBe(1);
     // Weeks with no runs stay at level 0.
-    expect(weeks.some((c) => c.distance === 0 && c.level === 0)).toBe(true);
+    expect(weeks.some((c) => c.runCount === 0 && c.level === 0)).toBe(true);
+  });
+
+  it("marks every week in-period when no goal period is given", () => {
+    const weeks = buildYearlyWeeks([], 2026);
+    expect(weeks.every((c) => c.inGoalPeriod)).toBe(true);
+  });
+
+  it("flags weeks outside the given goal period as not in-period", () => {
+    const weeks = buildYearlyWeeks([], 2026, { start: goal.start, end: goal.end });
+
+    const inPeriod = weeks.find(
+      (c) => c.weekStart <= goal.start && goal.start < c.weekStart + 7 * 86_400_000,
+    );
+    const beforePeriod = weeks.find((c) => c.weekStart + 7 * 86_400_000 <= goal.start);
+    const afterPeriod = weeks.find((c) => c.weekStart > goal.end);
+
+    expect(inPeriod?.inGoalPeriod).toBe(true);
+    expect(beforePeriod?.inGoalPeriod).toBe(false);
+    expect(afterPeriod?.inGoalPeriod).toBe(false);
   });
 });
