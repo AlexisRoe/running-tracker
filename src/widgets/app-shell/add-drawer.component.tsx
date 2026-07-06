@@ -1,7 +1,17 @@
 import { useGoal } from "@features/goal/use-goal.hook";
 import { useRuns } from "@features/runs/use-runs.hook";
-import { Button, Drawer, Group, Stack, Text, ThemeIcon, Title } from "@mantine/core";
-import { RunFormFields } from "@pages/log/run-form-fields.component";
+import {
+  Button,
+  Drawer,
+  Group,
+  SegmentedControl,
+  Stack,
+  Text,
+  ThemeIcon,
+  Title,
+} from "@mantine/core";
+import { DateInput } from "@mantine/dates";
+import { DistanceInput } from "@shared/components/distance-input.component";
 import { ValidationError } from "@shared/errors/validation.error";
 import { notifyError, notifySuccess, notifyWarning } from "@shared/ui/notification/notify";
 import { IconCalendarOff } from "@tabler/icons-react";
@@ -13,17 +23,34 @@ interface AddDrawerProps {
   onClose(): void;
 }
 
+enum Where {
+  Indoor = "indoor",
+  OutDoor = "outdoor",
+}
+
 export function AddDrawer({ opened, onClose }: AddDrawerProps) {
+  const DEFAULT_ADD_VALUES = {
+    Distance: "",
+    Where: Where.Indoor,
+    Today: new Date(),
+  };
+
   const { t } = useTranslation();
   const runs = useRuns();
   const goal = useGoal();
-  const [distance, setDistance] = useState<number | string>("");
-  const [where, setWhere] = useState<"indoor" | "outdoor">("indoor");
-  const [today, setToday] = useState(new Date());
+  const [distance, setDistance] = useState<number | string>(DEFAULT_ADD_VALUES.Distance);
+  const [where, setWhere] = useState<Where>(DEFAULT_ADD_VALUES.Where);
+  const [today, setToday] = useState(DEFAULT_ADD_VALUES.Today);
 
   const reset = () => {
-    setDistance("");
-    setWhere("indoor");
+    setDistance(DEFAULT_ADD_VALUES.Distance);
+    setWhere(DEFAULT_ADD_VALUES.Where);
+    setToday(DEFAULT_ADD_VALUES.Today);
+  };
+
+  const handleClose = () => {
+    reset();
+    onClose();
   };
 
   const handleSave = () => {
@@ -38,8 +65,7 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
     }
 
     const distanceRan = Number(distance);
-    reset();
-    onClose();
+    handleClose();
 
     if (goal.requiredDistancePerDay !== null) {
       const expected = goal.requiredDistancePerDay;
@@ -61,7 +87,7 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
   return (
     <Drawer
       opened={opened}
-      onClose={onClose}
+      onClose={handleClose}
       position="bottom"
       size="md"
       title={t("appShell.addDrawer.title")}
@@ -70,14 +96,25 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
     >
       {goal.isActive ? (
         <Stack gap="xl" pt="md">
-          <RunFormFields
-            distance={distance}
-            onDistanceChange={setDistance}
-            where={where}
-            onWhereChange={setWhere}
-            date={today}
-            onDateChange={setToday}
-            focusDistanceOnMount={opened}
+          <DistanceInput
+            label={t("appShell.addDrawer.distance")}
+            value={distance}
+            onChange={setDistance}
+            focusOnStart={opened}
+          />
+          <SegmentedControl
+            fullWidth
+            value={where}
+            onChange={(v) => setWhere(v === Where.OutDoor ? Where.OutDoor : Where.Indoor)}
+            data={[
+              { label: t("appShell.addDrawer.indoor"), value: Where.Indoor },
+              { label: t("appShell.addDrawer.outdoor"), value: Where.OutDoor },
+            ]}
+          />
+          <DateInput
+            label={t("appShell.addDrawer.trainingDay")}
+            value={today}
+            onChange={(value) => setToday(value ? new Date(value) : new Date())}
           />
           <Group justify="flex-end" mt="md">
             <Button onClick={handleSave} disabled={distance === ""}>
