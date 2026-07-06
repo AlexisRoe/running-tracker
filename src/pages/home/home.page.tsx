@@ -26,12 +26,12 @@ export function HomePage() {
             <GoalProgress metrics={metrics} />
             <StatsGrid metrics={metrics} />
             <PaceChart data={paceSeries} />
+            <YearlyWeeks weeks={weeks} />
           </>
         ) : (
           <SetGoalCta onSetGoal={() => navigate(APP_ROUTES.goal)} />
         )}
 
-        <YearlyWeeks weeks={weeks} />
         <Space h="md" />
       </Stack>
     </Container>

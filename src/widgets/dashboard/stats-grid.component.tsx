@@ -109,9 +109,9 @@ export function StatsGrid({ metrics }: StatsGridProps) {
           sub={t("dashboard.stats.ofDays", { total: metrics.totalDays })}
         />
         <StatTile
-          icon={IconTarget}
-          label={t("dashboard.stats.goal")}
-          value={t("dashboard.stats.perTotal", { km: formatDistance(metrics.goalDistance) })}
+          icon={IconClockHour4}
+          label={t("dashboard.stats.schedule")}
+          value={scheduleValue}
         />
         <StatTile
           icon={IconRun}
@@ -139,20 +139,6 @@ export function StatsGrid({ metrics }: StatsGridProps) {
           value={t("dashboard.stats.perDay", {
             km: formatDistance(metrics.requiredPerRemainingDay),
           })}
-        />
-        <StatTile
-          icon={IconClockHour4}
-          label={t("dashboard.stats.schedule")}
-          value={scheduleValue}
-        />
-        <StatTile
-          icon={IconFlag}
-          label={t("dashboard.stats.progress")}
-          value={t("dashboard.stats.progressValue", {
-            run: formatDistance(metrics.distanceRun),
-            goal: formatDistance(metrics.goalDistance),
-          })}
-          sub={t("dashboard.stats.open", { km: formatDistance(metrics.distanceOpen) })}
         />
       </SimpleGrid>
     </Stack>
