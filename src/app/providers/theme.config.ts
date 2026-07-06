@@ -7,6 +7,7 @@ import {
   Drawer,
   type MantineColorsTuple,
   Paper,
+  Tooltip,
 } from "@mantine/core";
 
 const brand: MantineColorsTuple = [
@@ -64,6 +65,23 @@ export const theme = createTheme({
     Alert: Alert.extend({
       defaultProps: {
         radius: "lg",
+      },
+    }),
+    // Mantine inverts the tooltip relative to the surrounding surface by
+    // default (dark tooltip in light mode, light tooltip in dark mode);
+    // match the surrounding surface instead: white/black text in light
+    // mode, black/white text in dark mode.
+    Tooltip: Tooltip.extend({
+      vars: () => ({
+        tooltip: {
+          "--tooltip-bg": "light-dark(var(--mantine-color-white), var(--mantine-color-black))",
+          "--tooltip-color": "light-dark(var(--mantine-color-black), var(--mantine-color-white))",
+        },
+      }),
+      styles: {
+        tooltip: {
+          border: "1px solid light-dark(var(--mantine-color-gray-6), var(--mantine-color-white))",
+        },
       },
     }),
     // Top/bottom drawers default to a fixed height (`size`, md = 440px) and

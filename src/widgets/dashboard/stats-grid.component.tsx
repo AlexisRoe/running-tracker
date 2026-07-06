@@ -1,10 +1,11 @@
 import type { DashboardMetrics } from "@features/dashboard/dashboard.model";
-import { Group, Paper, SimpleGrid, Stack, Text, ThemeIcon } from "@mantine/core";
+import { Group, Paper, SimpleGrid, Stack, Text, ThemeIcon, Tooltip } from "@mantine/core";
 import { formatDistance } from "@shared/lib/distance.utils";
 import {
   IconArrowDownRight,
   IconArrowUpRight,
   IconCalendar,
+  IconInfoCircle,
   IconMapPin,
   IconMinus,
   IconRun,
@@ -22,20 +23,30 @@ interface StatTileProps {
   label: string;
   value: string;
   sub?: string;
+  info: string;
 }
 
-function StatTile({ icon: Icon, label, value, sub }: StatTileProps) {
+function StatTile({ icon: Icon, label, value, sub, info }: StatTileProps) {
   return (
     <Paper radius="lg" p="md">
       <Stack gap={6}>
-        <Group gap="xs" wrap="nowrap">
-          <ThemeIcon variant="light" size="md" radius="md">
-            <Icon size={16} stroke={2} />
-          </ThemeIcon>
-          <Text size="xs" c="dimmed" tt="uppercase" fw={600} style={{ letterSpacing: "0.04em" }}>
-            {label}
-          </Text>
-        </Group>
+        <Tooltip
+          label={info}
+          withArrow
+          multiline
+          maw={220}
+          events={{ hover: true, focus: true, touch: true }}
+        >
+          <Group gap="xs" wrap="nowrap" tabIndex={0}>
+            <ThemeIcon variant="light" size="md" radius="md">
+              <Icon size={16} stroke={2} />
+            </ThemeIcon>
+            <Text size="xs" c="dimmed" tt="uppercase" fw={600} style={{ letterSpacing: "0.04em" }}>
+              {label}
+            </Text>
+            <IconInfoCircle size={12} stroke={2} opacity={0.5} />
+          </Group>
+        </Tooltip>
         <Text fw={700} size="lg" lh={1.2}>
           {value}
         </Text>
@@ -105,12 +116,14 @@ export function StatsGrid({ metrics }: StatsGridProps) {
             total: metrics.totalDays,
           })}
           sub={t("dashboard.stats.ofDaysPercent", { percent: goalPeriodPercent })}
+          info={t("dashboard.stats.help.daysLeft")}
         />
         <StatTile
           icon={IconRun}
           label={t("dashboard.stats.runningDays")}
           value={`${metrics.daysWithRuns} / ${metrics.daysElapsed}`}
           sub={t("dashboard.stats.runningDaysSub", { percent: runningDaysPercent })}
+          info={t("dashboard.stats.help.runningDays")}
         />
         <StatTile
           icon={IconMapPin}
@@ -120,6 +133,7 @@ export function StatsGrid({ metrics }: StatsGridProps) {
             outdoor: formatDistance(metrics.outdoorDistance),
             indoor: formatDistance(metrics.indoorDistance),
           })}
+          info={t("dashboard.stats.help.location")}
         />
         <StatTile
           icon={IconTrendingUp}
@@ -127,6 +141,7 @@ export function StatsGrid({ metrics }: StatsGridProps) {
           value={t("dashboard.stats.perDay", {
             km: formatDistance(metrics.requiredPerRemainingDay),
           })}
+          info={t("dashboard.stats.help.required")}
         />
       </SimpleGrid>
     </Stack>

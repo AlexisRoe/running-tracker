@@ -96,7 +96,13 @@
       "onTrackValue": "W planie",
       "progress": "Dystans",
       "progressValue": "{{run}} / {{goal}} km",
-      "open": "Jeszcze {{km}} km"
+      "open": "Jeszcze {{km}} km",
+      "help": {
+        "daysLeft": "Ile dni pozostało do daty końcowej Twojego celu i jak dużą część całego okresu masz już za sobą.",
+        "runningDays": "W ilu dniach od rozpoczęcia celu faktycznie zarejestrowano bieg.",
+        "location": "Ile Twoich biegów odbyło się w pomieszczeniu, a ile na zewnątrz, i jaki dystans przypadł na każdy z nich.",
+        "required": "Średni dystans dzienny, jaki musisz teraz przebiec przez resztę okresu, aby wciąż osiągnąć swój cel."
+      }
     },
     "chart": {
       "title": "Postępy — ostatnie 30 dni",

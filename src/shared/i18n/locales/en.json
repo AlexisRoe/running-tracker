@@ -96,7 +96,13 @@
       "onTrackValue": "On track",
       "progress": "Distance",
       "progressValue": "{{run}} / {{goal}} km",
-      "open": "{{km}} km to go"
+      "open": "{{km}} km to go",
+      "help": {
+        "daysLeft": "How many days remain until your goal's end date, and how far through the whole period you already are.",
+        "runningDays": "How many of the days since your goal started you've actually logged a run on.",
+        "location": "How many of your runs were indoor vs. outdoor, and how much distance came from each.",
+        "required": "The average daily distance you now need to run for the rest of the period to still hit your goal."
+      }
     },
     "chart": {
       "title": "Progress — last 30 days",
