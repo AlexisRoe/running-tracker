@@ -8,11 +8,11 @@ export interface DistanceInputProps extends NumberInputProps {
 }
 
 export function DistanceInput(props: DistanceInputProps) {
-  const { label, value, onChange, focusOnStart, ...rest } = props;
+  const { label, value, onChange, focusOnStart = false, ...rest } = props;
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (focusOnStart) {
+    if (focusOnStart === true) {
       // Small timeout ensures the drawer animation has time to start/render
       const timeout = setTimeout(() => {
         inputRef.current?.focus();

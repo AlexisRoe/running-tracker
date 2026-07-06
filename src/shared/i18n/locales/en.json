@@ -139,14 +139,28 @@
     "dateError": "End date must be after the start date",
     "distance": "Distance",
     "save": "Save goal",
-    "reset": "Reset goal",
+    "saveChanges": "Save changes",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "clearGoal": "Clear goal",
+    "summary": {
+      "pace": "Required pace",
+      "distanceValue": "{{km}} km",
+      "paceValue": "{{km}} km/day"
+    },
     "setNotification": {
       "title": "Goal set!",
       "body": "Your goal runs from {{start}} to {{end}} — that's {{days}} days to cover {{distance}} km, averaging {{perDay}} km/day. Keep an eye on the pace to stay on track."
     },
-    "resetNotification": {
+    "clearNotification": {
       "title": "Goal cleared",
       "body": "Your goal has been removed, so your runs are no longer measured against a daily target. Set a new goal any time to start tracking progress again."
+    },
+    "clearConfirm": {
+      "title": "Clear goal?",
+      "message": "Do you really want to clear your goal? This cannot be undone.",
+      "confirm": "Clear",
+      "cancel": "Cancel"
     }
   },
   "notFound": {

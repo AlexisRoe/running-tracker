@@ -139,14 +139,28 @@
     "dateError": "Data zakończenia musi być późniejsza niż data rozpoczęcia",
     "distance": "Dystans",
     "save": "Zapisz cel",
-    "reset": "Zresetuj cel",
+    "saveChanges": "Zapisz zmiany",
+    "edit": "Edytuj",
+    "cancel": "Anuluj",
+    "clearGoal": "Wyczyść cel",
+    "summary": {
+      "pace": "Wymagane tempo",
+      "distanceValue": "{{km}} km",
+      "paceValue": "{{km}} km/dzień"
+    },
     "setNotification": {
       "title": "Cel ustawiony!",
       "body": "Twój cel trwa od {{start}} do {{end}} — to {{days}} dni na pokonanie {{distance}} km, średnio {{perDay}} km/dzień. Pilnuj tempa, aby utrzymać kurs."
     },
-    "resetNotification": {
-      "title": "Cel zresetowany",
+    "clearNotification": {
+      "title": "Cel wyczyszczony",
       "body": "Twój cel został usunięty, więc Twoje biegi nie są już mierzone względem dziennego celu. W każdej chwili możesz ustawić nowy cel, aby znów śledzić postępy."
+    },
+    "clearConfirm": {
+      "title": "Wyczyścić cel?",
+      "message": "Czy na pewno chcesz wyczyścić swój cel? Tej operacji nie można cofnąć.",
+      "confirm": "Wyczyść",
+      "cancel": "Anuluj"
     }
   },
   "notFound": {
