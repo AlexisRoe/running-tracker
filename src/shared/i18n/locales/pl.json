@@ -83,7 +83,7 @@
       "goal": "Cel",
       "perTotal": "{{km}} km",
       "runningDays": "Dni z biegiem",
-      "runningDaysSub": "{{rest}} dni odpoczynku",
+      "runningDaysSub": "{{percent}}% dni",
       "location": "Na zewnątrz / W pomieszczeniu",
       "locationSub": "{{outdoor}} / {{indoor}} km",
       "baseline": "Śr. na starcie",

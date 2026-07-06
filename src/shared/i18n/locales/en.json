@@ -83,7 +83,7 @@
       "goal": "Goal",
       "perTotal": "{{km}} km",
       "runningDays": "Running days",
-      "runningDaysSub": "{{rest}} rest days",
+      "runningDaysSub": "{{percent}}% of days",
       "location": "Outdoor / Indoor",
       "locationSub": "{{outdoor}} / {{indoor}} km",
       "baseline": "Avg at start",

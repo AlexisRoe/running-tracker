@@ -83,7 +83,7 @@
       "goal": "Ziel",
       "perTotal": "{{km}} km",
       "runningDays": "Lauftage",
-      "runningDaysSub": "{{rest}} Ruhetage",
+      "runningDaysSub": "{{percent}}% der Tage",
       "location": "Draußen / Drinnen",
       "locationSub": "{{outdoor}} / {{indoor}} km",
       "baseline": "Schnitt am Start",

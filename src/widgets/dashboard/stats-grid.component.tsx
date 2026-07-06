@@ -69,6 +69,9 @@ export function StatsGrid({ metrics }: StatsGridProps) {
       ? t("dashboard.headline.easier", { km: formatDistance(Math.abs(diff)) })
       : t("dashboard.headline.onPlan");
 
+  const runningDaysPercent =
+    metrics.daysElapsed > 0 ? Math.round((metrics.daysWithRuns / metrics.daysElapsed) * 100) : 0;
+
   const scheduleValue =
     metrics.schedule.state === "behind"
       ? t("dashboard.stats.behindValue", { km: formatDistance(Math.abs(metrics.schedule.deltaKm)) })
@@ -117,7 +120,7 @@ export function StatsGrid({ metrics }: StatsGridProps) {
           icon={IconRun}
           label={t("dashboard.stats.runningDays")}
           value={`${metrics.daysWithRuns} / ${metrics.daysElapsed}`}
-          sub={t("dashboard.stats.runningDaysSub", { rest: metrics.daysWithoutRuns })}
+          sub={t("dashboard.stats.runningDaysSub", { percent: runningDaysPercent })}
         />
         <StatTile
           icon={IconMapPin}
