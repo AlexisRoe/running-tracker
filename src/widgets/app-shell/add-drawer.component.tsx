@@ -13,6 +13,7 @@ import {
 import { DateInput } from "@mantine/dates";
 import { DistanceInput } from "@shared/components/distance-input.component";
 import { ValidationError } from "@shared/errors/validation.error";
+import { formatDistance } from "@shared/lib/distance.utils";
 import { notifyError, notifySuccess, notifyWarning } from "@shared/ui/notification/notify";
 import { IconCalendarOff } from "@tabler/icons-react";
 import { useState } from "react";
@@ -77,8 +78,8 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
           met ? "appShell.addDrawer.result.goodTitle" : "appShell.addDrawer.result.badTitle",
         ),
         message: t("appShell.addDrawer.result.body", {
-          distance: distanceRan.toFixed(2),
-          expected: expected.toFixed(2),
+          distance: formatDistance(distanceRan),
+          expected: formatDistance(expected),
         }),
       });
     }

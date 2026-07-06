@@ -1,6 +1,7 @@
 import type { RunningEvent } from "@features/runs/runs.model";
 import type { YearGroup } from "@features/runs/runs.utils";
 import { Accordion, Stack } from "@mantine/core";
+import { formatDistance } from "@shared/lib/distance.utils";
 import { useTranslation } from "react-i18next";
 import { RunListItem } from "./run-list-item.component";
 
@@ -45,7 +46,7 @@ export function RunList({ groups, onEdit }: RunListProps) {
                           month: "long",
                         }),
                       ),
-                      km: monthGroup.totalDistance.toFixed(1),
+                      km: formatDistance(monthGroup.totalDistance),
                     })}
                   </Accordion.Control>
                   <Accordion.Panel>

@@ -1,5 +1,6 @@
 import type { DashboardMetrics } from "@features/dashboard/dashboard.model";
 import { Group, Paper, RingProgress, Stack, Text } from "@mantine/core";
+import { formatDistance } from "@shared/lib/distance.utils";
 import { useTranslation } from "react-i18next";
 
 interface GoalProgressProps {
@@ -45,10 +46,13 @@ export function GoalProgress({ metrics }: GoalProgressProps) {
             {t("dashboard.stats.progress")}
           </Text>
           <Text fw={700} fz={26} lh={1.15}>
-            {t("dashboard.stats.progressValue", { run: distanceRun, goal: goalDistance })}
+            {t("dashboard.stats.progressValue", {
+              run: formatDistance(distanceRun),
+              goal: formatDistance(goalDistance),
+            })}
           </Text>
           <Text size="sm" style={{ opacity: 0.85 }}>
-            {t("dashboard.stats.open", { km: distanceOpen })}
+            {t("dashboard.stats.open", { km: formatDistance(distanceOpen) })}
           </Text>
         </Stack>
       </Group>

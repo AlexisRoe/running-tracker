@@ -1,5 +1,6 @@
 import type { RunningEvent } from "@features/runs/runs.model";
 import { ActionIcon, Card, Group, Stack, Text, ThemeIcon } from "@mantine/core";
+import { formatDistance } from "@shared/lib/distance.utils";
 import { IconPencil, IconTreadmill, IconTrees } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 
@@ -31,7 +32,7 @@ export function RunListItem({ run, onEdit }: RunListItemProps) {
               {dateLabel}
             </Text>
             <Text size="xs" c="dimmed">
-              {run.distance} km · {t(`appShell.addDrawer.${run.where}`)}
+              {formatDistance(run.distance)} km · {t(`appShell.addDrawer.${run.where}`)}
             </Text>
           </Stack>
         </Group>

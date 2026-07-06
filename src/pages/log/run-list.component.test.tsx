@@ -52,9 +52,9 @@ describe("RunList", () => {
 
     expect(screen.getByText("2026")).toBeInTheDocument();
     expect(screen.getByText("2025")).toBeInTheDocument();
-    expect(screen.getByText("February - 5.0 km")).toBeInTheDocument();
-    expect(screen.getByText("January - 5.0 km")).toBeInTheDocument();
-    expect(screen.getByText("December - 5.0 km")).toBeInTheDocument();
+    expect(screen.getByText("February - 5 km")).toBeInTheDocument();
+    expect(screen.getByText("January - 5 km")).toBeInTheDocument();
+    expect(screen.getByText("December - 5 km")).toBeInTheDocument();
   });
 
   it("sums each month's total distance in its control label", () => {
@@ -76,7 +76,7 @@ describe("RunList", () => {
 
     renderWithProviders(<RunList groups={groups} onEdit={vi.fn()} />);
 
-    expect(screen.getByText("January - 10.0 km")).toBeInTheDocument();
+    expect(screen.getByText("January - 10 km")).toBeInTheDocument();
   });
 
   it("expands only the current month by default, collapsing other months and years", () => {
@@ -127,7 +127,7 @@ describe("RunList", () => {
     renderWithProviders(<RunList groups={groups} onEdit={vi.fn()} />);
 
     const otherMonthLabel = otherMonthStart.toLocaleDateString("en", { month: "long" });
-    const control = screen.getByRole("button", { name: `${otherMonthLabel} - 7.0 km` });
+    const control = screen.getByRole("button", { name: `${otherMonthLabel} - 7 km` });
     expect(control).toHaveAttribute("aria-expanded", "false");
 
     await user.click(control);

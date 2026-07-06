@@ -16,9 +16,9 @@ const SCHEDULE_EPSILON_KM = 0.05;
 /** Days rendered in the pace chart, ending today. */
 export const PACE_WINDOW_DAYS = 30;
 
-/** Rounds to a single decimal place. */
-function round1(value: number): number {
-  return Math.round(value * 10) / 10;
+/** Rounds to 2 decimal places. */
+function round2(value: number): number {
+  return Math.round(value * 100) / 100;
 }
 
 /** 00:00:00.000 local time of the given instant. */
@@ -94,24 +94,24 @@ export function computeMetrics({
   return {
     hasActiveGoal: isActive,
     isFinished,
-    goalDistance: round1(goalDistance),
+    goalDistance: round2(goalDistance),
     totalDays,
     daysElapsed,
     daysLeft,
-    distanceRun: round1(distanceRun),
-    distanceOpen: round1(distanceOpen),
+    distanceRun: round2(distanceRun),
+    distanceOpen: round2(distanceOpen),
     daysWithRuns,
     daysWithoutRuns,
     indoorCount: indoor.length,
     outdoorCount: outdoor.length,
-    indoorDistance: round1(indoor.reduce((sum, r) => sum + r.distance, 0)),
-    outdoorDistance: round1(outdoor.reduce((sum, r) => sum + r.distance, 0)),
-    baselinePerDay: round1(baselinePerDay),
-    requiredPerRemainingDay: round1(requiredPerRemainingDay),
+    indoorDistance: round2(indoor.reduce((sum, r) => sum + r.distance, 0)),
+    outdoorDistance: round2(outdoor.reduce((sum, r) => sum + r.distance, 0)),
+    baselinePerDay: round2(baselinePerDay),
+    requiredPerRemainingDay: round2(requiredPerRemainingDay),
     schedule: {
       state: scheduleState(deltaKm),
-      deltaKm: round1(deltaKm),
-      deltaDays: round1(deltaDays),
+      deltaKm: round2(deltaKm),
+      deltaDays: round2(deltaDays),
     },
   };
 }
@@ -148,7 +148,7 @@ export function buildPaceSeries(
       .filter((r) => r.date >= start && r.date <= cutoff)
       .reduce((sum, r) => sum + r.distance, 0);
 
-    points.push({ date: dayStart, ideal: round1(ideal), actual: round1(actual) });
+    points.push({ date: dayStart, ideal: round2(ideal), actual: round2(actual) });
   }
 
   return points;
@@ -173,7 +173,7 @@ export function buildYearlyWeeks(runs: RunningEvent[], now: number = Date.now())
     const distance = runs
       .filter((r) => r.date >= weekStart && r.date < weekEnd)
       .reduce((sum, r) => sum + r.distance, 0);
-    cells.push({ weekStart, weekNumber, distance: round1(distance), level: 0 });
+    cells.push({ weekStart, weekNumber, distance: round2(distance), level: 0 });
     weekStart = weekEnd;
     weekNumber += 1;
   }

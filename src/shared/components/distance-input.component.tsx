@@ -28,6 +28,7 @@ export function DistanceInput(props: DistanceInputProps) {
       value={value}
       onChange={onChange}
       min={0}
+      decimalScale={2}
       suffix=" km"
       autoFocus={true}
       allowNegative={false}

@@ -1,5 +1,6 @@
 import type { WeekCell } from "@features/dashboard/dashboard.model";
 import { Box, Group, Paper, Text, Tooltip } from "@mantine/core";
+import { formatDistance } from "@shared/lib/distance.utils";
 import { useTranslation } from "react-i18next";
 
 interface YearlyWeeksProps {
@@ -44,13 +45,16 @@ export function YearlyWeeks({ weeks }: YearlyWeeksProps) {
         {weeks.map((week) => (
           <Tooltip
             key={week.weekStart}
-            label={t("dashboard.weeks.tooltip", { week: week.weekNumber, km: week.distance })}
+            label={t("dashboard.weeks.tooltip", {
+              week: week.weekNumber,
+              km: formatDistance(week.distance),
+            })}
             withArrow
           >
             <Box
               aria-label={t("dashboard.weeks.tooltip", {
                 week: week.weekNumber,
-                km: week.distance,
+                km: formatDistance(week.distance),
               })}
               w={CELL}
               h={CELL}

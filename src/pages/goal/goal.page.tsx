@@ -5,6 +5,7 @@ import { DateInput } from "@mantine/dates";
 import { useDisclosure } from "@mantine/hooks";
 import { DistanceInput } from "@shared/components/distance-input.component";
 import { ValidationError } from "@shared/errors/validation.error";
+import { formatDistance } from "@shared/lib/distance.utils";
 import { ConfirmModal } from "@shared/ui/confirm-modal/confirm-modal.component";
 import { notifyError, notifyInfo, notifySuccess } from "@shared/ui/notification/notify";
 import { useEffect, useRef, useState } from "react";
@@ -124,8 +125,8 @@ export function GoalPage() {
         start: start.toLocaleDateString(i18n.language),
         end: end.toLocaleDateString(i18n.language),
         days,
-        distance: Number(distance).toFixed(2),
-        perDay: perDay.toFixed(2),
+        distance: formatDistance(Number(distance)),
+        perDay: formatDistance(perDay),
       }),
       autoClose: GOAL_NOTIFICATION_AUTO_CLOSE,
     });
@@ -170,13 +171,13 @@ export function GoalPage() {
               />
               <GoalSummaryRow
                 label={t("goal.distance")}
-                value={t("goal.summary.distanceValue", { km: goal.value.distance })}
+                value={t("goal.summary.distanceValue", { km: formatDistance(goal.value.distance) })}
               />
               {goal.requiredDistancePerDay !== null && (
                 <GoalSummaryRow
                   label={t("goal.summary.pace")}
                   value={t("goal.summary.paceValue", {
-                    km: goal.requiredDistancePerDay.toFixed(2),
+                    km: formatDistance(goal.requiredDistancePerDay),
                   })}
                 />
               )}

@@ -74,8 +74,8 @@ describe("GoalPage", () => {
     const call = vi.mocked(notifySuccess).mock.calls[0]?.[0];
     expect(call?.title).toBe("Goal set!");
     expect(call?.message).toContain("3 days");
-    expect(call?.message).toContain("30.00 km");
-    expect(call?.message).toContain("averaging 10.00 km/day");
+    expect(call?.message).toContain("30 km");
+    expect(call?.message).toContain("averaging 10 km/day");
     expect(call?.autoClose).toBe(1500);
 
     expect(screen.queryByLabelText("Start date")).not.toBeInTheDocument();

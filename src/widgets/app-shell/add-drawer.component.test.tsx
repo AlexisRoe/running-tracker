@@ -91,7 +91,7 @@ describe("AddDrawer", () => {
 
     expect(notifySuccess).toHaveBeenCalledWith({
       title: "Well done! 🎉",
-      message: "10.00 km run · 10.00 km/day goal",
+      message: "10 km run · 10 km/day goal",
     });
   });
 
@@ -105,7 +105,7 @@ describe("AddDrawer", () => {
 
     expect(notifyWarning).toHaveBeenCalledWith({
       title: "Better next time",
-      message: "5.00 km run · 10.00 km/day goal",
+      message: "5 km run · 10 km/day goal",
     });
   });
 

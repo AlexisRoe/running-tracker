@@ -22,13 +22,13 @@ describe("RunListItem", () => {
       year: "numeric",
     });
     expect(screen.getByText(expectedDate)).toBeInTheDocument();
-    expect(screen.getByText("5.5 km · Outdoor")).toBeInTheDocument();
+    expect(screen.getByText("5.50 km · Outdoor")).toBeInTheDocument();
   });
 
   it("renders 'Indoor' for an indoor run", () => {
     renderWithProviders(<RunListItem run={{ ...run, where: "indoor" }} onEdit={vi.fn()} />);
 
-    expect(screen.getByText("5.5 km · Indoor")).toBeInTheDocument();
+    expect(screen.getByText("5.50 km · Indoor")).toBeInTheDocument();
   });
 
   it("calls onEdit with the run when the edit button is clicked", async () => {

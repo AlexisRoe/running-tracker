@@ -1,6 +1,7 @@
 import type { PacePoint } from "@features/dashboard/dashboard.model";
 import { AreaChart } from "@mantine/charts";
 import { Paper, Text } from "@mantine/core";
+import { formatDistance } from "@shared/lib/distance.utils";
 import { useTranslation } from "react-i18next";
 
 interface PaceChartProps {
@@ -33,7 +34,7 @@ export function PaceChart({ data }: PaceChartProps) {
         curveType="monotone"
         fillOpacity={0.15}
         strokeWidth={2.5}
-        valueFormatter={(value) => `${value} km`}
+        valueFormatter={(value) => `${formatDistance(value)} km`}
         xAxisProps={{ interval: "preserveStartEnd", minTickGap: 24 }}
         series={[
           { name: "ideal", label: t("dashboard.chart.ideal"), color: "gray.5" },

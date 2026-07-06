@@ -38,8 +38,8 @@ describe("LogPage", () => {
     renderWithProviders(<LogPage />);
 
     expect(screen.getByText("2026")).toBeInTheDocument();
-    expect(screen.getByText("February - 4.0 km")).toBeInTheDocument();
-    expect(screen.getByText("January - 3.0 km")).toBeInTheDocument();
+    expect(screen.getByText("February - 4 km")).toBeInTheDocument();
+    expect(screen.getByText("January - 3 km")).toBeInTheDocument();
   });
 
   it("expands the current month by default and keeps other months collapsed", () => {
