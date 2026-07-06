@@ -5,6 +5,7 @@ import {
   Drawer,
   Group,
   SegmentedControl,
+  Space,
   Stack,
   Text,
   ThemeIcon,
@@ -138,6 +139,7 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
               {t("appShell.addDrawer.save")}
             </Button>
           </Group>
+          <Space h="2rem" />
         </Stack>
       ) : (
         <Stack align="center" gap="sm" py="xl">
@@ -148,6 +150,7 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
           <Text c="dimmed" ta="center">
             {t("appShell.addDrawer.empty.body")}
           </Text>
+          <Space h="2rem" />
         </Stack>
       )}
     </Drawer>
