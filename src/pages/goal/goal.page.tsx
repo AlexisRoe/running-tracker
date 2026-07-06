@@ -1,6 +1,6 @@
 import { countInclusiveDays, toGoalEnd, toGoalStart } from "@features/goal/goal.utils";
 import { useGoal } from "@features/goal/use-goal.hook";
-import { Button, Container, Group, Stack, Text, Title } from "@mantine/core";
+import { Box, Button, Container, Group, Stack, Text, Title } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { useDisclosure } from "@mantine/hooks";
 import { DistanceInput } from "@shared/components/distance-input.component";
@@ -209,21 +209,21 @@ export function GoalPage() {
               value={distance}
               onChange={handleDistanceChange}
             />
-            <Group justify="space-between" mt="xl">
+            <Stack mt="xl" gap="lg">
+              <Button fullWidth onClick={handleSave} disabled={saveDisabled} ml="auto">
+                {goal.isSet ? t("goal.saveChanges") : t("goal.save")}
+              </Button>
               {goal.isSet && (
-                <Group gap="sm">
-                  <Button variant="subtle" color="red" onClick={openConfirm}>
+                <Group grow>
+                  <Button variant="outline" color="red" onClick={openConfirm}>
                     {t("goal.clearGoal")}
                   </Button>
-                  <Button variant="subtle" onClick={handleCancel}>
+                  <Button variant="outline" onClick={handleCancel}>
                     {t("goal.cancel")}
                   </Button>
                 </Group>
               )}
-              <Button size="lg" onClick={handleSave} disabled={saveDisabled} ml="auto">
-                {goal.isSet ? t("goal.saveChanges") : t("goal.save")}
-              </Button>
-            </Group>
+            </Stack>
           </>
         )}
       </Stack>
