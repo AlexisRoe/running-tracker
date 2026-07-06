@@ -107,6 +107,8 @@
       "tooltip": "Tydzień {{week}}: {{count}} biegów · {{km}} km",
       "less": "Mniej",
       "more": "Więcej",
+      "legendTitle": "Biegi w tygodniu",
+      "legendRow": "{{count}} biegów",
       "prevYear": "Poprzedni rok",
       "nextYear": "Następny rok"
     },

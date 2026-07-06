@@ -107,6 +107,8 @@
       "tooltip": "Woche {{week}}: {{count}} Läufe · {{km}} km",
       "less": "Weniger",
       "more": "Mehr",
+      "legendTitle": "Läufe pro Woche",
+      "legendRow": "{{count}} Läufe",
       "prevYear": "Vorheriges Jahr",
       "nextYear": "Nächstes Jahr"
     },

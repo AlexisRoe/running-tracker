@@ -107,6 +107,8 @@
       "tooltip": "Week {{week}}: {{count}} runs · {{km}} km",
       "less": "Less",
       "more": "More",
+      "legendTitle": "Runs per week",
+      "legendRow": "{{count}} runs",
       "prevYear": "Previous year",
       "nextYear": "Next year"
     },
