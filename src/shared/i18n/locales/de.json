@@ -118,7 +118,19 @@
     "title": "Laufprotokoll",
     "empty": "Deine erfassten Läufe werden hier angezeigt.",
     "emptyTitle": "Noch keine Läufe erfasst",
-    "deleteRun": "Lauf löschen"
+    "editRun": "Lauf bearbeiten",
+    "monthTotal": "{{month}} - {{km}} km",
+    "editDrawer": {
+      "title": "Lauf bearbeiten",
+      "save": "Änderungen speichern",
+      "delete": "Lauf löschen"
+    },
+    "deleteConfirm": {
+      "title": "Lauf löschen?",
+      "message": "Möchtest du diesen Lauf wirklich löschen?",
+      "confirm": "Löschen",
+      "cancel": "Abbrechen"
+    }
   },
   "goal": {
     "title": "Ziel festlegen",

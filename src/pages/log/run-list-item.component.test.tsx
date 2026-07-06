@@ -14,7 +14,7 @@ const run: RunningEvent = {
 
 describe("RunListItem", () => {
   it("renders the formatted date, distance and location", () => {
-    renderWithProviders(<RunListItem run={run} onRemove={vi.fn()} />);
+    renderWithProviders(<RunListItem run={run} onEdit={vi.fn()} />);
 
     const expectedDate = new Date(run.date).toLocaleDateString("en", {
       day: "2-digit",
@@ -26,18 +26,18 @@ describe("RunListItem", () => {
   });
 
   it("renders 'Indoor' for an indoor run", () => {
-    renderWithProviders(<RunListItem run={{ ...run, where: "indoor" }} onRemove={vi.fn()} />);
+    renderWithProviders(<RunListItem run={{ ...run, where: "indoor" }} onEdit={vi.fn()} />);
 
     expect(screen.getByText("5.5 km · Indoor")).toBeInTheDocument();
   });
 
-  it("calls onRemove with the run's id when the trash button is clicked", async () => {
+  it("calls onEdit with the run when the edit button is clicked", async () => {
     const user = userEvent.setup();
-    const onRemove = vi.fn();
-    renderWithProviders(<RunListItem run={run} onRemove={onRemove} />);
+    const onEdit = vi.fn();
+    renderWithProviders(<RunListItem run={run} onEdit={onEdit} />);
 
-    await user.click(screen.getByRole("button", { name: "Delete run" }));
+    await user.click(screen.getByRole("button", { name: "Edit run" }));
 
-    expect(onRemove).toHaveBeenCalledWith(run.id);
+    expect(onEdit).toHaveBeenCalledWith(run);
   });
 });

@@ -1,17 +1,7 @@
 import { useGoal } from "@features/goal/use-goal.hook";
 import { useRuns } from "@features/runs/use-runs.hook";
-import {
-  Button,
-  Drawer,
-  Group,
-  SegmentedControl,
-  Stack,
-  Text,
-  ThemeIcon,
-  Title,
-} from "@mantine/core";
-import { DateInput } from "@mantine/dates";
-import { DistanceInput } from "@shared/components/distance-input.component";
+import { Button, Drawer, Group, Stack, Text, ThemeIcon, Title } from "@mantine/core";
+import { RunFormFields } from "@pages/log/run-form-fields.component";
 import { ValidationError } from "@shared/errors/validation.error";
 import { notifyError, notifySuccess, notifyWarning } from "@shared/ui/notification/notify";
 import { IconCalendarOff } from "@tabler/icons-react";
@@ -38,7 +28,7 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
 
   const handleSave = () => {
     try {
-      runs.add({ distance, where });
+      runs.add({ distance, where, date: today.getTime() });
     } catch (err) {
       if (err instanceof ValidationError) {
         notifyError({ message: err.message });
@@ -80,25 +70,14 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
     >
       {goal.isActive ? (
         <Stack gap="xl" pt="md">
-          <DistanceInput
-            label={t("appShell.addDrawer.distance")}
-            value={distance}
-            onChange={setDistance}
-            focusOnStart={opened}
-          />
-          <SegmentedControl
-            fullWidth
-            value={where}
-            onChange={(value) => setWhere(value as "indoor" | "outdoor")}
-            data={[
-              { label: t("appShell.addDrawer.indoor"), value: "indoor" },
-              { label: t("appShell.addDrawer.outdoor"), value: "outdoor" },
-            ]}
-          />
-          <DateInput
-            label={t("appShell.addDrawer.trainingDay")}
-            value={today}
-            onChange={(value) => setToday(value ? new Date(value) : new Date())}
+          <RunFormFields
+            distance={distance}
+            onDistanceChange={setDistance}
+            where={where}
+            onWhereChange={setWhere}
+            date={today}
+            onDateChange={setToday}
+            focusDistanceOnMount={opened}
           />
           <Group justify="flex-end" mt="md">
             <Button onClick={handleSave} disabled={distance === ""}>

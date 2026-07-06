@@ -5,6 +5,10 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it } from "vitest";
 import { renderWithProviders } from "../../test/render-with-providers";
 
+const now = new Date();
+const currentMonthDate = new Date(now.getFullYear(), now.getMonth(), 1);
+const otherMonthDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+
 afterEach(() => {
   useRunsStore.setState({ events: [] });
 });
@@ -23,7 +27,7 @@ describe("LogPage", () => {
     expect(screen.getByText("Your tracked running events will appear here.")).toBeInTheDocument();
   });
 
-  it("groups seeded runs by month, newest month first", () => {
+  it("groups seeded runs by year and month, newest first", () => {
     useRunsStore
       .getState()
       .addRun({ date: new Date(2026, 0, 10).getTime(), where: "indoor", distance: 3 });
@@ -33,34 +37,49 @@ describe("LogPage", () => {
 
     renderWithProviders(<LogPage />);
 
-    const headings = screen.getAllByText(/^[A-Za-z]+ 2026$/);
-    expect(headings[0]).toHaveTextContent("February 2026");
-    expect(headings[1]).toHaveTextContent("January 2026");
+    expect(screen.getByText("2026")).toBeInTheDocument();
+    expect(screen.getByText("February - 4.0 km")).toBeInTheDocument();
+    expect(screen.getByText("January - 3.0 km")).toBeInTheDocument();
   });
 
-  it("orders runs within a month newest first", () => {
+  it("expands the current month by default and keeps other months collapsed", () => {
     useRunsStore
       .getState()
-      .addRun({ date: new Date(2026, 0, 5).getTime(), where: "indoor", distance: 3 });
+      .addRun({ date: currentMonthDate.getTime(), where: "indoor", distance: 3 });
     useRunsStore
       .getState()
-      .addRun({ date: new Date(2026, 0, 20).getTime(), where: "indoor", distance: 7 });
+      .addRun({ date: otherMonthDate.getTime(), where: "indoor", distance: 7 });
 
     renderWithProviders(<LogPage />);
 
-    const distances = screen.getAllByText(/km ·/).map((el) => el.textContent);
-    expect(distances[0]).toMatch(/^7 km/);
-    expect(distances[1]).toMatch(/^3 km/);
+    expect(screen.getByText("3 km · Indoor")).toBeVisible();
+    expect(screen.queryByText("7 km · Indoor")).not.toBeVisible();
   });
 
-  it("removing a run via the trash icon updates the list", async () => {
+  it("opens the edit drawer with the run's values when the edit button is clicked", async () => {
     useRunsStore
       .getState()
-      .addRun({ date: new Date(2026, 0, 5).getTime(), where: "indoor", distance: 3 });
+      .addRun({ date: currentMonthDate.getTime(), where: "indoor", distance: 3 });
     const user = userEvent.setup();
     renderWithProviders(<LogPage />);
 
+    await user.click(screen.getByRole("button", { name: "Edit run" }));
+
+    expect(screen.getByText("Edit Run")).toBeInTheDocument();
+  });
+
+  it("deleting a run requires confirmation from within the edit drawer", async () => {
+    useRunsStore
+      .getState()
+      .addRun({ date: currentMonthDate.getTime(), where: "indoor", distance: 3 });
+    const user = userEvent.setup();
+    renderWithProviders(<LogPage />);
+
+    await user.click(screen.getByRole("button", { name: "Edit run" }));
     await user.click(screen.getByRole("button", { name: "Delete run" }));
+    expect(useRunsStore.getState().events).toHaveLength(1);
+
+    await user.click(screen.getByRole("button", { name: "Delete" }));
 
     expect(useRunsStore.getState().events).toHaveLength(0);
     expect(screen.getByText("No runs logged yet")).toBeInTheDocument();

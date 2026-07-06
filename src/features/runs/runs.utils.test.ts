@@ -1,5 +1,5 @@
 import type { RunningEvent } from "@features/runs/runs.model";
-import { groupRunsByMonth, isRunWhere } from "@features/runs/runs.utils";
+import { groupRunsByYearAndMonth, isRunWhere } from "@features/runs/runs.utils";
 import { describe, expect, it } from "vitest";
 
 describe("isRunWhere", () => {
@@ -24,53 +24,67 @@ const makeRun = (overrides: Partial<RunningEvent> & { date: number }): RunningEv
   ...overrides,
 });
 
-describe("groupRunsByMonth", () => {
+describe("groupRunsByYearAndMonth", () => {
   it("returns an empty array when there are no runs", () => {
-    expect(groupRunsByMonth([])).toEqual([]);
+    expect(groupRunsByYearAndMonth([])).toEqual([]);
   });
 
-  it("groups multiple runs from the same local month into one group", () => {
+  it("groups multiple runs from the same local month into one month group", () => {
     const runs = [
       makeRun({ date: new Date(2026, 0, 3).getTime() }),
       makeRun({ date: new Date(2026, 0, 28).getTime() }),
     ];
 
-    const groups = groupRunsByMonth(runs);
+    const groups = groupRunsByYearAndMonth(runs);
 
     expect(groups).toHaveLength(1);
-    expect(groups[0]?.runs).toHaveLength(2);
+    expect(groups[0]?.months).toHaveLength(1);
+    expect(groups[0]?.months[0]?.runs).toHaveLength(2);
   });
 
-  it("creates one group per distinct local month, ordered newest month first", () => {
-    const feb = makeRun({ date: new Date(2026, 1, 10).getTime() });
-    const jan = makeRun({ date: new Date(2026, 0, 10).getTime() });
-    const dec = makeRun({ date: new Date(2025, 11, 10).getTime() });
+  it("creates one year group per distinct year, ordered newest year first, with months ordered newest first", () => {
+    const feb2026 = makeRun({ date: new Date(2026, 1, 10).getTime() });
+    const jan2026 = makeRun({ date: new Date(2026, 0, 10).getTime() });
+    const dec2025 = makeRun({ date: new Date(2025, 11, 10).getTime() });
 
-    const groups = groupRunsByMonth([jan, dec, feb]);
+    const groups = groupRunsByYearAndMonth([jan2026, dec2025, feb2026]);
 
-    expect(groups.map((g) => g.monthStart)).toEqual([
+    expect(groups.map((g) => g.year)).toEqual([2026, 2025]);
+    expect(groups[0]?.months.map((m) => m.monthStart)).toEqual([
       new Date(2026, 1, 1).getTime(),
       new Date(2026, 0, 1).getTime(),
-      new Date(2025, 11, 1).getTime(),
     ]);
+    expect(groups[1]?.months.map((m) => m.monthStart)).toEqual([new Date(2025, 11, 1).getTime()]);
   });
 
-  it("sorts runs within a group newest-first by date", () => {
+  it("sums run distances into the month's totalDistance", () => {
+    const runs = [
+      makeRun({ date: new Date(2026, 0, 3).getTime(), distance: 5.5 }),
+      makeRun({ date: new Date(2026, 0, 28).getTime(), distance: 2.5 }),
+    ];
+
+    const groups = groupRunsByYearAndMonth(runs);
+
+    expect(groups[0]?.months[0]?.totalDistance).toBe(8);
+  });
+
+  it("sorts runs within a month newest-first by date", () => {
     const early = makeRun({ date: new Date(2026, 0, 3).getTime() });
     const late = makeRun({ date: new Date(2026, 0, 28).getTime() });
     const mid = makeRun({ date: new Date(2026, 0, 15).getTime() });
 
-    const groups = groupRunsByMonth([early, late, mid]);
+    const groups = groupRunsByYearAndMonth([early, late, mid]);
 
-    expect(groups[0]?.runs.map((r) => r.id)).toEqual([late.id, mid.id, early.id]);
+    expect(groups[0]?.months[0]?.runs.map((r) => r.id)).toEqual([late.id, mid.id, early.id]);
   });
 
   it("treats the last moment of one month and the first moment of the next as different groups", () => {
     const endOfJan = makeRun({ date: new Date(2026, 0, 31, 23, 59).getTime() });
     const startOfFeb = makeRun({ date: new Date(2026, 1, 1, 0, 0).getTime() });
 
-    const groups = groupRunsByMonth([endOfJan, startOfFeb]);
+    const groups = groupRunsByYearAndMonth([endOfJan, startOfFeb]);
 
-    expect(groups).toHaveLength(2);
+    expect(groups).toHaveLength(1);
+    expect(groups[0]?.months).toHaveLength(2);
   });
 });

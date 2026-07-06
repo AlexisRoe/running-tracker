@@ -1,14 +1,14 @@
 import type { RunningEvent } from "@features/runs/runs.model";
 import { ActionIcon, Card, Group, Stack, Text, ThemeIcon } from "@mantine/core";
-import { IconHome, IconTrash, IconTrees } from "@tabler/icons-react";
+import { IconPencil, IconTreadmill, IconTrees } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 
 interface RunListItemProps {
   run: RunningEvent;
-  onRemove(id: string): void;
+  onEdit(run: RunningEvent): void;
 }
 
-export function RunListItem({ run, onRemove }: RunListItemProps) {
+export function RunListItem({ run, onEdit }: RunListItemProps) {
   const { t, i18n } = useTranslation();
 
   const dateLabel = new Date(run.date).toLocaleDateString(i18n.language, {
@@ -17,7 +17,7 @@ export function RunListItem({ run, onRemove }: RunListItemProps) {
     year: "numeric",
   });
 
-  const WhereIcon = run.where === "outdoor" ? IconTrees : IconHome;
+  const WhereIcon = run.where === "outdoor" ? IconTrees : IconTreadmill;
 
   return (
     <Card padding="sm">
@@ -35,13 +35,8 @@ export function RunListItem({ run, onRemove }: RunListItemProps) {
             </Text>
           </Stack>
         </Group>
-        <ActionIcon
-          variant="subtle"
-          color="red"
-          aria-label={t("log.deleteRun")}
-          onClick={() => onRemove(run.id)}
-        >
-          <IconTrash size={18} />
+        <ActionIcon variant="subtle" aria-label={t("log.editRun")} onClick={() => onEdit(run)}>
+          <IconPencil size={18} />
         </ActionIcon>
       </Group>
     </Card>

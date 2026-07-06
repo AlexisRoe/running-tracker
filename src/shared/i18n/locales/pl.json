@@ -118,7 +118,19 @@
     "title": "Dziennik biegów",
     "empty": "Twoje zarejestrowane biegi pojawią się tutaj.",
     "emptyTitle": "Brak zarejestrowanych biegów",
-    "deleteRun": "Usuń bieg"
+    "editRun": "Edytuj bieg",
+    "monthTotal": "{{month}} - {{km}} km",
+    "editDrawer": {
+      "title": "Edytuj bieg",
+      "save": "Zapisz zmiany",
+      "delete": "Usuń bieg"
+    },
+    "deleteConfirm": {
+      "title": "Usunąć bieg?",
+      "message": "Czy na pewno chcesz usunąć ten bieg?",
+      "confirm": "Usuń",
+      "cancel": "Anuluj"
+    }
   },
   "goal": {
     "title": "Ustaw cel",

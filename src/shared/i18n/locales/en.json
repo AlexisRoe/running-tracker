@@ -118,7 +118,19 @@
     "title": "Run Log",
     "empty": "Your tracked running events will appear here.",
     "emptyTitle": "No runs logged yet",
-    "deleteRun": "Delete run"
+    "editRun": "Edit run",
+    "monthTotal": "{{month}} - {{km}} km",
+    "editDrawer": {
+      "title": "Edit Run",
+      "save": "Save changes",
+      "delete": "Delete run"
+    },
+    "deleteConfirm": {
+      "title": "Delete run?",
+      "message": "Do you really want to delete this run?",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    }
   },
   "goal": {
     "title": "Set Goal",
