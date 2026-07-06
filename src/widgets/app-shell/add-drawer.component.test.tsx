@@ -124,10 +124,10 @@ describe("AddDrawer", () => {
   });
 
   it("shows an empty state when a goal exists but today is outside its period", () => {
-    const yesterday = Date.now() - 24 * 60 * 60 * 1000;
+    const tomorrow = Date.now() + 24 * 60 * 60 * 1000;
     useGoalStore.getState().setGoal({
-      start: toGoalStart(yesterday),
-      end: toGoalEnd(yesterday),
+      start: toGoalStart(tomorrow),
+      end: toGoalEnd(tomorrow),
       distance: 10,
     });
     renderWithProviders(<AddDrawer opened onClose={vi.fn()} />);

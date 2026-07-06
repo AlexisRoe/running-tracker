@@ -1,6 +1,6 @@
 import { countInclusiveDays, toGoalEnd, toGoalStart } from "@features/goal/goal.utils";
 import { useGoal } from "@features/goal/use-goal.hook";
-import { Box, Button, Container, Group, Stack, Text, Title } from "@mantine/core";
+import { Button, Container, Group, Stack, Text, Title } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { useDisclosure } from "@mantine/hooks";
 import { DistanceInput } from "@shared/components/distance-input.component";
