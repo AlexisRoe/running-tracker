@@ -33,6 +33,6 @@ describe("AppShell", () => {
 
     await user.click(screen.getByLabelText("Add run"));
 
-    expect(screen.getByText("Add Run")).toBeInTheDocument();
+    expect(await screen.findByText("Add Run")).toBeInTheDocument();
   });
 });
