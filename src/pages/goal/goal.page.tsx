@@ -2,6 +2,7 @@ import { countInclusiveDays, toGoalEnd, toGoalStart } from "@features/goal/goal.
 import { useGoal } from "@features/goal/use-goal.hook";
 import { Button, Container, Group, NumberInput, Stack, Title } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
+import { DistanceInput } from "@shared/components/distance-input.component";
 import { ValidationError } from "@shared/errors/validation.error";
 import { notifyError, notifyInfo, notifySuccess } from "@shared/ui/notification/notify";
 import { useState } from "react";
@@ -75,13 +76,7 @@ export function GoalPage() {
           onChange={(value) => setEnd(value ? new Date(value) : null)}
           error={dateError}
         />
-        <NumberInput
-          label={t("goal.distance")}
-          value={distance}
-          onChange={setDistance}
-          min={0}
-          suffix=" km"
-        />
+        <DistanceInput label={t("goal.distance")} value={distance} onChange={setDistance} />
         <Group justify="space-between" mt="xl">
           {goal.isSet && (
             <Button variant="subtle" color="red" onClick={handleReset}>
