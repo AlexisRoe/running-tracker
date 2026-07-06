@@ -100,6 +100,10 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
     setToday(value ? new Date(value) : new Date());
   };
 
+  const now = DEFAULT_ADD_VALUES.Today.getTime();
+  const startDate = goal.value.start;
+  const isValidRange = goal.isSet && now >= startDate;
+
   return (
     <Drawer
       opened={opened}
@@ -115,7 +119,7 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
         onEntered: () => inputRef.current?.focus(),
       }}
     >
-      {goal.isActive ? (
+      {isValidRange ? (
         <Stack gap="xl" pt="md">
           <DistanceInput
             label={t("appShell.addDrawer.distance")}
