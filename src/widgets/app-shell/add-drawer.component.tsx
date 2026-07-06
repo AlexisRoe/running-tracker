@@ -1,6 +1,8 @@
 import { useGoal } from "@features/goal/use-goal.hook";
 import { useRuns } from "@features/runs/use-runs.hook";
-import { Button, Drawer, Group, NumberInput, SegmentedControl, Stack } from "@mantine/core";
+import { Button, Drawer, Group, SegmentedControl, Stack } from "@mantine/core";
+import { DateInput } from "@mantine/dates";
+import { DistanceInput } from "@shared/components/distance-input.component";
 import { ValidationError } from "@shared/errors/validation.error";
 import { notifyError, notifySuccess, notifyWarning } from "@shared/ui/notification/notify";
 import { useState } from "react";
@@ -17,6 +19,7 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
   const goal = useGoal();
   const [distance, setDistance] = useState<number | string>("");
   const [where, setWhere] = useState<"indoor" | "outdoor">("indoor");
+  const [today, setToday] = useState(new Date());
 
   const reset = () => {
     setDistance("");
@@ -65,14 +68,12 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
       padding="md"
       transitionProps={{ duration: 0 }}
     >
-      <Stack gap="md">
-        <NumberInput
+      <Stack gap="xl" pt="md">
+        <DistanceInput
           label={t("appShell.addDrawer.distance")}
           value={distance}
           onChange={setDistance}
-          min={0}
-          suffix=" km"
-          autoFocus
+          focusOnStart={opened}
         />
         <SegmentedControl
           fullWidth
@@ -82,6 +83,11 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
             { label: t("appShell.addDrawer.indoor"), value: "indoor" },
             { label: t("appShell.addDrawer.outdoor"), value: "outdoor" },
           ]}
+        />
+        <DateInput
+          label={t("appShell.addDrawer.trainingDay")}
+          value={today}
+          onChange={(value) => setToday(value ? new Date(value) : new Date())}
         />
         <Group justify="flex-end" mt="md">
           <Button onClick={handleSave} disabled={distance === ""}>

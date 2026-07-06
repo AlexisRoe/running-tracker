@@ -10,6 +10,7 @@
     "addDrawer": {
       "title": "Lauf hinzufügen",
       "distance": "Distanz",
+      "trainingDay": "Laufen am",
       "indoor": "Drinnen",
       "outdoor": "Draußen",
       "save": "Lauf hinzufügen",

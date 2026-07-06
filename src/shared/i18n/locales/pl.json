@@ -10,6 +10,7 @@
     "addDrawer": {
       "title": "Dodaj bieg",
       "distance": "Dystans",
+      "trainingDay": "Bieganie w",
       "indoor": "W pomieszczeniu",
       "outdoor": "Na zewnątrz",
       "save": "Dodaj bieg",

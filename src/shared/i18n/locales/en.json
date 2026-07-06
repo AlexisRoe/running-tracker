@@ -10,11 +10,12 @@
     "addDrawer": {
       "title": "Add Run",
       "distance": "Distance",
+      "trainingDay": "Running on",
       "indoor": "Indoor",
       "outdoor": "Outdoor",
       "save": "Add run",
       "result": {
-        "goodTitle": "Good done! 🎉",
+        "goodTitle": "Well done! 🎉",
         "badTitle": "Better next time",
         "body": "{{distance}} km run · {{expected}} km/day goal"
       }
