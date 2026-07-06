@@ -5,7 +5,6 @@ import en from "./locales/en.json";
 import pl from "./locales/pl.json";
 
 export const SUPPORTED_LANGUAGES = ["en", "de", "pl"] as const;
-export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
 void i18next.use(initReactI18next).init({
   resources: {
