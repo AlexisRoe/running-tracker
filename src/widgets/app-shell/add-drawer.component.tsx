@@ -16,7 +16,7 @@ import { ValidationError } from "@shared/errors/validation.error";
 import { formatDistance } from "@shared/lib/distance.utils";
 import { notifyError, notifySuccess, notifyWarning } from "@shared/ui/notification/notify";
 import { IconCalendarOff } from "@tabler/icons-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 interface AddDrawerProps {
@@ -42,6 +42,8 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
   const [distance, setDistance] = useState<number | string>(DEFAULT_ADD_VALUES.Distance);
   const [where, setWhere] = useState<Where>(DEFAULT_ADD_VALUES.Where);
   const [today, setToday] = useState(DEFAULT_ADD_VALUES.Today);
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const reset = () => {
     setDistance(DEFAULT_ADD_VALUES.Distance);
@@ -93,7 +95,12 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
       size="md"
       title={t("appShell.addDrawer.title")}
       padding="md"
-      transitionProps={{ duration: 0 }}
+      trapFocus={true}
+      transitionProps={{
+        duration: 200,
+        transition: "slide-up",
+        onEntered: () => inputRef.current?.focus(),
+      }}
     >
       {goal.isActive ? (
         <Stack gap="xl" pt="md">
@@ -101,7 +108,7 @@ export function AddDrawer({ opened, onClose }: AddDrawerProps) {
             label={t("appShell.addDrawer.distance")}
             value={distance}
             onChange={setDistance}
-            focusOnStart={opened}
+            ref={inputRef}
           />
           <SegmentedControl
             fullWidth
