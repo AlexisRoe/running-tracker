@@ -1,17 +1,18 @@
 import type { DashboardMetrics } from "@features/dashboard/dashboard.model";
-import { Group, Paper, SimpleGrid, Stack, Text, ThemeIcon, Tooltip } from "@mantine/core";
+import { Flip } from "@gfazioli/mantine-flip";
+import { Group, Paper, SimpleGrid, Stack, Text, ThemeIcon, UnstyledButton } from "@mantine/core";
 import { formatDistance } from "@shared/lib/distance.utils";
 import {
   IconArrowDownRight,
   IconArrowUpRight,
   IconCalendar,
-  IconInfoCircle,
   IconMapPin,
   IconMinus,
   IconRun,
   IconTrendingUp,
   type TablerIcon,
 } from "@tabler/icons-react";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 interface StatsGridProps {
@@ -26,42 +27,112 @@ interface StatTileProps {
   info: string;
 }
 
-function StatTile({ icon: Icon, label, value, sub, info }: StatTileProps) {
+// Flip's front/back faces are position: absolute (no intrinsic height), so a
+// fixed height is required. Sized to fit the longest translated info string
+// (German) at size="xs" without clipping.
+const STAT_TILE_HEIGHT = 130;
+const HEADLINE_CARD_HEIGHT = 160;
+
+interface FlipCardProps {
+  height: number;
+  frontAriaLabel: string;
+  backAriaLabel: string;
+  front: ReactNode;
+  back: ReactNode;
+}
+
+function FlipCard({ height, frontAriaLabel, backAriaLabel, front, back }: FlipCardProps) {
   return (
-    <Paper radius="lg" p="md">
-      <Stack gap={6}>
-        <Tooltip
-          label={info}
-          withArrow
-          multiline
-          maw={220}
-          events={{ hover: true, focus: true, touch: true }}
-        >
-          <Group gap="xs" wrap="nowrap" tabIndex={0}>
+    <Flip h={height} lazyBack>
+      <Flip.Front>
+        <Flip.Target>
+          <UnstyledButton
+            type="button"
+            display="block"
+            w="100%"
+            h={height}
+            style={{ cursor: "pointer" }}
+            aria-label={frontAriaLabel}
+          >
+            <Paper radius="lg" p="md" h={height} style={{ overflow: "hidden" }}>
+              {front}
+            </Paper>
+          </UnstyledButton>
+        </Flip.Target>
+      </Flip.Front>
+
+      <Flip.Back>
+        <Flip.Target>
+          <UnstyledButton
+            type="button"
+            display="block"
+            w="100%"
+            h={height}
+            style={{ cursor: "pointer" }}
+            aria-label={backAriaLabel}
+          >
+            <Paper radius="lg" p="md" h={height} style={{ overflow: "hidden" }}>
+              {back}
+            </Paper>
+          </UnstyledButton>
+        </Flip.Target>
+      </Flip.Back>
+    </Flip>
+  );
+}
+
+function StatTile({ icon: Icon, label, value, sub, info }: StatTileProps) {
+  const { t } = useTranslation();
+
+  return (
+    <FlipCard
+      height={STAT_TILE_HEIGHT}
+      frontAriaLabel={t("dashboard.stats.flipToDetails", { label })}
+      backAriaLabel={t("dashboard.stats.flipToSummary", { label })}
+      front={
+        <Stack gap={6}>
+          <Group gap="xs" wrap="nowrap">
             <ThemeIcon variant="light" size="md" radius="md">
               <Icon size={16} stroke={2} />
             </ThemeIcon>
             <Text size="xs" c="dimmed" tt="uppercase" fw={600} style={{ letterSpacing: "0.04em" }}>
               {label}
             </Text>
-            <IconInfoCircle size={12} stroke={2} opacity={0.5} />
           </Group>
-        </Tooltip>
-        <Text fw={700} size="lg" lh={1.2}>
-          {value}
-        </Text>
-        {sub && (
-          <Text size="xs" c="dimmed">
-            {sub}
+          <Text fw={700} size="lg" lh={1.2} mt={6}>
+            {value}
           </Text>
-        )}
-      </Stack>
-    </Paper>
+          {sub && (
+            <Text size="xs" c="dimmed">
+              {sub}
+            </Text>
+          )}
+        </Stack>
+      }
+      back={
+        <Stack gap={6}>
+          <Group gap="xs" wrap="nowrap">
+            <ThemeIcon variant="light" size="md" radius="md">
+              <Icon size={16} stroke={2} />
+            </ThemeIcon>
+            <Text size="xs" c="dimmed" tt="uppercase" fw={600} style={{ letterSpacing: "0.04em" }}>
+              {label}
+            </Text>
+          </Group>
+          <Text size="xs" mt={6}>
+            {info}
+          </Text>
+        </Stack>
+      }
+    />
   );
 }
 
-/** Headline "km/day to reach goal" plus the supporting statistics tiles. */
-export function StatsGrid({ metrics }: StatsGridProps) {
+interface HeadlineCardProps {
+  metrics: DashboardMetrics;
+}
+
+function HeadlineCard({ metrics }: HeadlineCardProps) {
   const { t } = useTranslation();
 
   const diff = metrics.requiredPerRemainingDay - metrics.baselinePerDay;
@@ -76,20 +147,17 @@ export function StatsGrid({ metrics }: StatsGridProps) {
       ? t("dashboard.headline.easier", { km: formatDistance(Math.abs(diff)) })
       : t("dashboard.headline.onPlan");
 
-  const runningDaysPercent =
-    metrics.daysElapsed > 0 ? Math.round((metrics.daysWithRuns / metrics.daysElapsed) * 100) : 0;
-
-  const goalPeriodPercent =
-    metrics.totalDays > 0 ? Math.round((metrics.daysElapsed / metrics.totalDays) * 100) : 0;
-
   return (
-    <Stack gap="md">
-      <Paper radius="lg" p="md">
+    <FlipCard
+      height={HEADLINE_CARD_HEIGHT}
+      frontAriaLabel={t("dashboard.headline.flipToDetails")}
+      backAriaLabel={t("dashboard.headline.flipToSummary")}
+      front={
         <Stack gap={2}>
           <Text size="xs" c="dimmed" tt="uppercase" fw={600} style={{ letterSpacing: "0.04em" }}>
             {t("dashboard.headline.label")}
           </Text>
-          <Text fw={700} fz={44} lh={1} style={{ fontVariantNumeric: "tabular-nums" }}>
+          <Text fw={700} fz={44} lh={1} mt={8} style={{ fontVariantNumeric: "tabular-nums" }}>
             {formatDistance(metrics.requiredPerRemainingDay)}
             <Text span fz="md" c="dimmed" fw={500} ml={6}>
               km/day
@@ -105,7 +173,32 @@ export function StatsGrid({ metrics }: StatsGridProps) {
             {t("dashboard.headline.baseline", { km: formatDistance(metrics.baselinePerDay) })}
           </Text>
         </Stack>
-      </Paper>
+      }
+      back={
+        <Stack gap={6}>
+          <Text size="xs" c="dimmed" tt="uppercase" fw={600} style={{ letterSpacing: "0.04em" }}>
+            {t("dashboard.headline.label")}
+          </Text>
+          <Text size="xs">{t("dashboard.headline.help")}</Text>
+        </Stack>
+      }
+    />
+  );
+}
+
+/** Headline "km/day to reach goal" plus the supporting statistics tiles. */
+export function StatsGrid({ metrics }: StatsGridProps) {
+  const { t } = useTranslation();
+
+  const runningDaysPercent =
+    metrics.daysElapsed > 0 ? Math.round((metrics.daysWithRuns / metrics.daysElapsed) * 100) : 0;
+
+  const goalPeriodPercent =
+    metrics.totalDays > 0 ? Math.round((metrics.daysElapsed / metrics.totalDays) * 100) : 0;
+
+  return (
+    <Stack gap="md">
+      <HeadlineCard metrics={metrics} />
 
       <SimpleGrid cols={2} spacing="sm">
         <StatTile

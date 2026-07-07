@@ -75,7 +75,10 @@
       "baseline": "Started at {{km}} km/day",
       "faster": "{{km}} km/day more than planned",
       "easier": "{{km}} km/day less than planned",
-      "onPlan": "Right on your original plan"
+      "onPlan": "Right on your original plan",
+      "flipToDetails": "More details about your daily pace goal",
+      "flipToSummary": "Back to daily pace summary",
+      "help": "How many kilometers per day you now need to average to hit your goal, given what's left of the period and how far you've already run."
     },
     "stats": {
       "daysLeft": "Days left",
@@ -97,6 +100,8 @@
       "progress": "Distance",
       "progressValue": "{{run}} / {{goal}} km",
       "open": "{{km}} km to go",
+      "flipToDetails": "More details about {{label}}",
+      "flipToSummary": "Back to {{label}} summary",
       "help": {
         "daysLeft": "How many days remain until your goal's end date, and how far through the whole period you already are.",
         "runningDays": "How many of the days since your goal started you've actually logged a run on.",

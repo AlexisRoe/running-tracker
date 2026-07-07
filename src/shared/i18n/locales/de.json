@@ -75,7 +75,10 @@
       "baseline": "Start bei {{km}} km/Tag",
       "faster": "{{km}} km/Tag weiter als geplant",
       "easier": "{{km}} km/Tag weniger als geplant",
-      "onPlan": "Genau nach deinem ursprünglichen Plan"
+      "onPlan": "Genau nach deinem ursprünglichen Plan",
+      "flipToDetails": "Mehr Details zu deinem Tagesziel",
+      "flipToSummary": "Zurück zur Tagesziel-Übersicht",
+      "help": "Wie viele Kilometer du jetzt durchschnittlich pro Tag laufen musst, um dein Ziel zu erreichen – basierend auf der verbleibenden Zeit und deiner bisherigen Laufleistung."
     },
     "stats": {
       "daysLeft": "Verbleibende Tage",
@@ -97,6 +100,8 @@
       "progress": "Distanz",
       "progressValue": "{{run}} / {{goal}} km",
       "open": "Noch {{km}} km",
+      "flipToDetails": "Mehr Details zu {{label}}",
+      "flipToSummary": "Zurück zur Übersicht von {{label}}",
       "help": {
         "daysLeft": "Wie viele Tage bis zum Enddatum deines Ziels verbleiben und wie weit du im Zeitraum insgesamt schon bist.",
         "runningDays": "An wie vielen Tagen seit Beginn deines Ziels du tatsächlich einen Lauf eingetragen hast.",
