@@ -1,6 +1,6 @@
 {
   "name": "running-tracker",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "A small personal app to track how often you have to run to reach your goal",
   "author": "Alexis Roehrling",
   "license": "ISC",
