@@ -122,7 +122,10 @@
       "legendTitle": "Runs per week",
       "legendRow": "{{count}} runs",
       "prevYear": "Previous year",
-      "nextYear": "Next year"
+      "nextYear": "Next year",
+      "help": "Each square is one week — darker squares mean more distance run, and dimmed squares fall outside your current goal period.",
+      "flipToDetails": "More details about the weekly heatmap",
+      "flipToSummary": "Back to the weekly heatmap"
     },
     "cta": {
       "title": "No active goal",

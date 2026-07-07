@@ -122,7 +122,10 @@
       "legendTitle": "Läufe pro Woche",
       "legendRow": "{{count}} Läufe",
       "prevYear": "Vorheriges Jahr",
-      "nextYear": "Nächstes Jahr"
+      "nextYear": "Nächstes Jahr",
+      "help": "Jedes Quadrat steht für eine Woche – je dunkler, desto mehr Distanz gelaufen. Ausgegraute Quadrate liegen außerhalb deines aktuellen Ziel-Zeitraums.",
+      "flipToDetails": "Mehr Details zur Wochen-Heatmap",
+      "flipToSummary": "Zurück zur Wochen-Heatmap"
     },
     "cta": {
       "title": "Kein aktives Ziel",

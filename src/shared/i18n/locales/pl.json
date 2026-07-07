@@ -122,7 +122,10 @@
       "legendTitle": "Biegi w tygodniu",
       "legendRow": "{{count}} biegów",
       "prevYear": "Poprzedni rok",
-      "nextYear": "Następny rok"
+      "nextYear": "Następny rok",
+      "help": "Każdy kwadrat to jeden tydzień – im ciemniejszy, tym większy przebiegnięty dystans. Przygaszone kwadraty wykraczają poza bieżący okres celu.",
+      "flipToDetails": "Więcej informacji o mapie tygodni",
+      "flipToSummary": "Powrót do mapy tygodni"
     },
     "cta": {
       "title": "Brak aktywnego celu",
