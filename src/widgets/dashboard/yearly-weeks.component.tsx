@@ -1,7 +1,10 @@
 import type { WeekCell } from "@features/dashboard/dashboard.model";
-import { ActionIcon, Box, Group, Paper, Stack, Text, Tooltip } from "@mantine/core";
+import { Flip, useFlipContext } from "@gfazioli/mantine-flip";
+import { ActionIcon, Box, Group, Paper, SimpleGrid, Stack, Text, Tooltip } from "@mantine/core";
+import { useElementSize } from "@mantine/hooks";
 import { formatDistance } from "@shared/lib/distance.utils";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import type { MouseEvent, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 interface YearlyWeeksProps {
@@ -28,6 +31,13 @@ const OUT_OF_PERIOD_FILTER = "brightness(0.55)";
 
 const CELL = 20;
 
+// The heatmap wraps into a different number of rows depending on viewport
+// width, so its natural height isn't constant like a stat tile's. Flip still
+// needs a single fixed pixel height, so both faces measure their own natural
+// height (see FlipFace) and the taller one drives it, rather than guessing a
+// constant that would only fit one width.
+const MIN_CARD_HEIGHT = 220;
+
 function Cell({ color, ariaLabel }: { color: string; ariaLabel?: string }) {
   return (
     <Box
@@ -39,12 +49,12 @@ function Cell({ color, ariaLabel }: { color: string; ariaLabel?: string }) {
   );
 }
 
-/** Swatch-by-swatch breakdown shown inside the legend tooltip. */
+/** Swatch-by-swatch breakdown of the heatmap legend, shown on the card's back face. */
 function LegendExplanation() {
   const { t } = useTranslation();
 
   return (
-    <Stack gap={6} py={2}>
+    <Stack gap={6}>
       <Text size="xs" fw={600}>
         {t("dashboard.weeks.legendTitle")}
       </Text>
@@ -66,6 +76,48 @@ function LegendExplanation() {
   );
 }
 
+interface FlipFaceProps {
+  ariaLabel: string;
+  measureRef: (node: HTMLDivElement | null) => void;
+  children: ReactNode;
+}
+
+// Doesn't use Flip.Target/a <button>: the front face nests real buttons (year
+// nav) that must stay independently clickable, and a <button> can't legally
+// contain another <button>. A div with the standard custom-button a11y
+// pattern (role, tabIndex, onKeyDown) sidesteps that while still giving
+// click-to-flip on the card itself.
+//
+// The padding lives on the measured inner Box (not the Paper) so its natural,
+// unconstrained height already includes the padding Flip's fixed height needs
+// to account for — the Paper itself just supplies the h="100%" background/
+// radius/shadow to fill whatever height that measurement produces.
+function FlipFace({ ariaLabel, measureRef, children }: FlipFaceProps) {
+  const { toggleFlip } = useFlipContext();
+
+  return (
+    <Paper
+      radius="lg"
+      h="100%"
+      role="button"
+      tabIndex={0}
+      aria-label={ariaLabel}
+      onClick={toggleFlip}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleFlip();
+        }
+      }}
+      style={{ cursor: "pointer" }}
+    >
+      <Box p="md" ref={measureRef}>
+        {children}
+      </Box>
+    </Paper>
+  );
+}
+
 /** GitHub-style heatmap of weekly running volume across a given year. */
 export function YearlyWeeks({
   year,
@@ -76,9 +128,19 @@ export function YearlyWeeks({
   onNextYear,
 }: YearlyWeeksProps) {
   const { t } = useTranslation();
+  const front = useElementSize<HTMLDivElement>();
+  const back = useElementSize<HTMLDivElement>();
+  const height = Math.max(front.height, back.height, MIN_CARD_HEIGHT);
 
-  return (
-    <Paper radius="lg" p="md">
+  const stopPropagation =
+    (handler: () => void) =>
+    (event: MouseEvent): void => {
+      event.stopPropagation();
+      handler();
+    };
+
+  const frontContent = (
+    <>
       <Group justify="space-between" mb="sm">
         <Text fw={600}>{t("dashboard.weeks.title", { year })}</Text>
         <Group gap={4}>
@@ -86,7 +148,7 @@ export function YearlyWeeks({
             <ActionIcon
               variant="subtle"
               aria-label={t("dashboard.weeks.prevYear")}
-              onClick={onPrevYear}
+              onClick={stopPropagation(onPrevYear)}
             >
               <IconChevronLeft size={18} />
             </ActionIcon>
@@ -95,7 +157,7 @@ export function YearlyWeeks({
             <ActionIcon
               variant="subtle"
               aria-label={t("dashboard.weeks.nextYear")}
-              onClick={onNextYear}
+              onClick={stopPropagation(onNextYear)}
             >
               <IconChevronRight size={18} />
             </ActionIcon>
@@ -133,23 +195,39 @@ export function YearlyWeeks({
         ))}
       </Box>
 
-      <Tooltip
-        label={<LegendExplanation />}
-        withArrow
-        events={{ hover: true, focus: true, touch: true }}
-      >
-        <Group gap={4} mt="lg" justify="flex-end" tabIndex={0}>
-          <Text size="xs" c="dimmed">
-            {t("dashboard.weeks.less")}
-          </Text>
-          {([0, 1, 2, 3, 4, 5] as const).map((level) => (
-            <Cell key={level} color={LEVEL_COLORS[level]} />
-          ))}
-          <Text size="xs" c="dimmed">
-            {t("dashboard.weeks.more")}
-          </Text>
-        </Group>
-      </Tooltip>
-    </Paper>
+      <Group gap={4} mt="lg" justify="flex-end">
+        <Text size="xs" c="dimmed">
+          {t("dashboard.weeks.less")}
+        </Text>
+        {([0, 1, 2, 3, 4, 5] as const).map((level) => (
+          <Cell key={level} color={LEVEL_COLORS[level]} />
+        ))}
+        <Text size="xs" c="dimmed">
+          {t("dashboard.weeks.more")}
+        </Text>
+      </Group>
+    </>
+  );
+
+  const backContent = (
+    <SimpleGrid cols={2} spacing="xl">
+      <Text size="xs">{t("dashboard.weeks.help")}</Text>
+      <LegendExplanation />
+    </SimpleGrid>
+  );
+
+  return (
+    <Flip h={height}>
+      <Flip.Front>
+        <FlipFace ariaLabel={t("dashboard.weeks.flipToDetails")} measureRef={front.ref}>
+          {frontContent}
+        </FlipFace>
+      </Flip.Front>
+      <Flip.Back>
+        <FlipFace ariaLabel={t("dashboard.weeks.flipToSummary")} measureRef={back.ref}>
+          {backContent}
+        </FlipFace>
+      </Flip.Back>
+    </Flip>
   );
 }

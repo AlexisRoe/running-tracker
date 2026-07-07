@@ -75,7 +75,10 @@
       "baseline": "Start przy {{km}} km/dzień",
       "faster": "{{km}} km/dzień szybciej niż w planie",
       "easier": "{{km}} km/dzień wolniej niż w planie",
-      "onPlan": "Dokładnie według pierwotnego planu"
+      "onPlan": "Dokładnie według pierwotnego planu",
+      "flipToDetails": "Więcej informacji o dziennym tempie",
+      "flipToSummary": "Powrót do podsumowania dziennego tempa",
+      "help": "Ile kilometrów dziennie musisz teraz przebiegać średnio, aby osiągnąć cel, biorąc pod uwagę pozostały czas okresu i dotychczasowy dystans."
     },
     "stats": {
       "daysLeft": "Pozostałe dni",
@@ -97,6 +100,8 @@
       "progress": "Dystans",
       "progressValue": "{{run}} / {{goal}} km",
       "open": "Jeszcze {{km}} km",
+      "flipToDetails": "Więcej informacji o: {{label}}",
+      "flipToSummary": "Powrót do podsumowania: {{label}}",
       "help": {
         "daysLeft": "Ile dni pozostało do daty końcowej Twojego celu i jak dużą część całego okresu masz już za sobą.",
         "runningDays": "W ilu dniach od rozpoczęcia celu faktycznie zarejestrowano bieg.",
@@ -117,7 +122,10 @@
       "legendTitle": "Biegi w tygodniu",
       "legendRow": "{{count}} biegów",
       "prevYear": "Poprzedni rok",
-      "nextYear": "Następny rok"
+      "nextYear": "Następny rok",
+      "help": "Każdy kwadrat to jeden tydzień – im ciemniejszy, tym większy przebiegnięty dystans. Przygaszone kwadraty wykraczają poza bieżący okres celu.",
+      "flipToDetails": "Więcej informacji o mapie tygodni",
+      "flipToSummary": "Powrót do mapy tygodni"
     },
     "cta": {
       "title": "Brak aktywnego celu",

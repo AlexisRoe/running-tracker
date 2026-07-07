@@ -79,4 +79,45 @@ describe("YearlyWeeks", () => {
     expect(onPrevYear).toHaveBeenCalledOnce();
     expect(onNextYear).toHaveBeenCalledOnce();
   });
+
+  it("flips to reveal the legend and explanation when the card is clicked", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(
+      <YearlyWeeks
+        year={2026}
+        weeks={weeks}
+        canGoPrev={false}
+        canGoNext={false}
+        onPrevYear={vi.fn()}
+        onNextYear={vi.fn()}
+      />,
+    );
+
+    // Both faces are always mounted (for height measurement), so the back
+    // face is asserted via its `inert` attribute rather than DOM presence.
+    expect(screen.getByText("Runs per week").closest("[inert]")).not.toBeNull();
+
+    await user.click(screen.getByRole("button", { name: "More details about the weekly heatmap" }));
+
+    expect(screen.getByText("Runs per week").closest("[inert]")).toBeNull();
+  });
+
+  it("does not flip the card when clicking the year nav icons", async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(
+      <YearlyWeeks
+        year={2026}
+        weeks={weeks}
+        canGoPrev={true}
+        canGoNext={true}
+        onPrevYear={vi.fn()}
+        onNextYear={vi.fn()}
+      />,
+    );
+
+    await user.click(screen.getByLabelText("Previous year"));
+
+    expect(screen.getByText("Runs per week").closest("[inert]")).not.toBeNull();
+  });
 });

@@ -10,6 +10,7 @@ import "@mantine/core/styles.css";
 import "@mantine/charts/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
+import "@gfazioli/mantine-flip/styles.css";
 import i18n from "@shared/i18n/i18n.config";
 import { RouterProvider } from "react-router";
 
