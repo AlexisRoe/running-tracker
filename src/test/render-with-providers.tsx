@@ -1,8 +1,8 @@
-import { theme } from "@app/providers/theme.config";
 import { MantineProvider } from "@mantine/core";
 import { render } from "@testing-library/react";
 import type { ReactElement, ReactNode } from "react";
 import { MemoryRouter } from "react-router";
+import { theme } from "@/app/theme.config";
 
 interface RenderWithProvidersOptions {
   route?: string;

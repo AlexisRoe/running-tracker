@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom/vitest";
-import { useGoalStore } from "@features/goal/goal.store";
-import { useRunsStore } from "@features/runs/runs.store";
-import { Language, Theme } from "@features/settings/settings.model";
-import { useSettings } from "@features/settings/settings.store";
-import i18n from "@shared/i18n/i18n.config";
 import { cleanup } from "@testing-library/react";
 import { afterEach, beforeEach, vi } from "vitest";
+import i18n from "@/config/i18n.config";
+import { useGoalStore } from "@/stores/goal.store";
+import { useRunsStore } from "@/stores/runs.store";
+import { useSettings } from "@/stores/settings.store";
+import { Language, Theme } from "@/types/settings.model";
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
