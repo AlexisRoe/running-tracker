@@ -4,7 +4,7 @@ import type { RunningEvent } from "@/types/runs.model";
 /** Whether the runner is behind, on, or ahead of the ideal pace. */
 export type ScheduleState = "behind" | "on_track" | "ahead";
 
-export interface ScheduleStatus {
+interface ScheduleStatus {
   /** Whether the runner is behind, on, or ahead of the ideal pace. */
   state: ScheduleState;
   /** Signed distance vs. the ideal cumulative target: + ahead, - behind (km). */

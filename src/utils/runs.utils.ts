@@ -4,7 +4,7 @@ import type { RunningEvent, RunWhere } from "@/types/runs.model";
 export const isRunWhere = (i: unknown): i is RunWhere => i === "indoor" || i === "outdoor";
 
 /** Runs and total distance for a single calendar month. */
-export interface MonthGroup {
+interface MonthGroup {
   /** Unix ms timestamp for the 1st of the local calendar month this group represents */
   monthStart: number;
   /** Sum of run.distance for all runs in this month */

@@ -1,5 +1,5 @@
 /** Lifecycle of the goal: unset (`_blank`) or actively being tracked (`_in_progress`). */
-export type GoalState = "_blank" | "_in_progress";
+type GoalState = "_blank" | "_in_progress";
 
 /** A running goal: a target distance to cover within a date range. */
 export interface Goal {
