@@ -1,6 +1,17 @@
 import { describe, expect, it } from "vitest";
 import type { RunningEvent } from "@/types/runs.model";
-import { groupRunsByYearAndMonth, isRunWhere } from "@/utils/runs.utils";
+import { evaluateRunAgainstGoal, groupRunsByYearAndMonth, isRunWhere } from "@/utils/runs.utils";
+
+describe("evaluateRunAgainstGoal", () => {
+  it("is met when the run meets or exceeds the required daily pace", () => {
+    expect(evaluateRunAgainstGoal(10, 10)).toEqual({ met: true, expected: 10 });
+    expect(evaluateRunAgainstGoal(12, 10)).toEqual({ met: true, expected: 10 });
+  });
+
+  it("is not met when the run falls short of the required daily pace", () => {
+    expect(evaluateRunAgainstGoal(5, 10)).toEqual({ met: false, expected: 10 });
+  });
+});
 
 describe("isRunWhere", () => {
   it("returns true for exact 'indoor' or 'outdoor'", () => {

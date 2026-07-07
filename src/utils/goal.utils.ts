@@ -36,3 +36,13 @@ export function addOneYearMinusOneDay(date: Date): Date {
   result.setDate(result.getDate() - 1);
   return result;
 }
+
+/** The average distance needed per day to cover `distance` over the goal's inclusive day span. */
+export function computeGoalPace(
+  start: Date | number,
+  end: Date | number,
+  distance: number,
+): { days: number; perDay: number } {
+  const days = countInclusiveDays(toGoalStart(start), toGoalEnd(end));
+  return { days, perDay: distance / days };
+}

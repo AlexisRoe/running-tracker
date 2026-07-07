@@ -3,6 +3,14 @@ import type { RunningEvent, RunWhere } from "@/types/runs.model";
 /** Type guard: whether the value is a valid run location ("indoor" or "outdoor"). */
 export const isRunWhere = (i: unknown): i is RunWhere => i === "indoor" || i === "outdoor";
 
+/** Whether a run's distance meets the goal's required daily pace. */
+export function evaluateRunAgainstGoal(
+  distanceRan: number,
+  requiredPerDay: number,
+): { met: boolean; expected: number } {
+  return { met: distanceRan >= requiredPerDay, expected: requiredPerDay };
+}
+
 /** Runs and total distance for a single calendar month. */
 interface MonthGroup {
   /** Unix ms timestamp for the 1st of the local calendar month this group represents */

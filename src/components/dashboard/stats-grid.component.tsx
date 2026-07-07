@@ -25,6 +25,11 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSharedHeight } from "@/hooks/use-shared-height.hook";
 import type { DashboardMetrics } from "@/types/dashboard.model";
+import {
+  computeHeadlineTrend,
+  computeStatPercents,
+  type HeadlineTrendState,
+} from "@/utils/dashboard.utils";
 import { formatDistance } from "@/utils/distance.utils";
 
 interface StatsGridProps {
@@ -214,17 +219,23 @@ function HeadlineCard({ metrics }: HeadlineCardProps) {
     [],
   );
 
-  const diff = metrics.requiredPerRemainingDay - metrics.baselinePerDay;
-  const faster = diff > 0.05;
-  const easier = diff < -0.05;
+  const trend = computeHeadlineTrend(metrics);
 
-  const trendColor = faster ? "red" : easier ? "teal" : "dimmed";
-  const TrendIcon = faster ? IconArrowUpRight : easier ? IconArrowDownRight : IconMinus;
-  const trendText = faster
-    ? t("dashboard.headline.faster", { km: formatDistance(Math.abs(diff)) })
-    : easier
-      ? t("dashboard.headline.easier", { km: formatDistance(Math.abs(diff)) })
-      : t("dashboard.headline.onPlan");
+  const trendColor: Record<HeadlineTrendState, string> = {
+    faster: "red",
+    easier: "teal",
+    onPlan: "dimmed",
+  };
+  const trendIcon: Record<HeadlineTrendState, TablerIcon> = {
+    faster: IconArrowUpRight,
+    easier: IconArrowDownRight,
+    onPlan: IconMinus,
+  };
+  const TrendIcon = trendIcon[trend.state];
+  const trendText =
+    trend.state === "onPlan"
+      ? t("dashboard.headline.onPlan")
+      : t(`dashboard.headline.${trend.state}`, { km: formatDistance(trend.deltaKm) });
 
   return (
     <FlipCard
@@ -243,7 +254,7 @@ function HeadlineCard({ metrics }: HeadlineCardProps) {
               km/day
             </Text>
           </Text>
-          <Group gap={4} c={trendColor} mt={4}>
+          <Group gap={4} c={trendColor[trend.state]} mt={4}>
             <TrendIcon size={16} />
             <Text size="sm" fw={500}>
               {trendText}
@@ -276,11 +287,7 @@ export function StatsGrid({ metrics }: StatsGridProps) {
     STAT_TILE_MIN_HEIGHT,
   );
 
-  const runningDaysPercent =
-    metrics.daysElapsed > 0 ? Math.round((metrics.daysWithRuns / metrics.daysElapsed) * 100) : 0;
-
-  const goalPeriodPercent =
-    metrics.totalDays > 0 ? Math.round((metrics.daysElapsed / metrics.totalDays) * 100) : 0;
+  const { runningDaysPercent, goalPeriodPercent } = computeStatPercents(metrics);
 
   return (
     <Stack gap="md">

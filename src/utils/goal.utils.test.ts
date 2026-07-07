@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { countInclusiveDays, isWithinTimeframe, toGoalEnd, toGoalStart } from "@/utils/goal.utils";
+import {
+  computeGoalPace,
+  countInclusiveDays,
+  isWithinTimeframe,
+  toGoalEnd,
+  toGoalStart,
+} from "@/utils/goal.utils";
 
 describe("toGoalStart", () => {
   it("normalizes a Date to 00:00:01.000 local time of that day", () => {
@@ -54,6 +60,29 @@ describe("countInclusiveDays", () => {
     const end = new Date(2026, 5, 16, 0, 0, 1).getTime();
 
     expect(countInclusiveDays(start, end)).toBe(2);
+  });
+});
+
+describe("computeGoalPace", () => {
+  it("divides distance by the inclusive day count", () => {
+    const { days, perDay } = computeGoalPace(new Date(2026, 5, 1), new Date(2026, 5, 10), 50);
+
+    expect(days).toBe(10);
+    expect(perDay).toBe(5);
+  });
+
+  it("returns the full distance for a single-day goal", () => {
+    const { days, perDay } = computeGoalPace(new Date(2026, 5, 1), new Date(2026, 5, 1), 8);
+
+    expect(days).toBe(1);
+    expect(perDay).toBe(8);
+  });
+
+  it("ignores time-of-day on the start and end instants", () => {
+    const start = new Date(2026, 5, 1, 22, 0, 0);
+    const end = new Date(2026, 5, 2, 3, 0, 0);
+
+    expect(computeGoalPace(start, end, 20).days).toBe(2);
   });
 });
 

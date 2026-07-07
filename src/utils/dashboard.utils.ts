@@ -7,6 +7,7 @@ import type {
   WeekCell,
 } from "@/types/dashboard.model";
 import type { RunningEvent } from "@/types/runs.model";
+import { formatDistance } from "@/utils/distance.utils";
 import { countInclusiveDays } from "@/utils/goal.utils";
 
 /** Rounds to 2 decimal places. */
@@ -181,6 +182,86 @@ export function buildYearlyWeeks(
   }
 
   return cells;
+}
+
+/** What the schedule banner should say, resolved to i18n keys + params. */
+interface ScheduleBannerContent {
+  /** Whether the runner is behind (red banner) or on/ahead of schedule (green). */
+  behind: boolean;
+  /** i18n key for the banner title. */
+  titleKey: string;
+  /** i18n key for the banner body. */
+  bodyKey: string;
+  /** Interpolation params for the body key. */
+  bodyParams: Record<string, string>;
+}
+
+/**
+ * Picks the schedule banner's tone and copy: behind/ahead/on-track while the
+ * goal runs, or a final met/missed verdict once it has finished.
+ */
+export function resolveScheduleBanner(metrics: DashboardMetrics): ScheduleBannerContent {
+  const { schedule, isFinished, distanceOpen, goalDistance } = metrics;
+
+  const behind = isFinished ? distanceOpen > 0 : schedule.state === "behind";
+  const km = formatDistance(Math.abs(schedule.deltaKm));
+
+  let bodyKey: string;
+  let bodyParams: Record<string, string> = {};
+  if (isFinished) {
+    bodyKey = behind ? "dashboard.banner.finishedMissedBody" : "dashboard.banner.finishedMetBody";
+    bodyParams = behind
+      ? { km: formatDistance(distanceOpen) }
+      : { distance: formatDistance(goalDistance) };
+  } else if (schedule.state === "behind") {
+    bodyKey = "dashboard.banner.behindBody";
+    bodyParams = { km };
+  } else if (schedule.state === "ahead") {
+    bodyKey = "dashboard.banner.aheadBody";
+    bodyParams = { km };
+  } else {
+    bodyKey = "dashboard.banner.onTrackBody";
+  }
+
+  return {
+    behind,
+    titleKey: behind ? "dashboard.banner.behindTitle" : "dashboard.banner.goodTitle",
+    bodyKey,
+    bodyParams,
+  };
+}
+
+/** How the headline card's trend arrow reads vs. the day-one baseline pace. */
+export type HeadlineTrendState = "faster" | "easier" | "onPlan";
+
+// Required-pace drift below this magnitude still counts as "on plan".
+const HEADLINE_TREND_EPSILON_KM = 0.05;
+
+/** Compares the currently required pace against the day-one baseline. */
+export function computeHeadlineTrend(metrics: DashboardMetrics): {
+  state: HeadlineTrendState;
+  deltaKm: number;
+} {
+  const diff = metrics.requiredPerRemainingDay - metrics.baselinePerDay;
+
+  let state: HeadlineTrendState = "onPlan";
+  if (diff > HEADLINE_TREND_EPSILON_KM) state = "faster";
+  else if (diff < -HEADLINE_TREND_EPSILON_KM) state = "easier";
+
+  return { state, deltaKm: Math.abs(diff) };
+}
+
+/** Rounded share of elapsed days with a run, and of the goal period elapsed (0-100). */
+export function computeStatPercents(metrics: DashboardMetrics): {
+  runningDaysPercent: number;
+  goalPeriodPercent: number;
+} {
+  return {
+    runningDaysPercent:
+      metrics.daysElapsed > 0 ? Math.round((metrics.daysWithRuns / metrics.daysElapsed) * 100) : 0,
+    goalPeriodPercent:
+      metrics.totalDays > 0 ? Math.round((metrics.daysElapsed / metrics.totalDays) * 100) : 0,
+  };
 }
 
 /** Distinct years present in `runs`, ascending, always including `currentYear`. */

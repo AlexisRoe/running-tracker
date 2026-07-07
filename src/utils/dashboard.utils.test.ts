@@ -3,7 +3,14 @@ import { PACE_WINDOW_DAYS } from "@/config/constants.const";
 import type { DashboardInput } from "@/types/dashboard.model";
 import type { Goal } from "@/types/goal.model";
 import type { RunningEvent, RunWhere } from "@/types/runs.model";
-import { buildPaceSeries, buildYearlyWeeks, computeMetrics } from "@/utils/dashboard.utils";
+import {
+  buildPaceSeries,
+  buildYearlyWeeks,
+  computeHeadlineTrend,
+  computeMetrics,
+  computeStatPercents,
+  resolveScheduleBanner,
+} from "@/utils/dashboard.utils";
 import { toGoalEnd, toGoalStart } from "@/utils/goal.utils";
 
 // A 30-day goal: 1 Jun–30 Jun 2026, 30 km target → baseline 1 km/day.
@@ -203,5 +210,103 @@ describe("buildYearlyWeeks", () => {
     expect(inPeriod?.inGoalPeriod).toBe(true);
     expect(beforePeriod?.inGoalPeriod).toBe(false);
     expect(afterPeriod?.inGoalPeriod).toBe(false);
+  });
+});
+
+describe("resolveScheduleBanner", () => {
+  it("picks the behind copy with the absolute delta while behind schedule", () => {
+    const m = computeMetrics(input([run(3, 5)]));
+
+    expect(resolveScheduleBanner(m)).toEqual({
+      behind: true,
+      titleKey: "dashboard.banner.behindTitle",
+      bodyKey: "dashboard.banner.behindBody",
+      bodyParams: { km: "5" },
+    });
+  });
+
+  it("picks the ahead copy when ahead of schedule", () => {
+    const m = computeMetrics(input([run(3, 15)]));
+
+    expect(resolveScheduleBanner(m)).toMatchObject({
+      behind: false,
+      titleKey: "dashboard.banner.goodTitle",
+      bodyKey: "dashboard.banner.aheadBody",
+      bodyParams: { km: "5" },
+    });
+  });
+
+  it("picks the on-track copy with no params when on schedule", () => {
+    const m = computeMetrics(input([run(5, 10)]));
+
+    expect(resolveScheduleBanner(m)).toEqual({
+      behind: false,
+      titleKey: "dashboard.banner.goodTitle",
+      bodyKey: "dashboard.banner.onTrackBody",
+      bodyParams: {},
+    });
+  });
+
+  it("gives a missed verdict with the open distance once the goal has finished", () => {
+    const afterEnd = new Date(2026, 6, 5).getTime();
+    const m = computeMetrics(input([run(3, 12)], { now: afterEnd }));
+
+    expect(resolveScheduleBanner(m)).toEqual({
+      behind: true,
+      titleKey: "dashboard.banner.behindTitle",
+      bodyKey: "dashboard.banner.finishedMissedBody",
+      bodyParams: { km: "18" },
+    });
+  });
+
+  it("gives a met verdict with the goal distance once the goal is finished and covered", () => {
+    const afterEnd = new Date(2026, 6, 5).getTime();
+    const m = computeMetrics(input([run(3, 30)], { now: afterEnd }));
+
+    expect(resolveScheduleBanner(m)).toEqual({
+      behind: false,
+      titleKey: "dashboard.banner.goodTitle",
+      bodyKey: "dashboard.banner.finishedMetBody",
+      bodyParams: { distance: "30" },
+    });
+  });
+});
+
+describe("computeHeadlineTrend", () => {
+  it("is on plan while the required pace stays within the epsilon of the baseline", () => {
+    // Day 1 of 30 with nothing run yet: required == baseline == 1 km/day.
+    const m = computeMetrics(input([], { now: goal.start }));
+
+    expect(computeHeadlineTrend(m)).toEqual({ state: "onPlan", deltaKm: 0 });
+  });
+
+  it("asks for a faster pace when behind", () => {
+    // 5 km done on day 10 → 25 km over 21 days ≈ 1.19 km/day vs 1 km/day baseline.
+    const trend = computeHeadlineTrend(computeMetrics(input([run(3, 5)])));
+
+    expect(trend.state).toBe("faster");
+    expect(trend.deltaKm).toBeCloseTo(0.19, 2);
+  });
+
+  it("allows an easier pace when ahead", () => {
+    const trend = computeHeadlineTrend(computeMetrics(input([run(3, 15)])));
+
+    expect(trend.state).toBe("easier");
+    expect(trend.deltaKm).toBeCloseTo(0.29, 2);
+  });
+});
+
+describe("computeStatPercents", () => {
+  it("rounds the running-day and goal-period shares", () => {
+    // 2 running days of 10 elapsed → 20%; 10 of 30 days → 33%.
+    const m = computeMetrics(input([run(3, 4), run(5, 6)]));
+
+    expect(computeStatPercents(m)).toEqual({ runningDaysPercent: 20, goalPeriodPercent: 33 });
+  });
+
+  it("returns zero percentages when nothing has elapsed", () => {
+    const m = computeMetrics(input([], { now: goal.start }));
+
+    expect(computeStatPercents(m).runningDaysPercent).toBe(0);
   });
 });
