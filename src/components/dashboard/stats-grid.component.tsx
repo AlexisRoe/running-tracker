@@ -23,21 +23,31 @@ import {
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSharedHeight } from "@/hooks/use-shared-height.hook";
 import type { DashboardMetrics } from "@/types/dashboard.model";
 import { formatDistance } from "@/utils/distance.utils";
 
 interface StatsGridProps {
+  /** Computed dashboard metrics driving the headline card and stat tiles. */
   metrics: DashboardMetrics;
 }
 
 interface StatTileProps {
+  /** Icon shown at the top of the tile. */
   icon: TablerIcon;
+  /** Short uppercase caption for the statistic. */
   label: string;
+  /** Primary value text (front face). */
   value: string;
+  /** Optional secondary line under the value (front face). */
   sub?: string;
+  /** Explanatory text shown on the flipped (back) face. */
   info: string;
+  /** Position of this tile among its siblings, used for shared-height reporting. */
   index: number;
+  /** Pixel height applied to the tile (the shared max across siblings). */
   height: number;
+  /** Reports this tile's natural height so siblings can align. */
   onMeasure: (index: number, height: number) => void;
 }
 
@@ -46,31 +56,22 @@ interface StatTileProps {
 const STAT_TILE_MIN_HEIGHT = 130;
 const HEADLINE_CARD_MIN_HEIGHT = 160;
 
-// Each FlipCard measures and sizes itself independently (see below), so
-// siblings with marginally different content (e.g. a shorter sub-label)
-// would otherwise end up at different heights — unlike plain auto-height
-// Papers, a grid can't stretch an item that already has an explicit pixel
-// height to match its row. This tracks every stat tile's own natural height
-// and hands back the shared max, so the four tiles in the grid stay aligned.
-function useSharedHeight(count: number, minHeight: number) {
-  const [heights, setHeights] = useState<number[]>(() => new Array(count).fill(0));
-
-  const report = useCallback((index: number, measured: number) => {
-    setHeights((prev) => (prev[index] === measured ? prev : prev.with(index, measured)));
-  }, []);
-
-  return { height: Math.max(...heights, minHeight), report };
-}
-
 interface FlipCardProps {
+  /** Pixel height applied to both faces (they are absolutely positioned). */
   height: number;
+  /** Reports the taller of the two faces' natural heights to the caller. */
   onMeasure: (height: number) => void;
+  /** Accessible label for the front face's flip button. */
   frontAriaLabel: string;
+  /** Accessible label for the back face's flip button. */
   backAriaLabel: string;
+  /** Content of the front (summary) face. */
   front: ReactNode;
+  /** Content of the back (details) face. */
   back: ReactNode;
 }
 
+/** A tappable card whose two faces flip between a summary and its details. */
 // Flip's front/back faces are position: absolute, so they can't report or
 // derive their own height — a fixed pixel height must be passed in. Rather
 // than guess a constant (which either clips the longest translated back-face
@@ -137,6 +138,7 @@ function FlipCard({
   );
 }
 
+/** A single dashboard statistic as a flip card: value on the front, help text on the back. */
 function StatTile({
   icon: Icon,
   label,
@@ -199,9 +201,11 @@ function StatTile({
 }
 
 interface HeadlineCardProps {
+  /** Computed dashboard metrics; supplies the required pace and baseline. */
   metrics: DashboardMetrics;
 }
 
+/** Prominent "km/day needed to reach the goal" card, with a trend vs. the original baseline. */
 function HeadlineCard({ metrics }: HeadlineCardProps) {
   const { t } = useTranslation();
   const [height, setHeight] = useState(HEADLINE_CARD_MIN_HEIGHT);

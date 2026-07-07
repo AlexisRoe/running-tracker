@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { notifySuccess } from "@/components/ui/notify";
+import { RESET_RELOAD_DELAY_MS } from "@/config/constants.const";
 import { useGoalStore } from "@/stores/goal.store";
 import { useRunsStore } from "@/stores/runs.store";
 import { useSettings } from "@/stores/settings.store";
 
-const RELOAD_DELAY_MS = 1200;
-
+/** Provides an action that clears all persisted app data, notifies, then reloads the app. */
 export function useResetAppData() {
   const { t } = useTranslation();
 
@@ -19,7 +19,7 @@ export function useResetAppData() {
       message: t("settings.resetData.notification.body"),
     });
 
-    setTimeout(() => window.location.reload(), RELOAD_DELAY_MS);
+    setTimeout(() => window.location.reload(), RESET_RELOAD_DELAY_MS);
   };
 
   return { resetAppData };

@@ -5,6 +5,7 @@ import type { PacePoint } from "@/types/dashboard.model";
 import { formatDistance } from "@/utils/distance.utils";
 
 interface PaceChartProps {
+  /** Ideal-vs-actual cumulative pace points, one per day in the window. */
   data: PacePoint[];
 }
 

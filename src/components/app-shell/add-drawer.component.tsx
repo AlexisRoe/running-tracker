@@ -22,15 +22,19 @@ import { useRuns } from "@/hooks/use-runs.hook";
 import { formatDistance } from "@/utils/distance.utils";
 
 interface AddDrawerProps {
+  /** Whether the drawer is open. */
   opened: boolean;
+  /** Called when the drawer requests to close. */
   onClose(): void;
 }
 
+/** Run location options used by the add-run form. */
 enum Where {
   Indoor = "indoor",
   OutDoor = "outdoor",
 }
 
+/** Bottom drawer for logging a new run, with success/miss feedback against the goal pace. */
 export function AddDrawer({ opened, onClose }: AddDrawerProps) {
   const DEFAULT_ADD_VALUES = {
     Distance: "",

@@ -4,6 +4,7 @@ import type { DashboardMetrics } from "@/types/dashboard.model";
 import { formatDistance } from "@/utils/distance.utils";
 
 interface GoalProgressProps {
+  /** Computed dashboard metrics; supplies distance run, open, and goal total. */
   metrics: DashboardMetrics;
 }
 

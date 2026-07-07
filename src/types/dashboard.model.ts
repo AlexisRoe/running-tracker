@@ -5,6 +5,7 @@ import type { RunningEvent } from "@/types/runs.model";
 export type ScheduleState = "behind" | "on_track" | "ahead";
 
 export interface ScheduleStatus {
+  /** Whether the runner is behind, on, or ahead of the ideal pace. */
   state: ScheduleState;
   /** Signed distance vs. the ideal cumulative target: + ahead, - behind (km). */
   deltaKm: number;
@@ -48,12 +49,18 @@ export interface DashboardMetrics {
   /** True once the goal's end date has passed. */
   isFinished: boolean;
 
+  /** Total target distance for the goal (km). */
   goalDistance: number;
+  /** Total number of days in the goal period (inclusive). */
   totalDays: number;
+  /** Days elapsed since the goal start, up to today (inclusive, capped at totalDays). */
   daysElapsed: number;
+  /** Days remaining including today, or 0 once the goal has finished. */
   daysLeft: number;
 
+  /** Total distance run within the goal period (km). */
   distanceRun: number;
+  /** Distance still to run to reach the goal (km, never negative). */
   distanceOpen: number;
 
   /** Distinct calendar days with at least one run in the period. */
@@ -61,9 +68,13 @@ export interface DashboardMetrics {
   /** Elapsed days without any run. */
   daysWithoutRuns: number;
 
+  /** Number of indoor runs in the period. */
   indoorCount: number;
+  /** Number of outdoor runs in the period. */
   outdoorCount: number;
+  /** Total indoor distance in the period (km). */
   indoorDistance: number;
+  /** Total outdoor distance in the period (km). */
   outdoorDistance: number;
 
   /** goalDistance / totalDays — the pace planned on day one (km/day). */
@@ -74,9 +85,13 @@ export interface DashboardMetrics {
   schedule: ScheduleStatus;
 }
 
+/** Inputs to the dashboard metric/series computations. */
 export interface DashboardInput {
+  /** The goal these metrics describe. */
   goal: Goal;
+  /** Whether the goal's date range currently includes now. */
   isActive: boolean;
+  /** All recorded runs (filtered to the goal period internally). */
   runs: RunningEvent[];
   /** Injectable clock for testing; defaults to Date.now(). */
   now?: number;

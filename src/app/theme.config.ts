@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from "@mantine/core";
 
+/** The app's orange brand color ramp (Mantine shades 0–9, light → dark). */
 const brand: MantineColorsTuple = [
   "#fff1e6",
   "#ffe1cc",
@@ -23,6 +24,7 @@ const brand: MantineColorsTuple = [
   "#b14100",
 ];
 
+/** Mantine theme: brand palette, Space Grotesk typography, and per-component defaults. */
 export const theme = createTheme({
   primaryColor: "brand",
   primaryShade: { light: 6, dark: 5 },

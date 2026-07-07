@@ -3,11 +3,15 @@ import { useSettings } from "@/stores/settings.store";
 import { Language } from "@/types/settings.model";
 import { isEnum } from "@/utils/validation.utils";
 
+/** The active UI language plus a validated setter. */
 interface UseLanguage {
+  /** The currently selected language. */
   value: Language;
+  /** Validates and persists a new language; throws ValidationError on unknown values. */
   change: (language: unknown) => void;
 }
 
+/** Reads the selected language and exposes a validated change action. */
 export function useLanguage(): UseLanguage {
   const { language, updateLanguage } = useSettings();
 

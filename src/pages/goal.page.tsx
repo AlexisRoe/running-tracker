@@ -6,19 +6,28 @@ import { useTranslation } from "react-i18next";
 import { ConfirmModal } from "@/components/ui/confirm-modal.component";
 import { DistanceInput } from "@/components/ui/distance-input.component";
 import { notifyError, notifyInfo, notifySuccess } from "@/components/ui/notify";
+import { GOAL_NOTIFICATION_AUTO_CLOSE_MS } from "@/config/constants.const";
 import { ValidationError } from "@/config/validation.error";
 import { useGoal } from "@/hooks/use-goal.hook";
 import { formatDistance } from "@/utils/distance.utils";
-import { countInclusiveDays, toGoalEnd, toGoalStart } from "@/utils/goal.utils";
+import {
+  addOneYearMinusOneDay,
+  countInclusiveDays,
+  toGoalEnd,
+  toGoalStart,
+} from "@/utils/goal.utils";
 
-const GOAL_NOTIFICATION_AUTO_CLOSE = 1500;
-
+/** The goal form's editable field values (null/empty until filled in). */
 interface GoalFields {
+  /** Selected start date, or null if unset. */
   start: Date | null;
+  /** Selected end date, or null if unset. */
   end: Date | null;
+  /** Entered target distance in km, or "" while empty. */
   distance: number | string;
 }
 
+/** Maps the current stored goal into editable form fields (blanks when no goal is set). */
 function fieldsFromGoal(goal: ReturnType<typeof useGoal>): GoalFields {
   return {
     start: goal.isSet ? new Date(goal.value.start) : null,
@@ -27,18 +36,14 @@ function fieldsFromGoal(goal: ReturnType<typeof useGoal>): GoalFields {
   };
 }
 
-function addOneYearMinusOneDay(date: Date): Date {
-  const result = new Date(date);
-  result.setFullYear(result.getFullYear() + 1);
-  result.setDate(result.getDate() - 1);
-  return result;
-}
-
 interface GoalSummaryRowProps {
+  /** Uppercase caption for the row. */
   label: string;
+  /** Formatted value shown beneath the label. */
   value: string;
 }
 
+/** A labeled value row in the goal's read-only summary view. */
 function GoalSummaryRow({ label, value }: GoalSummaryRowProps) {
   return (
     <Stack gap={2}>
@@ -52,6 +57,7 @@ function GoalSummaryRow({ label, value }: GoalSummaryRowProps) {
   );
 }
 
+/** Goal route: view the current goal's summary, or create/edit/clear it. */
 export function GoalPage() {
   const { t, i18n } = useTranslation();
   const goal = useGoal();
@@ -128,7 +134,7 @@ export function GoalPage() {
         distance: formatDistance(Number(distance)),
         perDay: formatDistance(perDay),
       }),
-      autoClose: GOAL_NOTIFICATION_AUTO_CLOSE,
+      autoClose: GOAL_NOTIFICATION_AUTO_CLOSE_MS,
     });
 
     setMode("view");
@@ -147,7 +153,7 @@ export function GoalPage() {
     notifyInfo({
       title: t("goal.clearNotification.title"),
       message: t("goal.clearNotification.body"),
-      autoClose: GOAL_NOTIFICATION_AUTO_CLOSE,
+      autoClose: GOAL_NOTIFICATION_AUTO_CLOSE_MS,
     });
 
     setMode("edit");

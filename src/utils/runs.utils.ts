@@ -1,7 +1,9 @@
 import type { RunningEvent, RunWhere } from "@/types/runs.model";
 
+/** Type guard: whether the value is a valid run location ("indoor" or "outdoor"). */
 export const isRunWhere = (i: unknown): i is RunWhere => i === "indoor" || i === "outdoor";
 
+/** Runs and total distance for a single calendar month. */
 export interface MonthGroup {
   /** Unix ms timestamp for the 1st of the local calendar month this group represents */
   monthStart: number;
@@ -12,11 +14,13 @@ export interface MonthGroup {
 }
 
 export interface YearGroup {
+  /** The calendar year this group represents */
   year: number;
   /** Months in this year, sorted newest-first */
   months: MonthGroup[];
 }
 
+/** Groups runs into a newest-first year → month → runs tree, with per-month distance totals. */
 export function groupRunsByYearAndMonth(events: RunningEvent[]): YearGroup[] {
   const years = new Map<number, Map<string, MonthGroup>>();
 

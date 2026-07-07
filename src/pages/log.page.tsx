@@ -7,6 +7,7 @@ import { useRuns } from "@/hooks/use-runs.hook";
 import type { RunningEvent } from "@/types/runs.model";
 import { groupRunsByYearAndMonth } from "@/utils/runs.utils";
 
+/** Log route: lists all runs grouped by year/month, with edit access, or an empty state. */
 export function LogPage() {
   const { t } = useTranslation();
   const runs = useRuns();

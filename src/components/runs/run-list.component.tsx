@@ -4,16 +4,16 @@ import { RunListItem } from "@/components/runs/run-list-item.component";
 import type { RunningEvent } from "@/types/runs.model";
 import { formatDistance } from "@/utils/distance.utils";
 import type { YearGroup } from "@/utils/runs.utils";
+import { capitalize } from "@/utils/string.utils";
 
 interface RunListProps {
+  /** Runs grouped by year then month, newest-first, as produced by groupRunsByYearAndMonth. */
   groups: YearGroup[];
+  /** Called with the run the user chose to edit. */
   onEdit(run: RunningEvent): void;
 }
 
-function capitalize(text: string): string {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
+/** Collapsible year → month → run log of all recorded runs. */
 export function RunList({ groups, onEdit }: RunListProps) {
   const { t, i18n } = useTranslation();
   const now = new Date();

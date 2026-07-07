@@ -8,11 +8,17 @@ import type { WeekCell } from "@/types/dashboard.model";
 import { formatDistance } from "@/utils/distance.utils";
 
 interface YearlyWeeksProps {
+  /** The year being displayed (shown in the heading). */
   year: number;
+  /** Week cells for the displayed year. */
   weeks: WeekCell[];
+  /** Whether the previous-year button is shown. */
   canGoPrev: boolean;
+  /** Whether the next-year button is shown. */
   canGoNext: boolean;
+  /** Called when navigating to the previous year. */
   onPrevYear: () => void;
+  /** Called when navigating to the next year. */
   onNextYear: () => void;
 }
 
@@ -38,6 +44,7 @@ const CELL = 20;
 // constant that would only fit one width.
 const MIN_CARD_HEIGHT = 220;
 
+/** A single fixed-size heatmap swatch of the given color. */
 function Cell({ color, ariaLabel }: { color: string; ariaLabel?: string }) {
   return (
     <Box
@@ -77,11 +84,15 @@ function LegendExplanation() {
 }
 
 interface FlipFaceProps {
+  /** Accessible label for this face's flip button. */
   ariaLabel: string;
+  /** Ref callback on the inner content, used to measure its natural height. */
   measureRef: (node: HTMLDivElement | null) => void;
+  /** Face content. */
   children: ReactNode;
 }
 
+/** One click-to-flip face of the heatmap card that reports its own height. */
 // Doesn't use Flip.Target/a <button>: the front face nests real buttons (year
 // nav) that must stay independently clickable, and a <button> can't legally
 // contain another <button>. A div with the standard custom-button a11y

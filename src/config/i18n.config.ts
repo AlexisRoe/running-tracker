@@ -4,6 +4,7 @@ import de from "@/locales/de.json";
 import en from "@/locales/en.json";
 import pl from "@/locales/pl.json";
 
+/** Language codes the UI provides translations for. */
 export const SUPPORTED_LANGUAGES = ["en", "de", "pl"] as const;
 
 void i18next.use(initReactI18next).init({

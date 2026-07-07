@@ -1,13 +1,9 @@
 import { describe, expect, it } from "vitest";
+import { PACE_WINDOW_DAYS } from "@/config/constants.const";
 import type { DashboardInput } from "@/types/dashboard.model";
 import type { Goal } from "@/types/goal.model";
 import type { RunningEvent, RunWhere } from "@/types/runs.model";
-import {
-  buildPaceSeries,
-  buildYearlyWeeks,
-  computeMetrics,
-  PACE_WINDOW_DAYS,
-} from "@/utils/dashboard.utils";
+import { buildPaceSeries, buildYearlyWeeks, computeMetrics } from "@/utils/dashboard.utils";
 import { toGoalEnd, toGoalStart } from "@/utils/goal.utils";
 
 // A 30-day goal: 1 Jun–30 Jun 2026, 30 km target → baseline 1 km/day.

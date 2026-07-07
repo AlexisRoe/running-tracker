@@ -4,6 +4,7 @@ import { Outlet } from "react-router";
 import { AddDrawer } from "@/components/app-shell/add-drawer.component";
 import { AppFooter } from "@/components/app-shell/app-footer.component";
 
+/** App frame: renders the routed page with a fixed footer and the add-run drawer. */
 export function AppShell() {
   const [addOpened, { open: openAdd, close: closeAdd }] = useDisclosure(false);
 

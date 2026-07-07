@@ -5,10 +5,13 @@ import type { RunningEvent } from "@/types/runs.model";
 import { formatDistance } from "@/utils/distance.utils";
 
 interface RunListItemProps {
+  /** The run to display. */
   run: RunningEvent;
+  /** Called with the run when its edit button is tapped. */
   onEdit(run: RunningEvent): void;
 }
 
+/** A single run row: date, distance, indoor/outdoor icon, and an edit button. */
 export function RunListItem({ run, onEdit }: RunListItemProps) {
   const { t, i18n } = useTranslation();
 

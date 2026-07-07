@@ -3,6 +3,7 @@ import { IconTargetArrow } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 
 interface SetGoalCtaProps {
+  /** Called when the user taps the button to start setting a goal. */
   onSetGoal(): void;
 }
 

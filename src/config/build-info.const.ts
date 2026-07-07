@@ -1,3 +1,4 @@
+/** Build-time metadata (name, version, commit, timestamp) injected by Vite. */
 export const BUILD_INFO = {
   appName: __APP_NAME__,
   version: __APP_VERSION__,

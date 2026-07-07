@@ -4,12 +4,19 @@ import { useRuns } from "@/hooks/use-runs.hook";
 import type { WeekCell } from "@/types/dashboard.model";
 import { buildYearlyWeeks, getAvailableYears } from "@/utils/dashboard.utils";
 
+/** Heatmap state for a single displayed year plus year-navigation controls. */
 interface UseYearlyWeeks {
+  /** The year currently being displayed. */
   year: number;
+  /** Week cells for the displayed year, flagged by whether they fall in the goal period. */
   weeks: WeekCell[];
+  /** Whether an earlier year with data (or the current year) is available. */
   canGoPrev: boolean;
+  /** Whether a later year with data (or the current year) is available. */
   canGoNext: boolean;
+  /** Moves to the previous year. */
   goPrev(): void;
+  /** Moves to the next year. */
   goNext(): void;
 }
 

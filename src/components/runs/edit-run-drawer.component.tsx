@@ -10,10 +10,13 @@ import { useRuns } from "@/hooks/use-runs.hook";
 import type { RunningEvent, RunWhere } from "@/types/runs.model";
 
 interface EditRunDrawerProps {
+  /** The run being edited; the drawer is open while this is non-null. */
   run: RunningEvent | null;
+  /** Called when the drawer requests to close. */
   onClose(): void;
 }
 
+/** Bottom drawer that hosts the edit form for a selected run. */
 export function EditRunDrawer({ run, onClose }: EditRunDrawerProps) {
   const { t } = useTranslation();
 
@@ -33,10 +36,13 @@ export function EditRunDrawer({ run, onClose }: EditRunDrawerProps) {
 }
 
 interface EditRunFormProps {
+  /** The run whose values seed and are saved by the form. */
   run: RunningEvent;
+  /** Called after a successful save or delete to close the drawer. */
   onClose(): void;
 }
 
+/** Form to edit or delete a single run, with validation and a delete confirmation. */
 function EditRunForm({ run, onClose }: EditRunFormProps) {
   const { t } = useTranslation();
   const runs = useRuns();

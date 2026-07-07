@@ -1,9 +1,9 @@
 import { renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
+import { PACE_WINDOW_DAYS } from "@/config/constants.const";
 import { useDashboard } from "@/hooks/use-dashboard.hook";
 import { useGoalStore } from "@/stores/goal.store";
 import { useRunsStore } from "@/stores/runs.store";
-import { PACE_WINDOW_DAYS } from "@/utils/dashboard.utils";
 import { toGoalEnd, toGoalStart } from "@/utils/goal.utils";
 
 const DAY = 24 * 60 * 60 * 1000;

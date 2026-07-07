@@ -1,12 +1,14 @@
 import { NumberInput, type NumberInputProps } from "@mantine/core";
 import { useEffect, useRef } from "react";
+import { INPUT_FOCUS_DELAY_MS } from "@/config/constants.const";
 
-const DELAY_IN_MILLISECONDS = 750;
-
+/** Props for {@link DistanceInput}; extends Mantine's NumberInput. */
 export interface DistanceInputProps extends NumberInputProps {
+  /** Focus the input shortly after mount (e.g. when revealed inside a drawer). */
   focusOnStart?: boolean;
 }
 
+/** Distance number input in km, preconfigured (non-negative, 2 decimals) with optional mount focus. */
 export function DistanceInput(props: DistanceInputProps) {
   const { label, value, onChange, focusOnStart = false, ...rest } = props;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -16,7 +18,7 @@ export function DistanceInput(props: DistanceInputProps) {
       // Small timeout ensures the drawer animation has time to start/render
       const timeout = setTimeout(() => {
         inputRef.current?.focus();
-      }, DELAY_IN_MILLISECONDS);
+      }, INPUT_FOCUS_DELAY_MS);
 
       return () => clearTimeout(timeout);
     }

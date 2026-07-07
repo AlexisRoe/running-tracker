@@ -13,6 +13,7 @@ interface UseDashboard {
   paceSeries: PacePoint[];
 }
 
+/** Derives the dashboard's metrics and pace series from the current goal and runs. */
 export function useDashboard(): UseDashboard {
   const goal = useGoal();
   const runs = useRuns();

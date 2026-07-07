@@ -12,15 +12,20 @@ import { useLocation, useNavigate } from "react-router";
 import { APP_ROUTES } from "@/config/constants.const";
 
 interface AppFooterProps {
+  /** Called when the central add-run button is tapped. */
   onAddClick(): void;
 }
 
 interface FooterTabProps {
+  /** Icon shown for the tab. */
   icon: TablerIcon;
+  /** Accessible label for the tab. */
   label: string;
+  /** Route the tab navigates to; also determines its active state. */
   route: string;
 }
 
+/** A single navigation tab in the footer, highlighted when its route is active. */
 function FooterTab({ icon: Icon, label, route }: FooterTabProps) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -40,6 +45,7 @@ function FooterTab({ icon: Icon, label, route }: FooterTabProps) {
   );
 }
 
+/** Bottom navigation bar with route tabs and a central add-run button. */
 export function AppFooter({ onAddClick }: AppFooterProps) {
   const { t } = useTranslation();
 

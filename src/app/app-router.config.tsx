@@ -7,6 +7,7 @@ import { LogPage } from "@/pages/log.page";
 import { NotFoundPage } from "@/pages/not-found.page";
 import { SettingsPage } from "@/pages/settings.page";
 
+/** Client-side route table: the app shell wrapping the page routes and a catch-all. */
 export const router = createBrowserRouter([
   {
     path: "/",

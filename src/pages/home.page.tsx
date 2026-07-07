@@ -11,6 +11,7 @@ import { APP_ROUTES } from "@/config/constants.const";
 import { useDashboard } from "@/hooks/use-dashboard.hook";
 import { useYearlyWeeks } from "@/hooks/use-yearly-weeks.hook";
 
+/** Dashboard route: shows goal progress and stats, or a set-goal prompt when no goal exists. */
 export function HomePage() {
   const { t } = useTranslation();
   const navigate = useNavigate();

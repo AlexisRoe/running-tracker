@@ -1,3 +1,4 @@
+import { MS_PER_DAY, PACE_WINDOW_DAYS, SCHEDULE_EPSILON_KM } from "@/config/constants.const";
 import type {
   DashboardInput,
   DashboardMetrics,
@@ -7,14 +8,6 @@ import type {
 } from "@/types/dashboard.model";
 import type { RunningEvent } from "@/types/runs.model";
 import { countInclusiveDays } from "@/utils/goal.utils";
-
-const MS_PER_DAY = 24 * 60 * 60 * 1000;
-
-/** Runs within ±this many km of the ideal target still count as "on track". */
-const SCHEDULE_EPSILON_KM = 0.05;
-
-/** Days rendered in the pace chart, ending today. */
-export const PACE_WINDOW_DAYS = 30;
 
 /** Rounds to 2 decimal places. */
 function round2(value: number): number {

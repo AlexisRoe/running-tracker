@@ -2,6 +2,7 @@ import { Button, Container, Stack, Text, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
+/** Fallback route for unknown URLs, with a link back to the dashboard. */
 export function NotFoundPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();

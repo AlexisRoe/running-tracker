@@ -12,9 +12,8 @@ import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
 import "@gfazioli/mantine-flip/styles.css";
 import { RouterProvider } from "react-router";
+import { NOTIFICATION_AUTO_CLOSE_MS } from "@/config/constants.const";
 import i18n from "@/config/i18n.config";
-
-const AUTOCLOSE_IN_MILLISECONDS = 2500;
 
 // Zustand's persist middleware rehydrates synchronously from localStorage,
 // so the settings are already available here, before first render — used
@@ -25,11 +24,12 @@ if (i18n.language !== persistedLanguage) {
 }
 const initialColorScheme = mapThemeToColorScheme(useSettings.getState().theme);
 
+/** Root composition: wires up Mantine, notifications, dates, i18n, and the router. */
 export function AppProviders() {
   return (
     <MantineProvider theme={theme} defaultColorScheme={initialColorScheme}>
       <SettingsSync />
-      <Notifications position="top-center" autoClose={AUTOCLOSE_IN_MILLISECONDS} />
+      <Notifications position="top-center" autoClose={NOTIFICATION_AUTO_CLOSE_MS} />
       <DatesProvider settings={{}}>
         <RouterProvider router={router} />
       </DatesProvider>

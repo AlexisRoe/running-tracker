@@ -5,6 +5,7 @@ import type { DashboardMetrics } from "@/types/dashboard.model";
 import { formatDistance } from "@/utils/distance.utils";
 
 interface ScheduleBannerProps {
+  /** Computed dashboard metrics; supplies the schedule state and remaining distance. */
   metrics: DashboardMetrics;
 }
 

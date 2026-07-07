@@ -18,6 +18,7 @@ import { useResetAppData } from "@/hooks/use-reset-app-data.hook";
 import { useTheme } from "@/hooks/use-theme.hook";
 import { Theme } from "@/types/settings.model";
 
+/** Settings route: theme and language selection, build info, and app-data reset. */
 export function SettingsPage() {
   const { t, i18n } = useTranslation();
   const theme = useTheme();

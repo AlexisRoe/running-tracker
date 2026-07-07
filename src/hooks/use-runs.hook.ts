@@ -4,25 +4,39 @@ import type { RunningEvent, RunWhere } from "@/types/runs.model";
 import { isRunWhere } from "@/utils/runs.utils";
 import { isNumber } from "@/utils/validation.utils";
 
+/** Raw input for adding a run, validated by {@link UseRuns.add}. */
 interface AddRunInput {
+  /** Distance in km; validated to be a positive number. */
   distance: unknown;
+  /** Where the run happened; defaults to "indoor" when omitted. */
   where?: unknown;
+  /** Run timestamp (Unix ms); defaults to now when omitted. */
   date?: number;
 }
 
+/** Raw partial input for editing a run; only provided fields are changed. */
 interface UpdateRunInput {
+  /** New distance in km, if changing it. */
   distance?: unknown;
+  /** New location, if changing it. */
   where?: unknown;
+  /** New timestamp (Unix ms), if changing it. */
   date?: number;
 }
 
+/** The recorded runs plus validated add/update/remove actions. */
 interface UseRuns {
+  /** All recorded runs. */
   value: RunningEvent[];
+  /** Validates and appends a new run; throws ValidationError on bad input. */
   add(input: AddRunInput): void;
+  /** Validates and applies a partial update to the run with the given id. */
   update(id: string, input: UpdateRunInput): void;
+  /** Deletes the run with the given id. */
   remove(id: string): void;
 }
 
+/** Reads recorded runs and exposes validated add/update/remove actions. */
 export function useRuns(): UseRuns {
   const { events, addRun, updateRun, removeRun } = useRunsStore();
 

@@ -28,3 +28,11 @@ export function countInclusiveDays(start: number, end: number): number {
 export function isWithinTimeframe(start: number, end: number, now: number): boolean {
   return now >= start && now <= end;
 }
+
+/** The date exactly one year later minus one day (the default 1-year goal span). */
+export function addOneYearMinusOneDay(date: Date): Date {
+  const result = new Date(date);
+  result.setFullYear(result.getFullYear() + 1);
+  result.setDate(result.getDate() - 1);
+  return result;
+}
